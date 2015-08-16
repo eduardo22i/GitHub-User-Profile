@@ -27,11 +27,20 @@ class DataManager: NSObject {
     static func setKeysAndValues (object : AnyObject, dictionary : NSDictionary)  -> AnyObject  {
         
         for (key, value) in dictionary {
-            if let keyName = key  as? String, let keyValue = value as? String {
-                if (object.respondsToSelector(NSSelectorFromString(keyName))) {
-                    object.setValue(keyValue, forKey: keyName)
+            if let keyName = key  as? String {
+                
+                if let keyValue = value as? String {
+                    if (object.respondsToSelector(NSSelectorFromString(keyName))) {
+                        object.setValue(keyValue, forKey: keyName)
+                    }
+                }
+                if let keyValue = value as? Int {
+                    if (object.respondsToSelector(NSSelectorFromString(keyName))) {
+                        object.setValue(keyValue, forKey: keyName)
+                    }
                 }
             }
+            
         }
         
         return object
