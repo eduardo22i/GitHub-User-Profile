@@ -13,6 +13,8 @@
 		F9401CAA1B807423003FFD42 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9401CA91B807423003FFD42 /* Images.xcassets */; };
 		F9401CAD1B807423003FFD42 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F9401CAB1B807423003FFD42 /* LaunchScreen.xib */; };
 		F9401CB91B807423003FFD42 /* GitHub_User_ProfileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9401CB81B807423003FFD42 /* GitHub_User_ProfileTests.swift */; };
+		F9401CC41B80745F003FFD42 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9401CC31B80745F003FFD42 /* DataManager.swift */; };
+		F9401CC71B8078F4003FFD42 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9401CC61B8078F4003FFD42 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,8 @@
 		F9401CB21B807423003FFD42 /* GitHub User ProfileTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "GitHub User ProfileTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9401CB71B807423003FFD42 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F9401CB81B807423003FFD42 /* GitHub_User_ProfileTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHub_User_ProfileTests.swift; sourceTree = "<group>"; };
+		F9401CC31B80745F003FFD42 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		F9401CC61B8078F4003FFD42 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +81,8 @@
 		F9401C9F1B807423003FFD42 /* GitHub User Profile */ = {
 			isa = PBXGroup;
 			children = (
+				F9401CC51B8078E0003FFD42 /* Models */,
+				F9401CC21B807439003FFD42 /* Helpers */,
 				F9401CA21B807423003FFD42 /* AppDelegate.swift */,
 				F9401CA41B807423003FFD42 /* ViewController.swift */,
 				F9401CA61B807423003FFD42 /* Main.storyboard */,
@@ -110,6 +116,22 @@
 				F9401CB71B807423003FFD42 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		F9401CC21B807439003FFD42 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				F9401CC31B80745F003FFD42 /* DataManager.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		F9401CC51B8078E0003FFD42 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F9401CC61B8078F4003FFD42 /* User.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -212,7 +234,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9401CC71B8078F4003FFD42 /* User.swift in Sources */,
 				F9401CA51B807423003FFD42 /* ViewController.swift in Sources */,
+				F9401CC41B80745F003FFD42 /* DataManager.swift in Sources */,
 				F9401CA31B807423003FFD42 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
