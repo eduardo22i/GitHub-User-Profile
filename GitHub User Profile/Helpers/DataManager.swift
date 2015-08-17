@@ -19,7 +19,7 @@ class DataManager: NSObject {
     static func getUser(username: String) -> User {
         var user = User()
         
-        let url = NSURL(string: "\(DataManager.url)\(username)")
+        let url = NSURL(string: "\(DataManager.url)\(username.removeComma.webUrl)")
         if let data = NSData(contentsOfURL: url!) {
             
             setKeysAndValues(user, dictionary: parseData(data))
@@ -34,7 +34,7 @@ class DataManager: NSObject {
             
             var user = User()
             
-            let url = NSURL(string: "\(DataManager.url)\(username)")
+            let url = NSURL(string: "\(DataManager.url)\(username.removeComma.webUrl)")
             if let data = NSData(contentsOfURL: url!) {
                 self.setKeysAndValues(user, dictionary: self.parseData(data))
                 
@@ -56,7 +56,7 @@ class DataManager: NSObject {
     static func getRepos(username: String) -> [Repo]? {
         var repos = [Repo()]
         
-        let url = NSURL(string: "\(DataManager.url)\(username)/repos")
+        let url = NSURL(string: "\(DataManager.url)\(username.removeComma.webUrl)/repos")
         if let data = NSData(contentsOfURL: url!) {
             //println(parseDataArray(data)[0]["archive_url"]!)
             for repoDic in parseDataArray(data) {
@@ -77,7 +77,7 @@ class DataManager: NSObject {
             
             var repos = [Repo()]
             
-            let url = NSURL(string: "\(DataManager.url)\(username)/repos")
+            let url = NSURL(string: "\(DataManager.url)\(username.removeComma.webUrl)/repos")
             if let data = NSData(contentsOfURL: url!) {
                 for repoDic in self.parseDataArray(data) {
                     if let repo = self.setKeysAndValues(Repo(), dictionary: repoDic as! NSDictionary) as? Repo {

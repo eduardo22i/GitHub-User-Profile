@@ -41,15 +41,24 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         tableView.hidden = true
-        DataManager.getUser(defaultUser, block: { (user, error) -> Void in
-            self.user = user
-        })
-        
+        searchUser(defaultUser)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func searchUser (userStr : String) {
+        DataManager.getUser(userStr, block: { (user, error) -> Void in
+            if error != nil {
+                self.infoText.text = "User Not Found :("
+                self.tableView.hidden = true
+                
+                return
+            }
+            self.user = user
+        })
     }
     
     // MARK: - Navigation
@@ -162,15 +171,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         infoText.text = "Loading"
         tableView.hidden = true
         
-        DataManager.getUser(userStr, block: { (user, error) -> Void in
-            if error != nil {
-                self.infoText.text = "User Not Found :("
-                self.tableView.hidden = true
-                
-                return
-            }
-            self.user = user
-        })
+        searchUser(userStr)
     }
     
 }
