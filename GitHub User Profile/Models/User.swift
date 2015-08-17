@@ -44,6 +44,7 @@ class User: NSObject {
     var followers = 0
     var following = 0
     
+    var alternateDescription : String!
     var imageData : NSData!
     
     override init () {

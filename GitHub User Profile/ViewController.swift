@@ -14,24 +14,36 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     var user : User! {
         didSet {
-            if let username = user.login {
-                repos = DataManager.getRepos(username)
-            }
+                if let username = user.login {
+                    infoText.text = "Loading"
+                    DataManager.getRepos(username, block: { (repos, error) -> Void in
+                        if error != nil {
+                            return
+                        }
+                        self.tableView.hidden = false
+                        self.repos = repos!
+                    })
+                }
+            
         }
     }
+    
     var repos : [Repo] = [] {
         didSet {
             tableView.reloadData()
         }
     }
     
+    @IBOutlet var infoText : UILabel!
     @IBOutlet var tableView : UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        //println(DataManager.getUser("eduardo22i").repos_url)
-        user = DataManager.getUser(defaultUser)
+        tableView.hidden = true
+        DataManager.getUser(defaultUser, block: { (user, error) -> Void in
+            self.user = user
+        })
         
     }
 
@@ -70,7 +82,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return section == 0 ? 1 : repos.count
+        return section == 0 ? user == nil ? 0 : 1 : repos.count
     }
     
     
@@ -79,14 +91,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if indexPath.section == 0 {
             
             let cellu = tableView.dequeueReusableCellWithIdentifier("userInfoCellIdentifier", forIndexPath: indexPath) as! UserInfoTableViewCell
-            cellu.userNameLabel.text = user.name
+            cellu.userNameLabel.text = user.name ?? "No Name :("
             cellu.usernameLabel.text = user.login
-            cellu.userCompanyLabel.text = user.company
-            cellu.userLocationLabel.text = user.location
-            cellu.userEmailLabel.text = user.email
-            cellu.userURLLabel.text = user.blog
+            cellu.userCompanyLabel.text = user.company ?? "No Company :("
+            cellu.userLocationLabel.text = user.location ?? "No Location :("
+            cellu.userEmailLabel.text = user.email ?? "No Email :("
+            cellu.userURLLabel.text = user.blog ?? "No URL :("
             
-            cellu.userImageView.image = UIImage()
+            cellu.userImageView.image = UIImage(named: "Oct Icon")
             user.downloadImage({ (data, error) -> Void in
                 cellu.userImageView.image = UIImage(data: data!)
             })
@@ -144,12 +156,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     */
     
-    //MARK: UserSearchDelegate
+    //MARK: - UserSearchDelegate
     
     func didInputUser(userStr: String) {
-        repos = []
-        self.tableView.reloadData()
-        user = DataManager.getUser(userStr)
+        infoText.text = "Loading"
+        tableView.hidden = true
+        
+        DataManager.getUser(userStr, block: { (user, error) -> Void in
+            if error != nil {
+                self.infoText.text = "User Not Found :("
+                self.tableView.hidden = true
+                
+                return
+            }
+            self.user = user
+        })
     }
     
 }

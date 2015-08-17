@@ -17,6 +17,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gNo-DH-KBw">
+                                <rect key="frame" x="16" y="288" width="568" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="24" id="au8-2i-VvW"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.58823529409999997" green="0.58823529409999997" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="SHG-AC-t3r">
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -27,7 +36,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jcx-kX-ftK" id="KE6-Ja-U7I">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XGa-bs-QcQ">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Oct Icon" translatesAutoresizingMaskIntoConstraints="NO" id="XGa-bs-QcQ">
                                                     <rect key="frame" x="15" y="10" width="110" height="110"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="110" id="Ha1-mf-1R8"/>
@@ -199,15 +208,20 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="centerX" secondItem="gNo-DH-KBw" secondAttribute="centerX" id="J8G-FG-vfd"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="SHG-AC-t3r" secondAttribute="bottom" id="Uoh-dx-i6M"/>
+                            <constraint firstAttribute="centerY" secondItem="gNo-DH-KBw" secondAttribute="centerY" id="XIO-YH-nSU"/>
                             <constraint firstItem="SHG-AC-t3r" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="Zkz-o0-p8x"/>
                             <constraint firstAttribute="trailing" secondItem="SHG-AC-t3r" secondAttribute="trailing" id="cP0-2U-rD9"/>
                             <constraint firstItem="SHG-AC-t3r" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="d5k-yk-2uX"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="gNo-DH-KBw" secondAttribute="trailing" id="gGV-BT-EWK"/>
                             <constraint firstItem="SHG-AC-t3r" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="64" id="oB2-Fo-mnF"/>
+                            <constraint firstItem="gNo-DH-KBw" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="x7v-3s-97B"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="oB2-Fo-mnF"/>
+                                <exclude reference="J8G-FG-vfd"/>
                             </mask>
                         </variation>
                     </view>
@@ -219,6 +233,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="infoText" destination="gNo-DH-KBw" id="UA7-4K-EJn"/>
                         <outlet property="tableView" destination="SHG-AC-t3r" id="SoR-8k-loJ"/>
                     </connections>
                 </viewController>
@@ -360,6 +375,7 @@
     </scenes>
     <resources>
         <image name="BranchIcon" width="50" height="50"/>
+        <image name="Oct Icon" width="120" height="120"/>
         <image name="RepoIcon" width="50" height="50"/>
         <image name="StarIcon" width="50" height="50"/>
     </resources>
