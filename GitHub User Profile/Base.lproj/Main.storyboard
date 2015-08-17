@@ -5,7 +5,7 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--GitHhub-->
+        <!--GitHub-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="BYZ-38-t0r" customClass="ViewController" customModule="GitHub_User_Profile" customModuleProvider="target" sceneMemberID="viewController">
@@ -211,7 +211,13 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="GitHhub" id="6wm-5o-NaG"/>
+                    <navigationItem key="navigationItem" title="GitHub" id="eVE-EG-GFE">
+                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="y08-RI-4g5">
+                            <connections>
+                                <segue destination="Edj-cN-5w3" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="vJT-JK-aTV"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="SHG-AC-t3r" id="SoR-8k-loJ"/>
                     </connections>
@@ -219,6 +225,45 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1197" y="-503"/>
+        </scene>
+        <!--Search View Controller-->
+        <scene sceneID="ahz-cU-Sdy">
+            <objects>
+                <viewController id="Edj-cN-5w3" customClass="SearchViewController" customModule="GitHub_User_Profile" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="LCW-uS-Yv4"/>
+                        <viewControllerLayoutGuide type="bottom" id="fXZ-0N-ncg"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="KqN-JB-e0g">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" placeholder="GitHub Username" showsCancelButton="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZYT-hB-mW3">
+                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="1bU-v7-dvA"/>
+                                </constraints>
+                                <color key="barTintColor" red="0.96078431372549022" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Edj-cN-5w3" id="62p-nB-c7m"/>
+                                </connections>
+                            </searchBar>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ZYT-hB-mW3" firstAttribute="leading" secondItem="KqN-JB-e0g" secondAttribute="leading" id="7kn-Om-Slb"/>
+                            <constraint firstAttribute="trailing" secondItem="ZYT-hB-mW3" secondAttribute="trailing" id="MXC-AW-XZg"/>
+                            <constraint firstItem="ZYT-hB-mW3" firstAttribute="top" secondItem="LCW-uS-Yv4" secondAttribute="bottom" id="MZ9-3R-Xbc"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="searchBar" destination="ZYT-hB-mW3" id="UKA-UW-Dz9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ByS-vI-s31" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1197" y="263"/>
         </scene>
         <!--Repo View Controller-->
         <scene sceneID="MJC-mt-nQt">

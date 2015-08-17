@@ -8,10 +8,22 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UserSearchDelegate {
 
-    var user : User!
-    var repos : [Repo] = []
+    let defaultUser = "jackoplane"
+    
+    var user : User! {
+        didSet {
+            if let username = user.login {
+                repos = DataManager.getRepos(username)
+            }
+        }
+    }
+    var repos : [Repo] = [] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     
     @IBOutlet var tableView : UITableView!
     
@@ -19,8 +31,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         //println(DataManager.getUser("eduardo22i").repos_url)
-        user = DataManager.getUser("eduardo22i")
-        repos = DataManager.getRepos("eduardo22i")
+        user = DataManager.getUser(defaultUser)
         
     }
 
@@ -41,6 +52,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let vc = segue.destinationViewController as? RepoViewController
             vc?.repo = repo
             
+        } else {
+            let vc = segue.destinationViewController as? SearchViewController
+            vc?.delegate = self
+            vc?.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
         }
     }
     
@@ -71,6 +86,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             cellu.userEmailLabel.text = user.email
             cellu.userURLLabel.text = user.blog
             
+            cellu.userImageView.image = UIImage()
             user.downloadImage({ (data, error) -> Void in
                 cellu.userImageView.image = UIImage(data: data!)
             })
@@ -127,6 +143,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     return true
     }
     */
-
+    
+    //MARK: UserSearchDelegate
+    
+    func didInputUser(userStr: String) {
+        repos = []
+        self.tableView.reloadData()
+        user = DataManager.getUser(userStr)
+    }
+    
 }
 
