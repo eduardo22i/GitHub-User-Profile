@@ -13,14 +13,17 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        println(DataManager.getUserProfile("eduardo22i").email)
+        //println(DataManager.getUser("eduardo22i").repos_url)
+        let repos = DataManager.getRepos("eduardo22i")
+        println(repos)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    
 
 }
 

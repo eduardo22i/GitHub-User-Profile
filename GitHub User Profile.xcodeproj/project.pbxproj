@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F90C92A31B8100F7009669E6 /* Repo.swift in Sources */ = {isa = PBXBuildFile; fileRef = F90C92A21B8100F7009669E6 /* Repo.swift */; };
 		F9401CA31B807423003FFD42 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9401CA21B807423003FFD42 /* AppDelegate.swift */; };
 		F9401CA51B807423003FFD42 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9401CA41B807423003FFD42 /* ViewController.swift */; };
 		F9401CA81B807423003FFD42 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9401CA61B807423003FFD42 /* Main.storyboard */; };
@@ -28,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F90C92A21B8100F7009669E6 /* Repo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repo.swift; sourceTree = "<group>"; };
 		F9401C9D1B807423003FFD42 /* GitHub User Profile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GitHub User Profile.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9401CA11B807423003FFD42 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F9401CA21B807423003FFD42 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				F9401CC61B8078F4003FFD42 /* User.swift */,
+				F90C92A21B8100F7009669E6 /* Repo.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -236,6 +239,7 @@
 			files = (
 				F9401CC71B8078F4003FFD42 /* User.swift in Sources */,
 				F9401CA51B807423003FFD42 /* ViewController.swift in Sources */,
+				F90C92A31B8100F7009669E6 /* Repo.swift in Sources */,
 				F9401CC41B80745F003FFD42 /* DataManager.swift in Sources */,
 				F9401CA31B807423003FFD42 /* AppDelegate.swift in Sources */,
 			);
@@ -435,6 +439,7 @@
 				F9401CBE1B807423003FFD42 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F9401CBF1B807423003FFD42 /* Build configuration list for PBXNativeTarget "GitHub User ProfileTests" */ = {
 			isa = XCConfigurationList;
@@ -443,6 +448,7 @@
 				F9401CC11B807423003FFD42 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

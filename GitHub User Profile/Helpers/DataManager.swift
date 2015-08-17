@@ -12,7 +12,7 @@ class DataManager: NSObject {
     
     static var url = "https://api.github.com/users/"
     
-    static func getUserProfile(username: String) -> User {
+    static func getUser(username: String) -> User {
         var user = User()
         
         let url = NSURL(string: "\(DataManager.url)\(username)")
@@ -24,19 +24,42 @@ class DataManager: NSObject {
         return user
     }
     
+    
+    static func getRepos(username: String) -> [Repo] {
+        var repos = [Repo()]
+        
+        let url = NSURL(string: "\(DataManager.url)\(username)/repos")
+        if let data = NSData(contentsOfURL: url!) {
+            //println(parseDataArray(data)[0]["archive_url"]!)
+            for repoDic in parseDataArray(data) {
+                //println(repoDic["archive_url"])
+                if let repoDic = repoDic as? NSDictionary {
+                    if let repo = setKeysAndValues(Repo(), dictionary: repoDic) as? Repo {
+                        repos.append(repo)
+                    }
+                }
+            }
+        }
+        
+        return repos
+    }
+    
     static func setKeysAndValues (object : AnyObject, dictionary : NSDictionary)  -> AnyObject  {
         
         for (key, value) in dictionary {
-            if let keyName = key  as? String {
+           
+            if !(key as! String == "description") {
                 
-                if let keyValue = value as? String {
-                    if (object.respondsToSelector(NSSelectorFromString(keyName))) {
-                        object.setValue(keyValue, forKey: keyName)
+                if let keyName = key  as? String {
+                    if let keyValue = value as? String {
+                        if (object.respondsToSelector(NSSelectorFromString(keyName))) {
+                            object.setValue(keyValue, forKey: keyName)
+                        }
                     }
-                }
-                if let keyValue = value as? Int {
-                    if (object.respondsToSelector(NSSelectorFromString(keyName))) {
-                        object.setValue(keyValue, forKey: keyName)
+                    if let keyValue = value as? Int {
+                        if (object.respondsToSelector(NSSelectorFromString(keyName))) {
+                            object.setValue(keyValue, forKey: keyName)
+                        }
                     }
                 }
             }
@@ -50,5 +73,10 @@ class DataManager: NSObject {
     static func parseData (data : NSData)  -> NSDictionary  {
         var error: NSError?
         return NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &error) as! NSDictionary
+    }
+    
+    static func parseDataArray (data : NSData)  -> NSArray  {
+        var error: NSError?
+        return NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &error) as! NSArray
     }
 }
