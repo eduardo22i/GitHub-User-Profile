@@ -31,6 +31,7 @@ class Repo: NSObject {
     var collaborators_url : String!
     var languages_url : String!
     var has_issues = 0
+    var html_url : String!
     var comments_url : String!
     var isPrivate = 0
     var size = 0
@@ -52,6 +53,7 @@ class Repo: NSObject {
     var forks_url : String!
     var has_downloads = 0
     var teams_url : String!
-
+    var stargazers_count = 0
+    
     var alternateDescription : String!
 }

@@ -13,6 +13,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var user : User!
     var repos : [Repo] = []
     
+    @IBOutlet var tableView : UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -25,6 +27,21 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: - Navigation
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+        if segue.identifier == "showRepoSegue" {
+            let indexPath = self.tableView.indexPathForSelectedRow()
+            let repo = repos[indexPath?.row ?? 0]
+            let vc = segue.destinationViewController as? RepoViewController
+            vc?.repo = repo
+            
+        }
     }
     
     // MARK: - Table view data source
@@ -52,6 +69,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             cellu.userCompanyLabel.text = user.company
             cellu.userLocationLabel.text = user.location
             cellu.userEmailLabel.text = user.email
+            cellu.userURLLabel.text = user.blog
+            
             user.downloadImage({ (data, error) -> Void in
                 cellu.userImageView.image = UIImage(data: data!)
             })
@@ -59,11 +78,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             return cellu
         } else {
-            var cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
+            var cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! RepoTableViewCell
             
             let repo = repos[indexPath.row ]
-            cell.textLabel?.text = repo.name
-            cell.detailTextLabel?.text = repo.alternateDescription
+            cell.repoNameLabel.text = repo.name
+            cell.starsLabel.text = "\(repo.stargazers_count)"
             
             return cell
         }
