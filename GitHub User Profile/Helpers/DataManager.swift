@@ -40,7 +40,7 @@ class DataManager: NSObject {
                 }
             }
         }
-        
+        repos.removeAtIndex(0)
         return repos
     }
     
@@ -49,7 +49,6 @@ class DataManager: NSObject {
         for (key, value) in dictionary {
            
             if !(key as! String == "description") {
-                
                 if let keyName = key  as? String {
                     if let keyValue = value as? String {
                         if (object.respondsToSelector(NSSelectorFromString(keyName))) {
@@ -61,6 +60,11 @@ class DataManager: NSObject {
                             object.setValue(keyValue, forKey: keyName)
                         }
                     }
+                }
+            } else {
+                let key = "alternateDescription"
+                if (object.respondsToSelector(NSSelectorFromString(key))) {
+                    object.setValue(value, forKey: key)
                 }
             }
             

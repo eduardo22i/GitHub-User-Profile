@@ -8,6 +8,8 @@
 
 import UIKit
 
+typealias DownloadComplete =  (data : NSData?, error : NSError?) -> Void
+
 class User: NSObject {
     
     var id = 0
@@ -30,6 +32,7 @@ class User: NSObject {
     var login : String!
     var blog : String!
     var created_at : String!
+    var company : String!
     var gravatar_id : String!
     var followers_url : String!
     var html_url : String!
@@ -41,5 +44,27 @@ class User: NSObject {
     var followers = 0
     var following = 0
     
+    var imageData : NSData!
+    
+    override init () {
+        super.init()
+    }
+    
+    func downloadImage(block : DownloadComplete) {
+        if imageData != nil {
+            block( data: imageData , error :  nil )
+            return
+        } else {
+            dispatch_async(dispatch_queue_create("", nil), { () -> Void in
+                let url = NSURL(string: self.avatar_url)
+                if let data = NSData(contentsOfURL: url!) {
+                    self.imageData = data
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        block( data: data, error :  nil )
+                    })
+                }
+            })
+        }
+    }
    
 }

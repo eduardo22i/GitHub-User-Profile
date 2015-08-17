@@ -52,4 +52,6 @@ class Repo: NSObject {
     var forks_url : String!
     var has_downloads = 0
     var teams_url : String!
+
+    var alternateDescription : String!
 }
