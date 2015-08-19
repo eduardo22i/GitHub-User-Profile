@@ -14,6 +14,8 @@ protocol UserSearchDelegate {
 
 class SearchViewController: UIViewController, UISearchBarDelegate {
 
+    static var userSearchInput = ""
+    
     var delegate : UserSearchDelegate!
     
     @IBOutlet var searchBar: UISearchBar!
@@ -22,6 +24,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        searchBar.text = SearchViewController.userSearchInput
         searchBar.becomeFirstResponder()
     }
 
@@ -42,6 +45,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
     */
     
     override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+        SearchViewController.userSearchInput = searchBar.text
         searchBar.resignFirstResponder()
         self.dismissViewControllerAnimated(true, completion: { () -> Void in
             
@@ -51,13 +55,15 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
     // MARK: - UISearchBarDelegate
     
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-        self.resignFirstResponder()
+        SearchViewController.userSearchInput = ""
+        searchBar.resignFirstResponder()
         self.dismissViewControllerAnimated(true, completion: { () -> Void in
             
         })
     }
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        SearchViewController.userSearchInput = searchBar.text
         searchBar.resignFirstResponder()
         self.dismissViewControllerAnimated(true, completion: { () -> Void in
             if let delegate = self.delegate {
