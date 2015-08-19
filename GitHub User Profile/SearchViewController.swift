@@ -41,6 +41,15 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
     }
     */
     
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+        searchBar.resignFirstResponder()
+        self.dismissViewControllerAnimated(true, completion: { () -> Void in
+            
+        })
+    }
+    
+    // MARK: - UISearchBarDelegate
+    
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
         self.resignFirstResponder()
         self.dismissViewControllerAnimated(true, completion: { () -> Void in
@@ -49,7 +58,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        self.resignFirstResponder()
+        searchBar.resignFirstResponder()
         self.dismissViewControllerAnimated(true, completion: { () -> Void in
             if let delegate = self.delegate {
                 delegate.didInputUser(searchBar.text)
