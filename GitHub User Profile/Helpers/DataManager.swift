@@ -14,8 +14,10 @@ typealias DownloadCompleteRepos =  (repos : [Repo]?, error : NSError?) -> Void
 
 class DataManager: NSObject {
     
-    static var url = "https://api.github.com/users/"
+    static var UserClass = "users"
+    static var RepoClass = "repos"
     
+    /*
     static func getUser(username: String) -> User {
         var user = User()
         
@@ -27,32 +29,21 @@ class DataManager: NSObject {
         
         return user
     }
+    */
     
     static func getUser(username: String, block : DownloadCompleteUser) {
-        
-        dispatch_async(dispatch_queue_create("", nil), { () -> Void in
-            
-            var user = User()
-            
-            let url = NSURL(string: "\(DataManager.url)\(username.removeComma.webUrl)")
-            if let data = NSData(contentsOfURL: url!) {
-                self.setKeysAndValues(user, dictionary: self.parseData(data))
-                
-                
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    block(user : user, error: nil)
-                })
-                
-            } else {
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    block(user : nil, error: NSError(domain: "Not Found", code: 404, userInfo: nil))
-                })
+        HTTPManager.getFirst("\(UserClass)/\(username)", completeWithRecord: { (record, error : NSError?) -> Void in
+            if let error = error {
+                block(user : nil, error: error)
+                return
             }
-            
+            var user = User()
+            self.setKeysAndValues(user, dictionary: record as! NSDictionary)
+            block(user : user, error: nil)
         })
-        
     }
     
+    /*
     static func getRepos(username: String) -> [Repo]? {
         var repos = [Repo()]
         
@@ -71,32 +62,19 @@ class DataManager: NSObject {
         repos.removeAtIndex(0)
         return repos
     }
+    */
     
     static func getRepos(username: String, block : DownloadCompleteRepos ) {
-        dispatch_async(dispatch_queue_create("", nil), { () -> Void in
-            
+        HTTPManager.findAll("\(UserClass)/\(username)/\(RepoClass)", completeWithArray: { (records, error) -> Void in
             var repos = [Repo()]
-            
-            let url = NSURL(string: "\(DataManager.url)\(username.removeComma.webUrl)/repos")
-            if let data = NSData(contentsOfURL: url!) {
-                for repoDic in self.parseDataArray(data) {
-                    if let repo = self.setKeysAndValues(Repo(), dictionary: repoDic as! NSDictionary) as? Repo {
-                        repos.append(repo)
-                    }
+            for repoDic in records {
+                if let repo = self.setKeysAndValues(Repo(), dictionary: repoDic as! NSDictionary) as? Repo {
+                    repos.append(repo)
                 }
-                repos.removeAtIndex(0)
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    block(repos : repos, error: nil)
-                })
-                
-            } else {
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    block(repos : nil, error: NSError(domain: "Not Found", code: 404, userInfo: nil))
-                })
             }
-            
+            repos.removeAtIndex(0)
+            block(repos : repos, error: nil)
         })
-        
     }
     
     static func setKeysAndValues (object : AnyObject, dictionary : NSDictionary)  -> AnyObject  {
@@ -131,13 +109,4 @@ class DataManager: NSObject {
         
     }
     
-    static func parseData (data : NSData)  -> NSDictionary  {
-        var error: NSError?
-        return NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &error) as! NSDictionary
-    }
-    
-    static func parseDataArray (data : NSData)  -> NSArray  {
-        var error: NSError?
-        return NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &error) as! NSArray
-    }
 }

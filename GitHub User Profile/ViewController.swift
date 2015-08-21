@@ -51,8 +51,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     func searchUser (userStr : String) {
         DataManager.getUser(userStr, block: { (user, error) -> Void in
-            if error != nil {
-                self.infoText.text = "User Not Found :("
+            if let error = error {
+                self.infoText.text = error.localizedDescription
                 self.tableView.hidden = true
                 
                 return
