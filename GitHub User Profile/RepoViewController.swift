@@ -10,6 +10,7 @@ import UIKit
 
 class RepoViewController: UIViewController {
 
+    var user : User!
     var repo = Repo()
     
     @IBOutlet var branchLabel: UILabel!
@@ -31,15 +32,20 @@ class RepoViewController: UIViewController {
     }
     
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "showRepoBranchesSegue" {
+            let vc = segue.destinationViewController as? RepoBranchesViewController
+            vc?.repo = repo
+            vc?.user = user
+        }
     }
-    */
+
     
     @IBAction func viewOnGitHubAction (sender : AnyObject!) {
         

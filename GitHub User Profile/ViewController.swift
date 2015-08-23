@@ -72,7 +72,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             let repo = repos[indexPath?.row ?? 0]
             let vc = segue.destinationViewController as? RepoViewController
             vc?.repo = repo
-            
+            vc?.user = user
         } else {
             let vc = segue.destinationViewController as? SearchViewController
             vc?.delegate = self

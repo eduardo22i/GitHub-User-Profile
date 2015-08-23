@@ -8,14 +8,16 @@
 
 import UIKit
 
-typealias DownloadCompleteUser =  (user : User?, error : NSError?) -> Void
-typealias DownloadCompleteRepos =  (repos : [Repo]?, error : NSError?) -> Void
+typealias DownloadCompleteUser     = (user : User?, error : NSError?) -> Void
+typealias DownloadCompleteRepos    = (repos : [Repo]?, error : NSError?) -> Void
+typealias DownloadCompleteBranches = (branches : [Branch]?, error : NSError?) -> Void
 
 
 class DataManager: NSObject {
     
     static var UserClass = "users"
     static var RepoClass = "repos"
+    static var BranchClass = "branches"
     
     /*
     static func getUser(username: String) -> User {
@@ -77,6 +79,25 @@ class DataManager: NSObject {
         })
     }
     
+    static func getBranches(username: String, repo : String, block : DownloadCompleteBranches) {
+        HTTPManager.findAll("\(RepoClass)/\(username)/\(repo)/\(BranchClass)", completeWithArray: { (records, error : NSError?) -> Void in
+            
+            if let error = error {
+                block(branches : nil, error: error)
+                return
+            }
+            
+            var branches = [Branch()]
+            for repoDic in records {
+                if let branch = self.setKeysAndValues(Branch(), dictionary: repoDic as! NSDictionary) as? Branch {
+                    branches.append(branch)
+                }
+            }
+            branches.removeAtIndex(0)
+            block(branches: branches, error: nil)
+        })
+    }
+    
     static func setKeysAndValues (object : AnyObject, dictionary : NSDictionary)  -> AnyObject  {
         
         for (key, value) in dictionary {
@@ -89,6 +110,11 @@ class DataManager: NSObject {
                         }
                     }
                     if let keyValue = value as? Int {
+                        if (object.respondsToSelector(NSSelectorFromString(keyName))) {
+                            object.setValue(keyValue, forKey: keyName)
+                        }
+                    }
+                    if let keyValue = value as? NSDictionary {
                         if (object.respondsToSelector(NSSelectorFromString(keyName))) {
                             object.setValue(keyValue, forKey: keyName)
                         }

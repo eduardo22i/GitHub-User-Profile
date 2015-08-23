@@ -306,7 +306,7 @@
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gbP-UW-Cnb">
-                                <rect key="frame" x="16" y="104" width="568" height="436"/>
+                                <rect key="frame" x="16" y="129" width="568" height="411"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -328,16 +328,29 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j5l-Q1-aN9">
+                                <rect key="frame" x="41" y="99" width="124" height="25"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="View More Branches">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="jxY-ID-M7i" kind="show" identifier="showRepoBranchesSegue" id="nto-K6-blJ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="pP7-WK-CRb" secondAttribute="centerX" id="6fB-JD-dWW"/>
                             <constraint firstItem="gbP-UW-Cnb" firstAttribute="leading" secondItem="1W7-Y8-Suc" secondAttribute="leadingMargin" id="6o5-GW-4md"/>
-                            <constraint firstItem="gbP-UW-Cnb" firstAttribute="top" secondItem="Zr1-L5-pDx" secondAttribute="bottom" constant="10" id="I5W-IQ-DFG"/>
+                            <constraint firstItem="j5l-Q1-aN9" firstAttribute="top" secondItem="Zr1-L5-pDx" secondAttribute="bottom" constant="5" id="DYh-IE-W11"/>
+                            <constraint firstItem="j5l-Q1-aN9" firstAttribute="leading" secondItem="1W7-Y8-Suc" secondAttribute="leadingMargin" constant="25" id="HFN-Ai-2kl"/>
+                            <constraint firstItem="gbP-UW-Cnb" firstAttribute="top" secondItem="Zr1-L5-pDx" secondAttribute="bottom" constant="35" id="I5W-IQ-DFG"/>
                             <constraint firstItem="9np-if-sk1" firstAttribute="leading" secondItem="1W7-Y8-Suc" secondAttribute="leadingMargin" id="NcQ-IN-TcR"/>
                             <constraint firstAttribute="trailingMargin" secondItem="gbP-UW-Cnb" secondAttribute="trailing" id="UD2-Ga-ILc"/>
                             <constraint firstItem="pP7-WK-CRb" firstAttribute="top" secondItem="gbP-UW-Cnb" secondAttribute="bottom" constant="10" id="g7V-Yc-aI2"/>
                             <constraint firstItem="9np-if-sk1" firstAttribute="top" secondItem="1bZ-5C-P7U" secondAttribute="bottom" constant="10" id="goE-1e-eSj"/>
+                            <constraint firstItem="gbP-UW-Cnb" firstAttribute="top" secondItem="j5l-Q1-aN9" secondAttribute="bottom" constant="5" id="o1D-7z-H4d"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Zr1-L5-pDx" secondAttribute="trailing" id="oeq-nP-C8S"/>
                             <constraint firstItem="xR1-ay-2Yh" firstAttribute="top" secondItem="pP7-WK-CRb" secondAttribute="bottom" constant="20" id="ogW-T1-JI4"/>
                             <constraint firstItem="Zr1-L5-pDx" firstAttribute="centerY" secondItem="9np-if-sk1" secondAttribute="centerY" id="vlX-VH-Lvp"/>
@@ -353,6 +366,68 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PT1-c4-JDd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1957" y="-503"/>
+        </scene>
+        <!--Branches-->
+        <scene sceneID="EaV-2B-L6r">
+            <objects>
+                <viewController title="Branches" id="jxY-ID-M7i" customClass="RepoBranchesViewController" customModule="GitHub_User_Profile" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="eqI-dO-TS5"/>
+                        <viewControllerLayoutGuide type="bottom" id="hnr-JP-w2t"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="TK0-Yo-zwH">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="rU3-9U-Zge">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="repoBranchCell" textLabel="QI6-ot-mdK" detailTextLabel="mFH-rZ-0bz" imageView="eF6-Ei-K5Q" style="IBUITableViewCellStyleValue1" id="VBo-et-QQi">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VBo-et-QQi" id="Id0-kN-Tnp">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QI6-ot-mdK">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mFH-rZ-0bz">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="BranchIcon" id="eF6-Ei-K5Q">
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </imageView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="jxY-ID-M7i" id="XNm-Fg-wDw"/>
+                                    <outlet property="delegate" destination="jxY-ID-M7i" id="3xF-Vu-RaE"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="rU3-9U-Zge" firstAttribute="top" secondItem="TK0-Yo-zwH" secondAttribute="top" id="3rR-ly-jsQ"/>
+                            <constraint firstItem="rU3-9U-Zge" firstAttribute="leading" secondItem="TK0-Yo-zwH" secondAttribute="leading" id="leZ-Da-dqt"/>
+                            <constraint firstAttribute="bottom" secondItem="rU3-9U-Zge" secondAttribute="bottom" id="rdq-NW-5UZ"/>
+                            <constraint firstAttribute="trailing" secondItem="rU3-9U-Zge" secondAttribute="trailing" id="z1D-lF-1Xu"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="rU3-9U-Zge" id="hVQ-Sh-Cez"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vah-eR-qSD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1957" y="227"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="PFl-Vu-iWP">
