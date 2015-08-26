@@ -84,21 +84,28 @@ class RepoViewController: UIViewController, UITableViewDelegate, UITableViewData
         // Configure the cell...
         if (repoSettings[indexPath.section]["Type"] == "branches") {
             var cell = tableView.dequeueReusableCellWithIdentifier("repoBranchesCell", forIndexPath: indexPath) as! RepoBranchesTableViewCell
+            cell.branchIcon.image = cell.branchIcon.image?.imageWithInsets(UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5))
             cell.branchLabel.text = repo.default_branch
             return cell
-        }
+        } else if (repoSettings[indexPath.section]["Type"] == "commits") {
+            var cell = tableView.dequeueReusableCellWithIdentifier("repoBranchesCell", forIndexPath: indexPath) as! RepoBranchesTableViewCell
+            cell.branchIcon.image = UIImage(named: "HistoryIcon")
+            cell.branchIcon.image = cell.branchIcon.image?.imageWithInsets(UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5))
+            DataManager.getCommits(user.login, repo: repo.name) { (records, error) -> Void in
+                cell.branchLabel.text =  "\(records?.count ?? 0) Commits"
+            }
+            return cell
+        } else {
         
-        var cell = tableView.dequeueReusableCellWithIdentifier("repoDescriptionCell", forIndexPath: indexPath) as! RepoDescriptionTableViewCell
-        cell.descriptionTextView.text = repo.alternateDescription
-        return cell
+            var cell = tableView.dequeueReusableCellWithIdentifier("repoDescriptionCell", forIndexPath: indexPath) as! RepoDescriptionTableViewCell
+            cell.descriptionTextView.text = repo.alternateDescription
+            return cell
+        }
         
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if (repoSettings[indexPath.section]["Type"] == "branches") {
-            return 65
-        }
-        return 50
+        return repoSettings[indexPath.section]["Type"] == "description" ? 50 : 65
     }
     /*
     // Override to support conditional editing of the table view.

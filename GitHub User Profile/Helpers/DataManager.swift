@@ -11,13 +11,15 @@ import UIKit
 typealias DownloadCompleteUser     = (user : User?, error : NSError?) -> Void
 typealias DownloadCompleteRepos    = (repos : [Repo]?, error : NSError?) -> Void
 typealias DownloadCompleteBranches = (branches : [Branch]?, error : NSError?) -> Void
-
+typealias DownloadCompleteRecord   = (record : AnyObject?, error : NSError?) -> Void
+typealias DownloadCompleteRecords  = (records : [AnyObject]?, error : NSError?) -> Void
 
 class DataManager: NSObject {
     
     static var UserClass = "users"
     static var RepoClass = "repos"
     static var BranchClass = "branches"
+    static var CommitsClass = "commits"
     
     /*
     static func getUser(username: String) -> User {
@@ -98,10 +100,29 @@ class DataManager: NSObject {
         })
     }
     
+    static func getCommits(username: String, repo : String, block : DownloadCompleteRecords) {
+        HTTPManager.findAll("\(RepoClass)/\(username)/\(repo)/\(CommitsClass)", completeWithArray: { (records, error : NSError?) -> Void in
+            
+            if let error = error {
+                block(records : nil, error: error)
+                return
+            }
+            
+            var commits = [Commit()]
+            for repoDic in records {
+                if let commit = self.setKeysAndValues(Commit(), dictionary: repoDic as! NSDictionary) as? Commit {
+                    commits.append(commit)
+                }
+            }
+            commits.removeAtIndex(0)
+            block(records: commits, error: nil)
+        })
+    }
+    
     static func setKeysAndValues (object : AnyObject, dictionary : NSDictionary)  -> AnyObject  {
         
         for (key, value) in dictionary {
-           
+            
             if !(key as! String == "description") {
                 if let keyName = key  as? String {
                     if let keyValue = value as? String {
