@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="HxF-v7-Rsr">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="HxF-v7-Rsr">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -280,7 +280,7 @@
             </objects>
             <point key="canvasLocation" x="1197" y="263"/>
         </scene>
-        <!--Repo View Controller-->
+        <!--Title-->
         <scene sceneID="MJC-mt-nQt">
             <objects>
                 <viewController id="Rgo-TM-v2h" customClass="RepoViewController" customModule="GitHub_User_Profile" customModuleProvider="target" sceneMemberID="viewController">
@@ -292,6 +292,95 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="fNw-Av-7AZ">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="repoDescriptionCell" id="I9P-By-ar0" customClass="RepoDescriptionTableViewCell" customModule="GitHub_User_Profile" customModuleProvider="target">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="I9P-By-ar0" id="l5c-Si-kbZ">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gbP-UW-Cnb">
+                                                    <rect key="frame" x="8" y="8" width="584" height="28"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
+                                                </textView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="gbP-UW-Cnb" firstAttribute="leading" secondItem="l5c-Si-kbZ" secondAttribute="leadingMargin" id="RM0-W3-P7T"/>
+                                                <constraint firstItem="gbP-UW-Cnb" firstAttribute="top" secondItem="l5c-Si-kbZ" secondAttribute="topMargin" id="fRo-Tc-I1x"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="gbP-UW-Cnb" secondAttribute="trailing" id="hGd-cg-EDa"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="gbP-UW-Cnb" secondAttribute="bottom" id="uF8-E3-ibR"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="descriptionTextView" destination="gbP-UW-Cnb" id="QFS-W5-yJK"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="repoBranchesCell" rowHeight="60" id="UBK-eW-2uP" customClass="RepoBranchesTableViewCell" customModule="GitHub_User_Profile" customModuleProvider="target">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UBK-eW-2uP" id="uxo-nC-DpT">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BranchIcon" translatesAutoresizingMaskIntoConstraints="NO" id="9np-if-sk1">
+                                                    <rect key="frame" x="8" y="8" width="20" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="20" id="9kF-dL-lyJ"/>
+                                                        <constraint firstAttribute="width" constant="20" id="BA5-BS-9Su"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zr1-L5-pDx">
+                                                    <rect key="frame" x="38" y="8" width="554" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="jkP-G1-LX4"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j5l-Q1-aN9">
+                                                    <rect key="frame" x="38" y="34" width="124" height="28"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <state key="normal" title="View More Branches">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <segue destination="jxY-ID-M7i" kind="show" identifier="showRepoBranchesSegue" id="nto-K6-blJ"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="9np-if-sk1" secondAttribute="centerY" id="9LF-f8-E24"/>
+                                                <constraint firstItem="j5l-Q1-aN9" firstAttribute="top" secondItem="Zr1-L5-pDx" secondAttribute="bottom" constant="5" id="NUj-Jb-Ak8"/>
+                                                <constraint firstItem="9np-if-sk1" firstAttribute="top" secondItem="uxo-nC-DpT" secondAttribute="topMargin" id="OGV-5C-MNH"/>
+                                                <constraint firstItem="9np-if-sk1" firstAttribute="leading" secondItem="uxo-nC-DpT" secondAttribute="leadingMargin" id="ayv-r1-0kx"/>
+                                                <constraint firstItem="Zr1-L5-pDx" firstAttribute="centerY" secondItem="9np-if-sk1" secondAttribute="centerY" id="jUO-v5-QAA"/>
+                                                <constraint firstItem="Zr1-L5-pDx" firstAttribute="leading" secondItem="9np-if-sk1" secondAttribute="trailing" constant="10" id="kN3-No-ELb"/>
+                                                <constraint firstItem="j5l-Q1-aN9" firstAttribute="leading" secondItem="uxo-nC-DpT" secondAttribute="leadingMargin" constant="30" id="mki-hP-ZbU"/>
+                                                <constraint firstItem="Zr1-L5-pDx" firstAttribute="centerY" secondItem="9np-if-sk1" secondAttribute="centerY" id="sOw-ss-IpE"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Zr1-L5-pDx" secondAttribute="trailing" id="th6-qA-xP2"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="9LF-f8-E24"/>
+                                                    <exclude reference="jUO-v5-QAA"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="branchIcon" destination="9np-if-sk1" id="yJf-sQ-zX6"/>
+                                            <outlet property="branchLabel" destination="Zr1-L5-pDx" id="XAX-Ti-AvI"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="Rgo-TM-v2h" id="V4y-HI-Xrz"/>
+                                    <outlet property="delegate" destination="Rgo-TM-v2h" id="0Ng-km-hzh"/>
+                                </connections>
+                            </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pP7-WK-CRb">
                                 <rect key="frame" x="238" y="550" width="125" height="30"/>
                                 <constraints>
@@ -301,67 +390,25 @@
                                 <state key="normal" title="View On GitHub">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <action selector="viewOnGitHubAction:" destination="Rgo-TM-v2h" eventType="touchUpInside" id="Qi1-YQ-xBD"/>
-                                </connections>
-                            </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gbP-UW-Cnb">
-                                <rect key="frame" x="16" y="129" width="568" height="411"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
-                            </textView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BranchIcon" translatesAutoresizingMaskIntoConstraints="NO" id="9np-if-sk1">
-                                <rect key="frame" x="16" y="74" width="20" height="20"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="9kF-dL-lyJ"/>
-                                    <constraint firstAttribute="width" constant="20" id="BA5-BS-9Su"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zr1-L5-pDx">
-                                <rect key="frame" x="41" y="73" width="543" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="jkP-G1-LX4"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j5l-Q1-aN9">
-                                <rect key="frame" x="41" y="99" width="124" height="25"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <state key="normal" title="View More Branches">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="jxY-ID-M7i" kind="show" identifier="showRepoBranchesSegue" id="nto-K6-blJ"/>
-                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="pP7-WK-CRb" secondAttribute="centerX" id="6fB-JD-dWW"/>
-                            <constraint firstItem="gbP-UW-Cnb" firstAttribute="leading" secondItem="1W7-Y8-Suc" secondAttribute="leadingMargin" id="6o5-GW-4md"/>
-                            <constraint firstItem="j5l-Q1-aN9" firstAttribute="top" secondItem="Zr1-L5-pDx" secondAttribute="bottom" constant="5" id="DYh-IE-W11"/>
-                            <constraint firstItem="j5l-Q1-aN9" firstAttribute="leading" secondItem="1W7-Y8-Suc" secondAttribute="leadingMargin" constant="25" id="HFN-Ai-2kl"/>
-                            <constraint firstItem="gbP-UW-Cnb" firstAttribute="top" secondItem="Zr1-L5-pDx" secondAttribute="bottom" constant="35" id="I5W-IQ-DFG"/>
-                            <constraint firstItem="9np-if-sk1" firstAttribute="leading" secondItem="1W7-Y8-Suc" secondAttribute="leadingMargin" id="NcQ-IN-TcR"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="gbP-UW-Cnb" secondAttribute="trailing" id="UD2-Ga-ILc"/>
-                            <constraint firstItem="pP7-WK-CRb" firstAttribute="top" secondItem="gbP-UW-Cnb" secondAttribute="bottom" constant="10" id="g7V-Yc-aI2"/>
-                            <constraint firstItem="9np-if-sk1" firstAttribute="top" secondItem="1bZ-5C-P7U" secondAttribute="bottom" constant="10" id="goE-1e-eSj"/>
-                            <constraint firstItem="gbP-UW-Cnb" firstAttribute="top" secondItem="j5l-Q1-aN9" secondAttribute="bottom" constant="5" id="o1D-7z-H4d"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Zr1-L5-pDx" secondAttribute="trailing" id="oeq-nP-C8S"/>
+                            <constraint firstAttribute="trailing" secondItem="fNw-Av-7AZ" secondAttribute="trailing" id="7GM-34-IYA"/>
+                            <constraint firstItem="xR1-ay-2Yh" firstAttribute="top" secondItem="fNw-Av-7AZ" secondAttribute="bottom" id="EcM-vL-0ya"/>
+                            <constraint firstItem="fNw-Av-7AZ" firstAttribute="top" secondItem="1W7-Y8-Suc" secondAttribute="top" id="Ubb-rw-3ex"/>
                             <constraint firstItem="xR1-ay-2Yh" firstAttribute="top" secondItem="pP7-WK-CRb" secondAttribute="bottom" constant="20" id="ogW-T1-JI4"/>
-                            <constraint firstItem="Zr1-L5-pDx" firstAttribute="centerY" secondItem="9np-if-sk1" secondAttribute="centerY" id="vlX-VH-Lvp"/>
-                            <constraint firstItem="Zr1-L5-pDx" firstAttribute="leading" secondItem="9np-if-sk1" secondAttribute="trailing" constant="5" id="wr5-Be-4NL"/>
+                            <constraint firstItem="fNw-Av-7AZ" firstAttribute="leading" secondItem="1W7-Y8-Suc" secondAttribute="leading" id="wIy-M4-UzP"/>
                         </constraints>
                     </view>
-                    <connections>
-                        <outlet property="branchIcon" destination="9np-if-sk1" id="ExA-tF-vS2"/>
-                        <outlet property="branchLabel" destination="Zr1-L5-pDx" id="OKc-Rr-5kM"/>
-                        <outlet property="descriptionTextView" destination="gbP-UW-Cnb" id="zze-nI-0GN"/>
-                    </connections>
+                    <navigationItem key="navigationItem" title="Title" id="QXq-FC-T3y">
+                        <barButtonItem key="rightBarButtonItem" title="View On Github" id="1Zq-TV-9qW">
+                            <connections>
+                                <action selector="viewOnGitHubAction:" destination="Rgo-TM-v2h" id="XL1-db-0Q4"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PT1-c4-JDd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

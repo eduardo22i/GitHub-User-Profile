@@ -8,22 +8,18 @@
 
 import UIKit
 
-class RepoViewController: UIViewController {
+class RepoViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     var user : User!
     var repo = Repo()
-    
-    @IBOutlet var branchLabel: UILabel!
-    @IBOutlet var branchIcon: UIImageView!
-    @IBOutlet var descriptionTextView: UITextView!
+    var repoSettings = [ ["Label" : "Description", "Type": "description"], ["Label" : "Branches", "Type": "branches"], ["Label" : "Commits", "Type": "commits"] ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         self.title = repo.name
-        branchLabel.text = repo.default_branch
-        descriptionTextView.text = repo.alternateDescription
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -65,8 +61,78 @@ class RepoViewController: UIViewController {
         alertController.addAction(photoLibraryAction)
         
         self.presentViewController(alertController, animated: true, completion: nil)
-
-        
        
     }
+    
+    
+    // MARK: - Table view data source
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        // #warning Potentially incomplete method implementation.
+        // Return the number of sections.
+        return repoSettings.count
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete method implementation.
+        // Return the number of rows in the section.
+        return 1
+    }
+    
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        // Configure the cell...
+        if (repoSettings[indexPath.section]["Type"] == "branches") {
+            var cell = tableView.dequeueReusableCellWithIdentifier("repoBranchesCell", forIndexPath: indexPath) as! RepoBranchesTableViewCell
+            cell.branchLabel.text = repo.default_branch
+            return cell
+        }
+        
+        var cell = tableView.dequeueReusableCellWithIdentifier("repoDescriptionCell", forIndexPath: indexPath) as! RepoDescriptionTableViewCell
+        cell.descriptionTextView.text = repo.alternateDescription
+        return cell
+        
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if (repoSettings[indexPath.section]["Type"] == "branches") {
+            return 65
+        }
+        return 50
+    }
+    /*
+    // Override to support conditional editing of the table view.
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    // Return NO if you do not want the specified item to be editable.
+    return true
+    }
+    */
+    
+    /*
+    // Override to support editing the table view.
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    if editingStyle == .Delete {
+    // Delete the row from the data source
+    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+    } else if editingStyle == .Insert {
+    // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    }
+    }
+    */
+    
+    /*
+    // Override to support rearranging the table view.
+    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
+    
+    }
+    */
+    
+    /*
+    // Override to support conditional rearranging of the table view.
+    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    // Return NO if you do not want the item to be re-orderable.
+    return true
+    }
+    */
+
 }
