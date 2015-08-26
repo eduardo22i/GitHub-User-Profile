@@ -82,24 +82,27 @@ class RepoViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         // Configure the cell...
-        if (repoSettings[indexPath.section]["Type"] == "branches") {
-            var cell = tableView.dequeueReusableCellWithIdentifier("repoBranchesCell", forIndexPath: indexPath) as! RepoBranchesTableViewCell
-            cell.branchIcon.image = cell.branchIcon.image?.imageWithInsets(UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5))
-            cell.branchLabel.text = repo.default_branch
-            return cell
-        } else if (repoSettings[indexPath.section]["Type"] == "commits") {
-            var cell = tableView.dequeueReusableCellWithIdentifier("repoBranchesCell", forIndexPath: indexPath) as! RepoBranchesTableViewCell
-            cell.branchIcon.image = UIImage(named: "HistoryIcon")
-            cell.branchIcon.image = cell.branchIcon.image?.imageWithInsets(UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5))
-            DataManager.getCommits(user.login, repo: repo.name) { (records, error) -> Void in
-                cell.branchLabel.text =  "\(records?.count ?? 0) Commits"
-            }
-            return cell
-        } else {
-        
+        if (repoSettings[indexPath.section]["Type"] == "description") {
             var cell = tableView.dequeueReusableCellWithIdentifier("repoDescriptionCell", forIndexPath: indexPath) as! RepoDescriptionTableViewCell
             cell.descriptionTextView.text = repo.alternateDescription
             return cell
+        } else {
+            
+            var cell = tableView.dequeueReusableCellWithIdentifier("RepoDetailPartCell", forIndexPath: indexPath) as! RepoDetailPartTableViewCell
+            
+            if (repoSettings[indexPath.section]["Type"] == "branches") {
+                cell.detailLabel.text = repo.default_branch
+                cell.detailButton.setTitle("View More Branches", forState: UIControlState.Normal)
+            } else if (repoSettings[indexPath.section]["Type"] == "commits") {
+                cell.detailIcon.image = UIImage(named: "HistoryIcon")
+                cell.detailButton.setTitle("View Commits", forState: UIControlState.Normal)
+                DataManager.getCommits(user.login, repo: repo.name) { (records, error) -> Void in
+                    cell.detailLabel.text =  "\(records?.count ?? 0) Commits"
+                }
+            }
+            cell.detailIcon.addImageInsets(Extension.Edge)
+            return cell
+            
         }
         
     }

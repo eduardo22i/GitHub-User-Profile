@@ -70,8 +70,9 @@ class RepoBranchesViewController: UIViewController, UITableViewDelegate, UITable
         cell.textLabel?.text = branch.name
         cell.detailTextLabel?.text = repo.default_branch == branch.name ? "Default" : ""
         
-        cell.imageView?.image = UIImage(named: "BranchIcon")!.imageWithInsets(UIEdgeInsets(top: 50, left: 0, bottom: 50, right: 0))
-        
+        cell.imageView?.image = UIImage(named: "BranchIcon")
+        cell.imageView?.addImageInsets(UIEdgeInsets(top: 50, left: 0, bottom: 50, right: 0))
+
         return cell
         
     }

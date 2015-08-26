@@ -8,10 +8,11 @@
 
 import UIKit
 
-class RepoBranchesTableViewCell: UITableViewCell {
+class RepoDetailPartTableViewCell: UITableViewCell {
 
-    @IBOutlet var branchLabel: UILabel!
-    @IBOutlet var branchIcon: UIImageView!
+    @IBOutlet var detailLabel: UILabel!
+    @IBOutlet var detailIcon: UIImageView!
+    @IBOutlet var detailButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()

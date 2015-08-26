@@ -8,6 +8,10 @@
 
 import UIKit
 
+class Extension : NSObject {
+    static let Edge =  UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+}
+
 extension UIView {
     func addRoundedCorner () {
         self.layer.cornerRadius =  5
@@ -15,17 +19,19 @@ extension UIView {
     }
 }
 
-extension UIImage {
-    func imageWithInsets(insets: UIEdgeInsets) -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(
-            CGSizeMake(self.size.width + insets.left + insets.right,
-                self.size.height + insets.top + insets.bottom), false, self.scale)
-        let context = UIGraphicsGetCurrentContext()
-        let origin = CGPoint(x: insets.left, y: insets.top)
-        self.drawAtPoint(origin)
-        let imageWithInsets = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return imageWithInsets
+extension UIImageView {
+    func addImageInsets(insets: UIEdgeInsets) {
+        if let image = self.image {
+            UIGraphicsBeginImageContextWithOptions(
+                CGSizeMake(image.size.width + insets.left + insets.right,
+                    image.size.height + insets.top + insets.bottom), false, image.scale)
+            let context = UIGraphicsGetCurrentContext()
+            let origin = CGPoint(x: insets.left, y: insets.top)
+            image.drawAtPoint(origin)
+            let imageWithInsets = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            self.image = imageWithInsets
+        }
     }
 }
 
