@@ -326,14 +326,14 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UBK-eW-2uP" id="uxo-nC-DpT">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BranchIcon" translatesAutoresizingMaskIntoConstraints="NO" id="9np-if-sk1">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9np-if-sk1">
                                                     <rect key="frame" x="8" y="8" width="20" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="9kF-dL-lyJ"/>
                                                         <constraint firstAttribute="width" constant="20" id="BA5-BS-9Su"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zr1-L5-pDx">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zr1-L5-pDx">
                                                     <rect key="frame" x="38" y="8" width="554" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="jkP-G1-LX4"/>
@@ -349,7 +349,7 @@
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
-                                                        <segue destination="jxY-ID-M7i" kind="show" identifier="showRepoBranchesSegue" id="nto-K6-blJ"/>
+                                                        <action selector="performAction:" destination="UBK-eW-2uP" eventType="touchUpInside" id="ZQO-lA-NMR"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -372,7 +372,7 @@
                                             </variation>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="detailButton" destination="j5l-Q1-aN9" id="qKz-Ys-3AT"/>
+                                            <outlet property="detailButton" destination="j5l-Q1-aN9" id="Roh-zC-YSq"/>
                                             <outlet property="detailIcon" destination="9np-if-sk1" id="WAI-FR-CuQ"/>
                                             <outlet property="detailLabel" destination="Zr1-L5-pDx" id="7I2-Js-1Re"/>
                                         </connections>
@@ -399,6 +399,10 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <segue destination="Tp7-7H-xj8" kind="show" identifier="showRepoCommitsSegue" id="tPV-gC-wb8"/>
+                        <segue destination="jxY-ID-M7i" kind="show" identifier="showRepoBranchesSegue" id="40m-m9-Giz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PT1-c4-JDd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -465,6 +469,68 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vah-eR-qSD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1957" y="227"/>
+        </scene>
+        <!--Commits-->
+        <scene sceneID="CQQ-Ec-zzN">
+            <objects>
+                <viewController title="Commits" id="Tp7-7H-xj8" customClass="RepoCommitsViewController" customModule="GitHub_User_Profile" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="m7Q-Eq-e5y"/>
+                        <viewControllerLayoutGuide type="bottom" id="CsM-3A-koE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ndt-l5-CQD">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="AKl-TE-W59">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="repoBranchCell" textLabel="0ze-tu-uP1" detailTextLabel="8bZ-3J-6OQ" imageView="Iui-Kv-RXS" style="IBUITableViewCellStyleSubtitle" id="D7t-kx-1WZ">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="D7t-kx-1WZ" id="LCN-uc-aEK">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0ze-tu-uP1">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8bZ-3J-6OQ">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" image="Oct Icon" id="Iui-Kv-RXS">
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </imageView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="Tp7-7H-xj8" id="lrs-2I-Ja2"/>
+                                    <outlet property="delegate" destination="Tp7-7H-xj8" id="mXa-9P-yRj"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="AKl-TE-W59" secondAttribute="trailing" id="6Ew-Hr-Qn2"/>
+                            <constraint firstItem="AKl-TE-W59" firstAttribute="top" secondItem="ndt-l5-CQD" secondAttribute="top" id="K1f-P4-B3g"/>
+                            <constraint firstAttribute="bottom" secondItem="AKl-TE-W59" secondAttribute="bottom" id="PaU-Ab-Onc"/>
+                            <constraint firstItem="AKl-TE-W59" firstAttribute="leading" secondItem="ndt-l5-CQD" secondAttribute="leading" id="mpa-Ly-1RV"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="AKl-TE-W59" id="dr4-zW-76D"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="j2R-zb-CSb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2717" y="227"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="PFl-Vu-iWP">

@@ -8,8 +8,15 @@
 
 import UIKit
 
+protocol RepoDetailPartDelegate {
+    func detailButtonClicked(segueIdentifier : String)
+}
+
 class RepoDetailPartTableViewCell: UITableViewCell {
 
+    var delegate : RepoDetailPartDelegate!
+    var segueIdentifier : String!
+    
     @IBOutlet var detailLabel: UILabel!
     @IBOutlet var detailIcon: UIImageView!
     @IBOutlet var detailButton: UIButton!
@@ -25,4 +32,7 @@ class RepoDetailPartTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    @IBAction func performAction (sender : AnyObject!) {
+        delegate.detailButtonClicked(segueIdentifier)
+    }
 }

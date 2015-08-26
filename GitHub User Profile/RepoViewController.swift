@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RepoViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class RepoViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, RepoDetailPartDelegate {
 
     var user : User!
     var repo = Repo()
@@ -37,6 +37,10 @@ class RepoViewController: UIViewController, UITableViewDelegate, UITableViewData
         // Pass the selected object to the new view controller.
         if segue.identifier == "showRepoBranchesSegue" {
             let vc = segue.destinationViewController as? RepoBranchesViewController
+            vc?.repo = repo
+            vc?.user = user
+        } else if segue.identifier == "showRepoCommitsSegue" {
+            let vc = segue.destinationViewController as? RepoCommitsViewController
             vc?.repo = repo
             vc?.user = user
         }
@@ -89,16 +93,19 @@ class RepoViewController: UIViewController, UITableViewDelegate, UITableViewData
         } else {
             
             var cell = tableView.dequeueReusableCellWithIdentifier("RepoDetailPartCell", forIndexPath: indexPath) as! RepoDetailPartTableViewCell
-            
+            cell.delegate = self
             if (repoSettings[indexPath.section]["Type"] == "branches") {
                 cell.detailLabel.text = repo.default_branch
+                cell.detailIcon.image = UIImage(named: "BranchIcon")
                 cell.detailButton.setTitle("View More Branches", forState: UIControlState.Normal)
+                cell.segueIdentifier = "showRepoBranchesSegue"
             } else if (repoSettings[indexPath.section]["Type"] == "commits") {
-                cell.detailIcon.image = UIImage(named: "HistoryIcon")
-                cell.detailButton.setTitle("View Commits", forState: UIControlState.Normal)
                 DataManager.getCommits(user.login, repo: repo.name) { (records, error) -> Void in
                     cell.detailLabel.text =  "\(records?.count ?? 0) Commits"
                 }
+                cell.detailIcon.image = UIImage(named: "HistoryIcon")
+                cell.detailButton.setTitle("View Commits", forState: UIControlState.Normal)
+                cell.segueIdentifier = "showRepoCommitsSegue"
             }
             cell.detailIcon.addImageInsets(Extension.Edge)
             return cell
@@ -145,4 +152,9 @@ class RepoViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     */
 
+    //MARK: - RepoDetailPartDelegate
+    func detailButtonClicked(segueIdentifier: String) {
+        self.performSegueWithIdentifier(segueIdentifier, sender: self)
+
+    }
 }
