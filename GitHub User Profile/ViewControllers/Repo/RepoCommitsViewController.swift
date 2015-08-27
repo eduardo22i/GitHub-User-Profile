@@ -28,10 +28,10 @@ class RepoCommitsViewController: UIViewController, UITableViewDelegate, UITableV
                     if let login = commit.author["login"] as? String {
                         DataManager.getUser(login, block: { (user, error) -> Void in
                             commit.user = user
+                            self.tableView.reloadData()
                         })
                     }
                 }
-                self.tableView.reloadData()
             }
         }
     }
@@ -71,16 +71,21 @@ class RepoCommitsViewController: UIViewController, UITableViewDelegate, UITableV
         // Configure the cell...
         var cell = tableView.dequeueReusableCellWithIdentifier("repoBranchCell", forIndexPath: indexPath) as! UITableViewCell
         
+        cell.detailTextLabel?.text = "Loading"
+        cell.imageView?.image = UIImage(named: "Oct Icon")
+        cell.imageView?.addImageInsets(UIEdgeInsets(top: 50, left: 50, bottom: 50, right: 50))
+        
         let commit = commits[indexPath.row ]
         if let message = commit.commit["message"] as? String {
             cell.textLabel?.text = message
         }
-        cell.imageView?.addImageInsets(UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
         
         if let user = commit.user, let avatar = user.avatar_url {
             
             user.downloadImage({ (data, error) -> Void in
                 cell.imageView!.image = UIImage(data: data!)
+                cell.imageView?.clipsToBounds = true
+                cell.imageView?.addImageInsets(UIEdgeInsets(top: 50, left: 50, bottom: 50, right: 50))
                 cell.imageView?.addRoundedCorner()
             })
             cell.detailTextLabel?.text = "\(user.login) authored"

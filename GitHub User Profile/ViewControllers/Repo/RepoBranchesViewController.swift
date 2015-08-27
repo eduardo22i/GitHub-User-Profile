@@ -21,8 +21,13 @@ class RepoBranchesViewController: UIViewController, UITableViewDelegate, UITable
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        DataManager.getBranches(user.login, repo: repo.name) { (branches : [Branch]?, error : NSError?) -> Void in
-            if let branches = branches {
+        DataManager.getBranches(user.login, repo: repo.name) { (records, error) -> Void in
+            
+            if error != nil {
+                return
+            }
+            
+            if let branches = records as? [Branch] {
                 for branch in branches {
                     self.branches.append(branch)
                 }

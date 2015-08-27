@@ -15,13 +15,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var user : User! {
         didSet {
                 if let username = user.login {
-                    infoText.text = "Loading"
+                    infoTextLabel.text = "Loading"
                     DataManager.getRepos(username, block: { (repos, error) -> Void in
+                        
                         if error != nil {
                             return
                         }
+                        
+                        if let repos = repos as? [Repo] {
+                            self.repos = repos
+                        }
                         self.tableView.hidden = false
-                        self.repos = repos!
+                        
                     })
                 }
             
@@ -34,7 +39,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
-    @IBOutlet var infoText : UILabel!
+    @IBOutlet var infoImageView : UIImageView!
+    @IBOutlet var infoTextLabel : UILabel!
     @IBOutlet var tableView : UITableView!
     
     override func viewDidLoad() {
@@ -52,8 +58,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func searchUser (userStr : String) {
         DataManager.getUser(userStr, block: { (user, error) -> Void in
             if let error = error {
-                self.infoText.text = error.localizedDescription
+                self.infoTextLabel.text = error.localizedDescription
                 self.tableView.hidden = true
+                
+                switch error.code {
+                case 403:
+                    self.infoImageView.image = UIImage(named: "muertosoctocat")
+                case 404:
+                    self.infoImageView.image = UIImage(named: "muertosoctocat")
+                    break;
+                default:
+                    break;
+                }
                 
                 return
             }
@@ -168,7 +184,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     //MARK: - UserSearchDelegate
     
     func didInputUser(userStr: String) {
-        infoText.text = "Loading"
+        infoTextLabel.text = "Loading"
+        infoImageView.image = UIImage(named: "jetpackoctocat")
+        
         tableView.hidden = true
         
         searchUser(userStr)

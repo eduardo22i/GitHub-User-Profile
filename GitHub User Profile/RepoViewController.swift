@@ -100,6 +100,7 @@ class RepoViewController: UIViewController, UITableViewDelegate, UITableViewData
                 cell.detailButton.setTitle("View More Branches", forState: UIControlState.Normal)
                 cell.segueIdentifier = "showRepoBranchesSegue"
             } else if (repoSettings[indexPath.section]["Type"] == "commits") {
+                cell.detailLabel.text = "Commits"
                 DataManager.getCommits(user.login, repo: repo.name) { (records, error) -> Void in
                     cell.detailLabel.text =  "\(records?.count ?? 0) Commits"
                 }

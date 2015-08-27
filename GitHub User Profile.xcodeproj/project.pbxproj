@@ -22,6 +22,7 @@
 		F9401CC41B80745F003FFD42 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9401CC31B80745F003FFD42 /* DataManager.swift */; };
 		F9401CC71B8078F4003FFD42 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9401CC61B8078F4003FFD42 /* User.swift */; };
 		F94F3E451B8E1C3F005DA695 /* RepoCommitsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94F3E441B8E1C3F005DA695 /* RepoCommitsViewController.swift */; };
+		F94F3E471B8E3773005DA695 /* OctoCatImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F94F3E461B8E3773005DA695 /* OctoCatImages.xcassets */; };
 		F9B4B3F71B8C3F86004A6BFD /* RepoDetailPartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B4B3F61B8C3F86004A6BFD /* RepoDetailPartTableViewCell.swift */; };
 		F9B4B3F91B8C42FC004A6BFD /* RepoDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B4B3F81B8C42FC004A6BFD /* RepoDescriptionTableViewCell.swift */; };
 		F9DDA72D1B85ABE2003B3C66 /* HTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DDA72C1B85ABE2003B3C66 /* HTTPManager.swift */; };
@@ -60,6 +61,7 @@
 		F9401CC31B80745F003FFD42 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		F9401CC61B8078F4003FFD42 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F94F3E441B8E1C3F005DA695 /* RepoCommitsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoCommitsViewController.swift; sourceTree = "<group>"; };
+		F94F3E461B8E3773005DA695 /* OctoCatImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = OctoCatImages.xcassets; sourceTree = "<group>"; };
 		F9B4B3F61B8C3F86004A6BFD /* RepoDetailPartTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoDetailPartTableViewCell.swift; sourceTree = "<group>"; };
 		F9B4B3F81B8C42FC004A6BFD /* RepoDescriptionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoDescriptionTableViewCell.swift; sourceTree = "<group>"; };
 		F9DDA72C1B85ABE2003B3C66 /* HTTPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPManager.swift; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 				F92C2EA71B81C8B400846566 /* SearchViewController.swift */,
 				F9401CA61B807423003FFD42 /* Main.storyboard */,
 				F9401CA91B807423003FFD42 /* Images.xcassets */,
+				F94F3E461B8E3773005DA695 /* OctoCatImages.xcassets */,
 				F9401CAB1B807423003FFD42 /* LaunchScreen.xib */,
 				F9401CA01B807423003FFD42 /* Supporting Files */,
 			);
@@ -286,6 +289,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F9401CA81B807423003FFD42 /* Main.storyboard in Resources */,
+				F94F3E471B8E3773005DA695 /* OctoCatImages.xcassets in Resources */,
 				F9401CAD1B807423003FFD42 /* LaunchScreen.xib in Resources */,
 				F9401CAA1B807423003FFD42 /* Images.xcassets in Resources */,
 			);

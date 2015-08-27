@@ -15,8 +15,18 @@ class HTTPManager: NSObject {
     
     static var url = "https://api.github.com/"
     
+    static func urlToken () -> String {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if let accessToken = defaults.stringForKey("accessToken") {
+            return "?access_token=\(accessToken)"
+        }
+        return ""
+    }
+    
     static func findAll (className : String, completeWithArray : DownloadCompleteWithArray) {
-        let request = NSURLRequest(URL: NSURL(string: "\(url)\(className)")!)
+        
+        
+        let request = NSURLRequest(URL: NSURL(string: "\(url)\(className)\(urlToken())")!)
         
         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) {(response, data, error) in
             if error != nil {
@@ -32,6 +42,14 @@ class HTTPManager: NSObject {
                     completeWithArray(records: nil, error: notFoundError)
                     return
                 }
+                if response.statusCode == 403 {
+                    let userInfo = [
+                        NSLocalizedDescriptionKey :  "API rate limit exceeded. (But here's the good news: Authenticated requests get a higher rate limit.)"
+                    ]
+                    let notFoundError = NSError(domain: "OverLimit", code: 403, userInfo: userInfo)
+                    completeWithArray(records: nil, error: notFoundError)
+                    return
+                }
                 if let indata = self.parseData(data) as? [AnyObject] {
                     completeWithArray(records: indata, error: nil)
                 }
@@ -43,7 +61,7 @@ class HTTPManager: NSObject {
     }
     
     static func getFirst (className : String, completeWithRecord : DownloadCompleteWithRecord) {
-        let request = NSURLRequest(URL: NSURL(string: "\(url)\(className)")!)
+        let request = NSURLRequest(URL: NSURL(string: "\(url)\(className)\(urlToken())")!)
         
         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) {(response, data, error) in
             if error != nil {
@@ -56,6 +74,14 @@ class HTTPManager: NSObject {
                         NSLocalizedDescriptionKey :  "Not found."
                     ]
                     let notFoundError = NSError(domain: "NotFound", code: 404, userInfo: userInfo)
+                    completeWithRecord(record: nil, error: notFoundError)
+                    return
+                }
+                if response.statusCode == 403 {
+                    let userInfo = [
+                        NSLocalizedDescriptionKey :  "API rate limit exceeded. (But here's the good news: Authenticated requests get a higher rate limit.)"
+                    ]
+                    let notFoundError = NSError(domain: "OverLimit", code: 403, userInfo: userInfo)
                     completeWithRecord(record: nil, error: notFoundError)
                     return
                 }

@@ -17,10 +17,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gNo-DH-KBw">
-                                <rect key="frame" x="16" y="288" width="568" height="24"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="jetpackoctocat" translatesAutoresizingMaskIntoConstraints="NO" id="P9s-Hg-Yzi">
+                                <rect key="frame" x="16" y="88" width="568" height="140"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gNo-DH-KBw">
+                                <rect key="frame" x="16" y="252" width="568" height="96"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="24" id="au8-2i-VvW"/>
+                                    <constraint firstAttribute="height" constant="96" id="au8-2i-VvW"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.58823529409999997" green="0.58823529409999997" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
@@ -208,6 +211,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="P9s-Hg-Yzi" firstAttribute="top" secondItem="gNo-DH-KBw" secondAttribute="bottom" constant="-10" id="6UR-if-qFI"/>
                             <constraint firstAttribute="centerX" secondItem="gNo-DH-KBw" secondAttribute="centerX" id="J8G-FG-vfd"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="SHG-AC-t3r" secondAttribute="bottom" id="Uoh-dx-i6M"/>
                             <constraint firstAttribute="centerY" secondItem="gNo-DH-KBw" secondAttribute="centerY" id="XIO-YH-nSU"/>
@@ -215,12 +219,17 @@
                             <constraint firstAttribute="trailing" secondItem="SHG-AC-t3r" secondAttribute="trailing" id="cP0-2U-rD9"/>
                             <constraint firstItem="SHG-AC-t3r" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="d5k-yk-2uX"/>
                             <constraint firstAttribute="trailingMargin" secondItem="gNo-DH-KBw" secondAttribute="trailing" id="gGV-BT-EWK"/>
+                            <constraint firstItem="gNo-DH-KBw" firstAttribute="top" secondItem="P9s-Hg-Yzi" secondAttribute="bottom" constant="24" id="jas-qf-BSr"/>
                             <constraint firstItem="SHG-AC-t3r" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="64" id="oB2-Fo-mnF"/>
+                            <constraint firstItem="P9s-Hg-Yzi" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="peA-nf-G01"/>
                             <constraint firstItem="gNo-DH-KBw" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="x7v-3s-97B"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="P9s-Hg-Yzi" secondAttribute="trailing" id="zSh-Qd-uHw"/>
+                            <constraint firstItem="P9s-Hg-Yzi" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="24" id="zdq-Bh-x3u"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="oB2-Fo-mnF"/>
+                                <exclude reference="6UR-if-qFI"/>
                                 <exclude reference="J8G-FG-vfd"/>
                             </mask>
                         </variation>
@@ -233,7 +242,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="infoText" destination="gNo-DH-KBw" id="UA7-4K-EJn"/>
+                        <outlet property="infoImageView" destination="P9s-Hg-Yzi" id="pBf-qB-t4j"/>
+                        <outlet property="infoTextLabel" destination="gNo-DH-KBw" id="kU0-04-zyJ"/>
                         <outlet property="tableView" destination="SHG-AC-t3r" id="SoR-8k-loJ"/>
                     </connections>
                 </viewController>
@@ -280,7 +290,7 @@
             </objects>
             <point key="canvasLocation" x="1197" y="263"/>
         </scene>
-        <!--Title-->
+        <!--Repo-->
         <scene sceneID="MJC-mt-nQt">
             <objects>
                 <viewController id="Rgo-TM-v2h" customClass="RepoViewController" customModule="GitHub_User_Profile" customModuleProvider="target" sceneMemberID="viewController">
@@ -392,7 +402,7 @@
                             <constraint firstItem="fNw-Av-7AZ" firstAttribute="leading" secondItem="1W7-Y8-Suc" secondAttribute="leading" id="wIy-M4-UzP"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="QXq-FC-T3y">
+                    <navigationItem key="navigationItem" title="Repo" id="QXq-FC-T3y">
                         <barButtonItem key="rightBarButtonItem" title="github.com" id="1Zq-TV-9qW">
                             <connections>
                                 <action selector="viewOnGitHubAction:" destination="Rgo-TM-v2h" id="XL1-db-0Q4"/>
@@ -556,5 +566,6 @@
         <image name="Oct Icon" width="120" height="120"/>
         <image name="RepoIcon" width="50" height="50"/>
         <image name="StarIcon" width="50" height="50"/>
+        <image name="jetpackoctocat" width="896" height="896"/>
     </resources>
 </document>

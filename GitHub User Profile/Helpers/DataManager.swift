@@ -9,8 +9,8 @@
 import UIKit
 
 typealias DownloadCompleteUser     = (user : User?, error : NSError?) -> Void
-typealias DownloadCompleteRepos    = (repos : [Repo]?, error : NSError?) -> Void
-typealias DownloadCompleteBranches = (branches : [Branch]?, error : NSError?) -> Void
+//typealias DownloadCompleteRepos    = (repos : [Repo]?, error : NSError?) -> Void
+//typealias DownloadCompleteBranches = (branches : [Branch]?, error : NSError?) -> Void
 typealias DownloadCompleteRecord   = (record : AnyObject?, error : NSError?) -> Void
 typealias DownloadCompleteRecords  = (records : [AnyObject]?, error : NSError?) -> Void
 
@@ -68,8 +68,14 @@ class DataManager: NSObject {
     }
     */
     
-    static func getRepos(username: String, block : DownloadCompleteRepos ) {
+    static func getRepos(username: String, block : DownloadCompleteRecords ) {
         HTTPManager.findAll("\(UserClass)/\(username)/\(RepoClass)", completeWithArray: { (records, error) -> Void in
+            
+            if let error = error {
+                block(records : nil, error: error)
+                return
+            }
+            
             var repos = [Repo()]
             for repoDic in records {
                 if let repo = self.setKeysAndValues(Repo(), dictionary: repoDic as! NSDictionary) as? Repo {
@@ -77,15 +83,15 @@ class DataManager: NSObject {
                 }
             }
             repos.removeAtIndex(0)
-            block(repos : repos, error: nil)
+            block(records : repos, error: nil)
         })
     }
     
-    static func getBranches(username: String, repo : String, block : DownloadCompleteBranches) {
+    static func getBranches(username: String, repo : String, block : DownloadCompleteRecords) {
         HTTPManager.findAll("\(RepoClass)/\(username)/\(repo)/\(BranchClass)", completeWithArray: { (records, error : NSError?) -> Void in
             
             if let error = error {
-                block(branches : nil, error: error)
+                block(records : nil, error: error)
                 return
             }
             
@@ -96,7 +102,7 @@ class DataManager: NSObject {
                 }
             }
             branches.removeAtIndex(0)
-            block(branches: branches, error: nil)
+            block(records: branches, error: nil)
         })
     }
     
