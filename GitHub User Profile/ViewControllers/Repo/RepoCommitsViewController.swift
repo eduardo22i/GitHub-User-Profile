@@ -10,7 +10,7 @@ import UIKit
 
 class RepoCommitsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var user : User!
+    //var user : User!
     var repo : Repo!
     
     var commits : [Commit] = [ ]
@@ -22,8 +22,8 @@ class RepoCommitsViewController: UIViewController, UITableViewDelegate, UITableV
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        DataManager.getCommits(user.login, repo: repo.name) { (records, error) -> Void in
-            if let commits = records as? [Commit] {
+        //DataManager.getCommits(user.login, repo: repo.name, options : nil) { (records, error) -> Void in
+        //    if let commits = records as? [Commit] {
                 var commitsUsersLogin = NSMutableSet()
                 for commit in commits {
                     self.commits.append(commit)
@@ -42,8 +42,8 @@ class RepoCommitsViewController: UIViewController, UITableViewDelegate, UITableV
                         } 
                     }
                 }
-            }
-        }
+        //    }
+        //}
     }
     
     override func didReceiveMemoryWarning() {
@@ -90,29 +90,21 @@ class RepoCommitsViewController: UIViewController, UITableViewDelegate, UITableV
             cell.textLabel?.text = message
         }
         
-        for user in self.commitsUsers {
-            if let login = commit.author["login"] as? String {
-                if login == user.login {
-                    if let user = user as? User {
-                        
-                        cell.detailTextLabel?.text = "\(user.login) authored"
-                        
-                        if let data = user.imageData {
-                            cell.imageView!.image = UIImage(data: data)
-                            cell.imageView?.clipsToBounds = true
-                            cell.imageView?.addImageInsets(UIEdgeInsets(top: 50, left: 50, bottom: 50, right: 50))
-                            cell.imageView?.addRoundedCorner()
-                            
-                            
-                        }
+        for usercommit in self.commitsUsers {
+            if let login = commit.author["login"] as? String, let usercommit = usercommit as? User {
+                if login == usercommit.login {
+                    cell.detailTextLabel?.text = "\(usercommit.login) authored"
+                    
+                    if let data = usercommit.imageData {
+                        cell.imageView!.image = UIImage(data: data)
+                        cell.imageView?.clipsToBounds = true
+                        cell.imageView?.addImageInsets(UIEdgeInsets(top: 50, left: 50, bottom: 50, right: 50))
+                        cell.imageView?.addRoundedCorner()
                         
                     }
                     
-                    
                 }
             }
-            
-            
         }
         
         if let date = commit.commit["author"]!["date"] as? String {

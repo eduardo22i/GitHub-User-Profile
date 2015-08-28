@@ -12,6 +12,7 @@ class RepoViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     var user : User!
     var repo = Repo()
+    var commits : [Commit] = []
     var repoSettings = [ ["Label" : "Description", "Type": "description"], ["Label" : "Branches", "Type": "branches"], ["Label" : "Commits", "Type": "commits"] ]
     
     override func viewDidLoad() {
@@ -42,7 +43,8 @@ class RepoViewController: UIViewController, UITableViewDelegate, UITableViewData
         } else if segue.identifier == "showRepoCommitsSegue" {
             let vc = segue.destinationViewController as? RepoCommitsViewController
             vc?.repo = repo
-            vc?.user = user
+            //vc?.user = user
+            vc?.commits = commits
         }
     }
 
@@ -101,8 +103,15 @@ class RepoViewController: UIViewController, UITableViewDelegate, UITableViewData
                 cell.segueIdentifier = "showRepoBranchesSegue"
             } else if (repoSettings[indexPath.section]["Type"] == "commits") {
                 cell.detailLabel.text = "Commits"
-                DataManager.getCommits(user.login, repo: repo.name) { (records, error) -> Void in
-                    cell.detailLabel.text =  "\(records?.count ?? 0) Commits"
+                DataManager.getCommits(user.login, repo: repo.name, options: nil) { (records, error) -> Void in
+                    if let records = records as? [Commit] {
+                        self.commits = records
+                        
+                        cell.detailLabel.text =  "\(records.count ?? 0) Commits"
+                        if records.count >= 100 {
+                            cell.detailLabel.text =  "\(records.count ?? 100)+ Commits"
+                        }
+                    }
                 }
                 cell.detailIcon.image = UIImage(named: "HistoryIcon")
                 cell.detailButton.setTitle("View Commits", forState: UIControlState.Normal)

@@ -19,8 +19,11 @@ class DataManager: NSObject {
     static var BranchClass = "branches"
     static var CommitsClass = "commits"
     
+    
+    //MARK: - GET
+    
     static func getUser(username: String, block : DownloadCompleteUser) {
-        HTTPManager.getFirst("\(UserClass)/\(username)", completeWithRecord: { (record, error : NSError?) -> Void in
+        HTTPManager.getFirst("\(UserClass)/\(username)", options : nil, completeWithRecord: { (record, error : NSError?) -> Void in
             if let error = error {
                 block(user : nil, error: error)
                 return
@@ -31,8 +34,9 @@ class DataManager: NSObject {
         })
     }
     
-    static func getRepos(username: String, block : DownloadCompleteRecords ) {
-        HTTPManager.findAll("\(UserClass)/\(username)/\(RepoClass)", completeWithArray: { (records, error) -> Void in
+    static func getRepos(username: String, options : NSDictionary!, block : DownloadCompleteRecords ) {
+        
+        HTTPManager.findAll("\(UserClass)/\(username)/\(RepoClass)", options : prepareRequestParameters(options), completeWithArray: { (records, error) -> Void in
             
             if let error = error {
                 block(records : nil, error: error)
@@ -50,8 +54,8 @@ class DataManager: NSObject {
         })
     }
     
-    static func getBranches(username: String, repo : String, block : DownloadCompleteRecords) {
-        HTTPManager.findAll("\(RepoClass)/\(username)/\(repo)/\(BranchClass)", completeWithArray: { (records, error : NSError?) -> Void in
+    static func getBranches(username: String, repo : String, options : NSDictionary!, block : DownloadCompleteRecords) {
+        HTTPManager.findAll("\(RepoClass)/\(username)/\(repo)/\(BranchClass)", options : prepareRequestParameters(options), completeWithArray: { (records, error : NSError?) -> Void in
             
             if let error = error {
                 block(records : nil, error: error)
@@ -69,8 +73,8 @@ class DataManager: NSObject {
         })
     }
     
-    static func getCommits(username: String, repo : String, block : DownloadCompleteRecords) {
-        HTTPManager.findAll("\(RepoClass)/\(username)/\(repo)/\(CommitsClass)", completeWithArray: { (records, error : NSError?) -> Void in
+    static func getCommits(username: String, repo : String, options : NSDictionary!, block : DownloadCompleteRecords) {
+        HTTPManager.findAll("\(RepoClass)/\(username)/\(repo)/\(CommitsClass)", options : prepareRequestParameters(options), completeWithArray: { (records, error : NSError?) -> Void in
             
             if let error = error {
                 block(records : nil, error: error)
@@ -88,10 +92,21 @@ class DataManager: NSObject {
         })
     }
     
+    //MARK: - Helpers
+    
+    static func prepareRequestParameters (options : NSDictionary!) -> NSDictionary {
+        let optionsSend = NSMutableDictionary()
+        if let options = options as? [NSObject : AnyObject] {
+            optionsSend.setValuesForKeysWithDictionary(options)
+        }
+        optionsSend.setValue(100, forKey: "per_page")
+        return optionsSend
+    }
+    
+    
     static func setKeysAndValues (object : AnyObject, dictionary : NSDictionary)  -> AnyObject  {
         
         for (key, value) in dictionary {
-            
             if !(key as! String == "description") {
                 if let keyName = key  as? String {
                     if let keyValue = value as? String {

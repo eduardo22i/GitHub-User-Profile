@@ -43,3 +43,18 @@ extension String {
         return NSURL(string: stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)!
     }
 }
+
+extension NSDictionary {
+    func toURLString () -> String {
+        var optionsstr = ""
+        let options = self
+        for option in options {
+            if let key = option.key as? String, let value: AnyObject = option.value as AnyObject! {
+                optionsstr = "\(optionsstr)\(key)=\(value)&"
+            }
+            
+        }
+        
+        return optionsstr
+    }
+}

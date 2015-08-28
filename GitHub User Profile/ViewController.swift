@@ -16,7 +16,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         didSet {
                 if let username = user.login {
                     infoTextLabel.text = "Loading"
-                    DataManager.getRepos(username, block: { (repos, error) -> Void in
+                    DataManager.getRepos(username, options: ["page" : 1], block: { (repos, error) -> Void in
                         
                         if error != nil {
                             return

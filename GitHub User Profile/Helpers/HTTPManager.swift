@@ -18,15 +18,21 @@ class HTTPManager: NSObject {
     static func urlToken () -> String {
         let defaults = NSUserDefaults.standardUserDefaults()
         if let accessToken = defaults.stringForKey("accessToken") {
-            return "?access_token=\(accessToken)"
+            return "access_token=\(accessToken)"
         }
         return ""
     }
     
-    static func findAll (className : String, completeWithArray : DownloadCompleteWithArray) {
+    static func findAll (className : String, options : NSDictionary!, completeWithArray : DownloadCompleteWithArray) {
         
+        var optionsurl = ""
         
-        let request = NSURLRequest(URL: NSURL(string: "\(url)\(className)\(urlToken())")!)
+        if let options =  options {
+            optionsurl = options.toURLString()
+        }
+        
+        let urlstr = "\(url)\(className)?\(optionsurl)\(urlToken())"
+        let request = NSURLRequest(URL: NSURL(string: urlstr)!)
         
         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) {(response, data, error) in
             if error != nil {
@@ -68,8 +74,15 @@ class HTTPManager: NSObject {
         }
     }
     
-    static func getFirst (className : String, completeWithRecord : DownloadCompleteWithRecord) {
-        let request = NSURLRequest(URL: NSURL(string: "\(url)\(className)\(urlToken())")!)
+    static func getFirst (className : String, options : NSDictionary!, completeWithRecord : DownloadCompleteWithRecord) {
+        
+        var optionsurl = ""
+        
+        if let options =  options {
+            optionsurl = options.toURLString()
+        }
+    
+        let request = NSURLRequest(URL: NSURL(string: "\(url)\(className)?\(optionsurl)\(urlToken())")!)
         
         NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) {(response, data, error) in
             if error != nil {
