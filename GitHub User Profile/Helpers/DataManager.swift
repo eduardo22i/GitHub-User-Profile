@@ -9,8 +9,6 @@
 import UIKit
 
 typealias DownloadCompleteUser     = (user : User?, error : NSError?) -> Void
-//typealias DownloadCompleteRepos    = (repos : [Repo]?, error : NSError?) -> Void
-//typealias DownloadCompleteBranches = (branches : [Branch]?, error : NSError?) -> Void
 typealias DownloadCompleteRecord   = (record : AnyObject?, error : NSError?) -> Void
 typealias DownloadCompleteRecords  = (records : [AnyObject]?, error : NSError?) -> Void
 
@@ -20,20 +18,6 @@ class DataManager: NSObject {
     static var RepoClass = "repos"
     static var BranchClass = "branches"
     static var CommitsClass = "commits"
-    
-    /*
-    static func getUser(username: String) -> User {
-        var user = User()
-        
-        let url = NSURL(string: "\(DataManager.url)\(username.removeComma.webUrl)")
-        if let data = NSData(contentsOfURL: url!) {
-            
-            setKeysAndValues(user, dictionary: parseData(data))
-        }
-        
-        return user
-    }
-    */
     
     static func getUser(username: String, block : DownloadCompleteUser) {
         HTTPManager.getFirst("\(UserClass)/\(username)", completeWithRecord: { (record, error : NSError?) -> Void in
@@ -46,27 +30,6 @@ class DataManager: NSObject {
             block(user : user, error: nil)
         })
     }
-    
-    /*
-    static func getRepos(username: String) -> [Repo]? {
-        var repos = [Repo()]
-        
-        let url = NSURL(string: "\(DataManager.url)\(username.removeComma.webUrl)/repos")
-        if let data = NSData(contentsOfURL: url!) {
-            //println(parseDataArray(data)[0]["archive_url"]!)
-            for repoDic in parseDataArray(data) {
-                //println(repoDic["archive_url"])
-                if let repoDic = repoDic as? NSDictionary {
-                    if let repo = setKeysAndValues(Repo(), dictionary: repoDic) as? Repo {
-                        repos.append(repo)
-                    }
-                }
-            }
-        } 
-        repos.removeAtIndex(0)
-        return repos
-    }
-    */
     
     static func getRepos(username: String, block : DownloadCompleteRecords ) {
         HTTPManager.findAll("\(UserClass)/\(username)/\(RepoClass)", completeWithArray: { (records, error) -> Void in

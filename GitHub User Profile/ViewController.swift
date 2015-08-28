@@ -65,7 +65,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 case 403:
                     self.infoImageView.image = UIImage(named: "muertosoctocat")
                 case 404:
-                    self.infoImageView.image = UIImage(named: "muertosoctocat")
+                    self.infoImageView.image = UIImage(named: "obiwanoctocat")
+                    break;
+                case 505:
+                    self.infoImageView.image = UIImage(named: "deckfailoctocat")
                     break;
                 default:
                     break;

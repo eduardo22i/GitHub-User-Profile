@@ -50,6 +50,14 @@ class HTTPManager: NSObject {
                     completeWithArray(records: nil, error: notFoundError)
                     return
                 }
+                if response.statusCode == 505 {
+                    let userInfo = [
+                        NSLocalizedDescriptionKey :  "Looks like something went wrong!"
+                    ]
+                    let notFoundError = NSError(domain: "ServerError", code: 403, userInfo: userInfo)
+                    completeWithArray(records: nil, error: notFoundError)
+                    return
+                }
                 if let indata = self.parseData(data) as? [AnyObject] {
                     completeWithArray(records: indata, error: nil)
                 }
@@ -82,6 +90,14 @@ class HTTPManager: NSObject {
                         NSLocalizedDescriptionKey :  "API rate limit exceeded. (But here's the good news: Authenticated requests get a higher rate limit.)"
                     ]
                     let notFoundError = NSError(domain: "OverLimit", code: 403, userInfo: userInfo)
+                    completeWithRecord(record: nil, error: notFoundError)
+                    return
+                }
+                if response.statusCode == 505 {
+                    let userInfo = [
+                        NSLocalizedDescriptionKey :  "Looks like something went wrong!"
+                    ]
+                    let notFoundError = NSError(domain: "ServerError", code: 403, userInfo: userInfo)
                     completeWithRecord(record: nil, error: notFoundError)
                     return
                 }
