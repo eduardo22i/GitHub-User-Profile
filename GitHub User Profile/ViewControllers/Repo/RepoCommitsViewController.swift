@@ -14,6 +14,7 @@ class RepoCommitsViewController: UIViewController, UITableViewDelegate, UITableV
     var repo : Repo!
     
     var commits : [Commit] = [ ]
+    var commitsUsers = NSMutableArray()
     
     @IBOutlet var tableView : UITableView!
     
@@ -23,13 +24,22 @@ class RepoCommitsViewController: UIViewController, UITableViewDelegate, UITableV
         // Do any additional setup after loading the view.
         DataManager.getCommits(user.login, repo: repo.name) { (records, error) -> Void in
             if let commits = records as? [Commit] {
+                var commitsUsersLogin = NSMutableSet()
                 for commit in commits {
                     self.commits.append(commit)
                     if let login = commit.author["login"] as? String {
-                        DataManager.getUser(login, block: { (user, error) -> Void in
-                            commit.user = user
-                            self.tableView.reloadData()
-                        })
+                        if !commitsUsersLogin.containsObject(login) {
+                            commitsUsersLogin.addObject(login)
+                        	DataManager.getUser(login, block: { (user, error) -> Void in
+                                if let user = user {
+                                    user.downloadImage({ (data, error) -> Void in
+                                        self.tableView.reloadData()
+                                    })
+                                    self.commitsUsers.addObject(user)
+                                }
+                                self.tableView.reloadData()
+                            })
+                        } 
                     }
                 }
             }
@@ -71,7 +81,7 @@ class RepoCommitsViewController: UIViewController, UITableViewDelegate, UITableV
         // Configure the cell...
         var cell = tableView.dequeueReusableCellWithIdentifier("repoBranchCell", forIndexPath: indexPath) as! UITableViewCell
         
-        cell.detailTextLabel?.text = "Loading"
+        cell.detailTextLabel?.text = ""
         cell.imageView?.image = UIImage(named: "Oct Icon")
         cell.imageView?.addImageInsets(UIEdgeInsets(top: 50, left: 50, bottom: 50, right: 50))
         
@@ -80,16 +90,34 @@ class RepoCommitsViewController: UIViewController, UITableViewDelegate, UITableV
             cell.textLabel?.text = message
         }
         
-        if let user = commit.user, let avatar = user.avatar_url {
+        for user in self.commitsUsers {
+            if let login = commit.author["login"] as? String {
+                if login == user.login {
+                    if let user = user as? User {
+                        
+                        cell.detailTextLabel?.text = "\(user.login) authored"
+                        
+                        if let data = user.imageData {
+                            cell.imageView!.image = UIImage(data: data)
+                            cell.imageView?.clipsToBounds = true
+                            cell.imageView?.addImageInsets(UIEdgeInsets(top: 50, left: 50, bottom: 50, right: 50))
+                            cell.imageView?.addRoundedCorner()
+                            
+                            
+                        }
+                        
+                    }
+                    
+                    
+                }
+            }
             
-            user.downloadImage({ (data, error) -> Void in
-                cell.imageView!.image = UIImage(data: data!)
-                cell.imageView?.clipsToBounds = true
-                cell.imageView?.addImageInsets(UIEdgeInsets(top: 50, left: 50, bottom: 50, right: 50))
-                cell.imageView?.addRoundedCorner()
-            })
-            cell.detailTextLabel?.text = "\(user.login) authored"
             
+        }
+        
+        if let date = commit.commit["author"]!["date"] as? String {
+            let userCommitLabel = cell.detailTextLabel?.text ?? ""
+            cell.detailTextLabel?.text = "\(userCommitLabel) on \(date)"
         }
         
         return cell

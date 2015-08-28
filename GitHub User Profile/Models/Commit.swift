@@ -18,5 +18,4 @@ class Commit: NSObject {
     var sha : String!
     var url : String!
     
-    var user : User!
 }
