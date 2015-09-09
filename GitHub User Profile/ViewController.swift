@@ -10,25 +10,15 @@ import UIKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UserSearchDelegate {
 
-    let defaultUser = "jackoplane"
+    var defaultUser = "jackoplane"
+    var shouldSearchUser = true
     
     var user : User! {
         didSet {
-                if let username = user.login {
-                    infoTextLabel.text = "Loading"
-                    DataManager.getRepos(username, options: ["page" : 1], block: { (repos, error) -> Void in
-                        
-                        if error != nil {
-                            return
-                        }
-                        
-                        if let repos = repos as? [Repo] {
-                            self.repos = repos
-                        }
-                        self.tableView.hidden = false
-                        
-                    })
-                }
+            if !shouldSearchUser {
+                return
+            }
+            displayUser ()
             
         }
     }
@@ -46,6 +36,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        if !shouldSearchUser {
+            displayUser ()
+            return
+        }
+        
         tableView.hidden = true
         searchUser(defaultUser)
     }
@@ -53,6 +49,24 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func displayUser () {
+        if let username = user.login {
+            infoTextLabel.text = "Loading"
+            DataManager.getRepos(username, options: ["page" : 1], block: { (repos, error) -> Void in
+                
+                if error != nil {
+                    return
+                }
+                
+                if let repos = repos as? [Repo] {
+                    self.repos = repos
+                }
+                self.tableView.hidden = false
+                
+            })
+        }
     }
     
     func searchUser (userStr : String) {

@@ -124,6 +124,27 @@ class RepoCommitsViewController: UIViewController, UITableViewDelegate, UITableV
         return 0.1
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let commit = commits[indexPath.row ]
+        
+        for usercommit in self.commitsUsers {
+            if let login = commit.author["login"] as? String, let usercommit = usercommit as? User {
+                if login == usercommit.login {
+                    let vc = storyboard?.instantiateViewControllerWithIdentifier("viewController") as! ViewController
+                    
+                    vc.defaultUser = login
+                    vc.shouldSearchUser = false
+                    vc.user = usercommit
+                    
+                    self.navigationController?.pushViewController(vc, animated: true)
+                    break
+                }
+            }
+        }
+        
+        
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
