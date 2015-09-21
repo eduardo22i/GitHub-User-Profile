@@ -44,8 +44,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
     }
     */
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
-        SearchViewController.userSearchInput = searchBar.text
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        SearchViewController.userSearchInput = searchBar.text ?? ""
         searchBar.resignFirstResponder()
         self.dismissViewControllerAnimated(true, completion: { () -> Void in
             
@@ -63,11 +63,11 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        SearchViewController.userSearchInput = searchBar.text
+        SearchViewController.userSearchInput = searchBar.text ?? ""
         searchBar.resignFirstResponder()
         self.dismissViewControllerAnimated(true, completion: { () -> Void in
             if let delegate = self.delegate {
-                delegate.didInputUser(searchBar.text)
+                delegate.didInputUser(searchBar.text ?? "")
             }
         })
     }

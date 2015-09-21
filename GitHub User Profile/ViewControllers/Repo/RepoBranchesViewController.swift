@@ -69,7 +69,7 @@ class RepoBranchesViewController: UIViewController, UITableViewDelegate, UITable
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         // Configure the cell...
-        var cell = tableView.dequeueReusableCellWithIdentifier("repoBranchCell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("repoBranchCell", forIndexPath: indexPath) 
         
         let branch = branches[indexPath.row ]
         cell.textLabel?.text = branch.name

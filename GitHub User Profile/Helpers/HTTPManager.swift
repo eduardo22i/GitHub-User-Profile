@@ -122,8 +122,8 @@ class HTTPManager: NSObject {
     }
     
     static func parseData (data : NSData)  -> AnyObject!  {
-        var error: NSError?
-        return NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &error)!
+        //var error: NSError?
+        return try! NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers)
     }
     
 }

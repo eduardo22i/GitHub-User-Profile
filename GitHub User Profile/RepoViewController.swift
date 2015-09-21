@@ -89,12 +89,12 @@ class RepoViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         // Configure the cell...
         if (repoSettings[indexPath.section]["Type"] == "description") {
-            var cell = tableView.dequeueReusableCellWithIdentifier("repoDescriptionCell", forIndexPath: indexPath) as! RepoDescriptionTableViewCell
+            let cell = tableView.dequeueReusableCellWithIdentifier("repoDescriptionCell", forIndexPath: indexPath) as! RepoDescriptionTableViewCell
             cell.descriptionTextView.text = repo.alternateDescription
             return cell
         } else {
             
-            var cell = tableView.dequeueReusableCellWithIdentifier("RepoDetailPartCell", forIndexPath: indexPath) as! RepoDetailPartTableViewCell
+            let cell = tableView.dequeueReusableCellWithIdentifier("RepoDetailPartCell", forIndexPath: indexPath) as! RepoDetailPartTableViewCell
             cell.delegate = self
             if (repoSettings[indexPath.section]["Type"] == "branches") {
                 cell.detailLabel.text = repo.default_branch

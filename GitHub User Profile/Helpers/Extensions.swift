@@ -25,7 +25,7 @@ extension UIImageView {
             UIGraphicsBeginImageContextWithOptions(
                 CGSizeMake(image.size.width + insets.left + insets.right,
                     image.size.height + insets.top + insets.bottom), false, image.scale)
-            let context = UIGraphicsGetCurrentContext()
+            //let context = UIGraphicsGetCurrentContext()
             let origin = CGPoint(x: insets.left, y: insets.top)
             image.drawAtPoint(origin)
             let imageWithInsets = UIGraphicsGetImageFromCurrentImageContext()
@@ -37,10 +37,11 @@ extension UIImageView {
 
 extension String {
     var removeComma:String {
-        return "".join(componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: ",")))
+        return componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: ",")).joinWithSeparator("")
     }
     var webUrl:NSURL {
-        return NSURL(string: stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)!
+        
+        return NSURL(string: stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLFragmentAllowedCharacterSet())! )!
     }
 }
 

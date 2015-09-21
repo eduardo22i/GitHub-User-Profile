@@ -28,7 +28,7 @@ class DataManager: NSObject {
                 block(user : nil, error: error)
                 return
             }
-            var user = User()
+            let user = User()
             self.setKeysAndValues(user, dictionary: record as! NSDictionary)
             block(user : user, error: nil)
         })
@@ -96,7 +96,7 @@ class DataManager: NSObject {
     
     static func prepareRequestParameters (options : NSDictionary!) -> NSDictionary {
         let optionsSend = NSMutableDictionary()
-        if let options = options as? [NSObject : AnyObject] {
+        if let options = options as? [String : AnyObject] {
             optionsSend.setValuesForKeysWithDictionary(options)
         }
         optionsSend.setValue(100, forKey: "per_page")

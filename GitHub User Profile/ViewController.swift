@@ -101,7 +101,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if segue.identifier == "showRepoSegue" {
-            let indexPath = self.tableView.indexPathForSelectedRow()
+            let indexPath = self.tableView.indexPathForSelectedRow
             let repo = repos[indexPath?.row ?? 0]
             let vc = segue.destinationViewController as? RepoViewController
             vc?.repo = repo
@@ -148,7 +148,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             return cellu
         } else {
-            var cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! RepoTableViewCell
+            let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! RepoTableViewCell
             
             let repo = repos[indexPath.row ]
             cell.repoNameLabel.text = repo.name

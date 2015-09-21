@@ -24,7 +24,7 @@ class RepoCommitsViewController: UIViewController, UITableViewDelegate, UITableV
         // Do any additional setup after loading the view.
         //DataManager.getCommits(user.login, repo: repo.name, options : nil) { (records, error) -> Void in
         //    if let commits = records as? [Commit] {
-                var commitsUsersLogin = NSMutableSet()
+                let commitsUsersLogin = NSMutableSet()
                 for commit in commits {
                     self.commits.append(commit)
                     if let login = commit.author["login"] as? String {
@@ -79,7 +79,7 @@ class RepoCommitsViewController: UIViewController, UITableViewDelegate, UITableV
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         // Configure the cell...
-        var cell = tableView.dequeueReusableCellWithIdentifier("repoBranchCell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("repoBranchCell", forIndexPath: indexPath) 
         
         cell.detailTextLabel?.text = ""
         cell.imageView?.image = UIImage(named: "Oct Icon")
