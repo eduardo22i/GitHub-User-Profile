@@ -77,6 +77,7 @@ class HTTPManager: NSObject {
     static func getFirst (className : String, options : NSDictionary!, completeWithRecord : DownloadCompleteWithRecord) {
         
         var optionsurl = ""
+        let session = NSURLSession.sharedSession()
         
         if let options =  options {
             optionsurl = options.toURLString()
@@ -84,7 +85,7 @@ class HTTPManager: NSObject {
     
         let request = NSURLRequest(URL: NSURL(string: "\(url)\(className)?\(optionsurl)\(urlToken())")!)
         
-        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) {(response, data, error) in
+        let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
             if error != nil {
                 completeWithRecord(record: nil, error: error)
                 return
@@ -119,6 +120,8 @@ class HTTPManager: NSObject {
                 }
             }
         }
+        dataTask.resume()
+        
     }
     
     static func parseData (data : NSData)  -> AnyObject!  {
