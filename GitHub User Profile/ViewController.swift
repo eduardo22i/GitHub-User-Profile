@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UserSearchDelegate {
 
-    var defaultUser = "jackoplane"
+    var defaultUser = ""
     var shouldSearchUser = true
     
     var user : User! {
@@ -29,6 +29,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
+    let defaults = NSUserDefaults.standardUserDefaults()
+    
     @IBOutlet var infoImageView : UIImageView!
     @IBOutlet var infoTextLabel : UILabel!
     @IBOutlet var tableView : UITableView!
@@ -43,7 +45,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
         tableView.hidden = true
-        searchUser(defaultUser)
+        
+        if let user = defaults.stringForKey("user") {
+            defaultUser = user
+            searchUser(defaultUser)
+        } else {
+            
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -206,7 +215,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         tableView.hidden = true
         
-        searchUser(userStr)
+        defaultUser = userStr
+        defaults.setObject(defaultUser, forKey: "user")
+
+        searchUser(defaultUser)
     }
     
 }
