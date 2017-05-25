@@ -20,14 +20,14 @@ extension UIView {
 }
 
 extension UIImageView {
-    func addImageInsets(insets: UIEdgeInsets) {
+    func addImageInsets(_ insets: UIEdgeInsets) {
         if let image = self.image {
             UIGraphicsBeginImageContextWithOptions(
-                CGSizeMake(image.size.width + insets.left + insets.right,
-                    image.size.height + insets.top + insets.bottom), false, image.scale)
+                CGSize(width: image.size.width + insets.left + insets.right,
+                    height: image.size.height + insets.top + insets.bottom), false, image.scale)
             //let context = UIGraphicsGetCurrentContext()
             let origin = CGPoint(x: insets.left, y: insets.top)
-            image.drawAtPoint(origin)
+            image.draw(at: origin)
             let imageWithInsets = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
             self.image = imageWithInsets
@@ -37,11 +37,11 @@ extension UIImageView {
 
 extension String {
     var removeComma:String {
-        return componentsSeparatedByCharactersInSet(NSCharacterSet(charactersInString: ",")).joinWithSeparator("")
+        return components(separatedBy: CharacterSet(charactersIn: ",")).joined(separator: "")
     }
-    var webUrl:NSURL {
+    var webUrl:URL {
         
-        return NSURL(string: stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLFragmentAllowedCharacterSet())! )!
+        return URL(string: addingPercentEncoding(withAllowedCharacters: CharacterSet.urlFragmentAllowed)! )!
     }
 }
 

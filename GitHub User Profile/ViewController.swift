@@ -29,7 +29,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
-    let defaults = NSUserDefaults.standardUserDefaults()
+    let defaults = UserDefaults.standard
     
     @IBOutlet var infoImageView : UIImageView!
     @IBOutlet var infoTextLabel : UILabel!
@@ -44,9 +44,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             return
         }
         
-        tableView.hidden = true
+        tableView.isHidden = true
         
-        if let user = defaults.stringForKey("user") {
+        if let user = defaults.string(forKey: "user") {
             defaultUser = user
             searchUser(defaultUser)
         } else {
@@ -72,19 +72,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 if let repos = repos as? [Repo] {
                     self.repos = repos
                 }
-                self.tableView.hidden = false
+                self.tableView.isHidden = false
                 
             })
         }
     }
     
-    func searchUser (userStr : String) {
+    func searchUser (_ userStr : String) {
         DataManager.getUser(userStr, block: { (user, error) -> Void in
             if let error = error {
                 self.infoTextLabel.text = error.localizedDescription
-                self.tableView.hidden = true
+                self.tableView.isHidden = true
                 
-                switch error.code {
+                switch error._code {
                 case 403:
                     self.infoImageView.image = UIImage(named: "muertosoctocat")
                 case 404:
@@ -106,42 +106,42 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if segue.identifier == "showRepoSegue" {
             let indexPath = self.tableView.indexPathForSelectedRow
             let repo = repos[indexPath?.row ?? 0]
-            let vc = segue.destinationViewController as? RepoViewController
+            let vc = segue.destination as? RepoViewController
             vc?.repo = repo
             vc?.user = user
         } else {
-            let vc = segue.destinationViewController as? SearchViewController
+            let vc = segue.destination as? SearchViewController
             vc?.delegate = self
-            vc?.modalPresentationStyle = UIModalPresentationStyle.OverCurrentContext
+            vc?.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         }
     }
     
     // MARK: - Table view data source
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
         return 2
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
         return section == 0 ? user == nil ? 0 : 1 : repos.count
     }
     
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
                // Configure the cell...
         if indexPath.section == 0 {
             
-            let cellu = tableView.dequeueReusableCellWithIdentifier("userInfoCellIdentifier", forIndexPath: indexPath) as! UserInfoTableViewCell
+            let cellu = tableView.dequeueReusableCell(withIdentifier: "userInfoCellIdentifier", for: indexPath) as! UserInfoTableViewCell
             cellu.userNameLabel.text = user.name ?? "No Name :("
             cellu.usernameLabel.text = user.login
             cellu.userCompanyLabel.text = user.company ?? "No Company :("
@@ -157,7 +157,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             return cellu
         } else {
-            let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! RepoTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath) as! RepoTableViewCell
             
             let repo = repos[indexPath.row ]
             cell.repoNameLabel.text = repo.name
@@ -169,7 +169,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return indexPath.section == 0 ? 150 : 55
     }
     /*
@@ -209,14 +209,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     //MARK: - UserSearchDelegate
     
-    func didInputUser(userStr: String) {
+    func didInputUser(_ userStr: String) {
         infoTextLabel.text = "Loading"
         infoImageView.image = UIImage(named: "jetpackoctocat")
         
-        tableView.hidden = true
+        tableView.isHidden = true
         
         defaultUser = userStr
-        defaults.setObject(defaultUser, forKey: "user")
+        defaults.set(defaultUser, forKey: "user")
 
         searchUser(defaultUser)
     }

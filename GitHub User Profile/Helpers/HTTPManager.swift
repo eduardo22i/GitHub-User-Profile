@@ -8,22 +8,22 @@
 
 import UIKit
 
-typealias DownloadCompleteWithArray =  (records : [AnyObject]!, error : NSError?) -> Void
-typealias DownloadCompleteWithRecord =  (record : AnyObject!, error : NSError?) -> Void
+typealias DownloadCompleteWithArray =  (_ records : [[String : Any]]?, _ error : Error?) -> Void
+typealias DownloadCompleteWithRecord =  (_ record : [String : Any]?, _ error : Error?) -> Void
 
 class HTTPManager: NSObject {
     
     static var url = "https://api.github.com/"
     
     static func urlToken () -> String {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        if let accessToken = defaults.stringForKey("accessToken") {
+        let defaults = UserDefaults.standard
+        if let accessToken = defaults.string(forKey: "accessToken") {
             return "access_token=\(accessToken)"
         }
         return ""
     }
     
-    static func findAll (className : String, options : NSDictionary!, completeWithArray : DownloadCompleteWithArray) {
+    static func findAll (_ className : String, options : NSDictionary!, completeWithArray : @escaping DownloadCompleteWithArray) {
         
         var optionsurl = ""
         
@@ -32,40 +32,44 @@ class HTTPManager: NSObject {
         }
         
         let urlstr = "\(url)\(className)?\(optionsurl)\(urlToken())"
-        let request = NSURLRequest(URL: NSURL(string: urlstr)!)
+        let request = URLRequest(url: URL(string: urlstr)!)
         
-        NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue()) {(response, data, error) in
+        NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main) {(response, data, error) in
             if error != nil {
-                completeWithArray(records: nil, error: error)
+                completeWithArray(nil, error)
                 return
             }
-            if let response = response as? NSHTTPURLResponse, let data = data  {
+            if let response = response as? HTTPURLResponse, let data = data  {
                 if response.statusCode == 404 {
+                    /*
                     let userInfo = [
                         NSLocalizedDescriptionKey :  "Not found."
                     ]
-                    let notFoundError = NSError(domain: "NotFound", code: 404, userInfo: userInfo)
-                    completeWithArray(records: nil, error: notFoundError)
+                    let notFoundError = Error(domain: "NotFound", code: 404, userInfo: userInfo)
+                    completeWithArray(nil, notFoundError)
+                    */
                     return
                 }
+                /*
                 if response.statusCode == 403 {
                     let userInfo = [
                         NSLocalizedDescriptionKey :  "API rate limit exceeded. (But here's the good news: Authenticated requests get a higher rate limit.)"
                     ]
-                    let notFoundError = NSError(domain: "OverLimit", code: 403, userInfo: userInfo)
-                    completeWithArray(records: nil, error: notFoundError)
+                    let notFoundError = Error(domain: "OverLimit", code: 403, userInfo: userInfo)
+                    completeWithArray(nil, notFoundError)
                     return
                 }
                 if response.statusCode == 505 {
                     let userInfo = [
                         NSLocalizedDescriptionKey :  "Looks like something went wrong!"
                     ]
-                    let notFoundError = NSError(domain: "ServerError", code: 403, userInfo: userInfo)
-                    completeWithArray(records: nil, error: notFoundError)
+                    let notFoundError = Error(domain: "ServerError", code: 403, userInfo: userInfo)
+                    completeWithArray(nil, notFoundError)
                     return
                 }
-                if let indata = self.parseData(data) as? [AnyObject] {
-                    completeWithArray(records: indata, error: nil)
+                */
+                if let indata = self.parseData(data) as? [[String : Any]] {
+                    completeWithArray(indata, nil)
                 }
                 
                 
@@ -74,59 +78,65 @@ class HTTPManager: NSObject {
         }
     }
     
-    static func getFirst (className : String, options : NSDictionary!, completeWithRecord : DownloadCompleteWithRecord) {
+    static func getFirst (_ className : String, options : NSDictionary!, completeWithRecord : @escaping DownloadCompleteWithRecord) {
         
         var optionsurl = ""
-        let session = NSURLSession.sharedSession()
+        let session = URLSession.shared
         
         if let options =  options {
             optionsurl = options.toURLString()
         }
     
-        let request = NSURLRequest(URL: NSURL(string: "\(url)\(className)?\(optionsurl)\(urlToken())")!)
+        let request = URLRequest(url: URL(string: "\(url)\(className)?\(optionsurl)\(urlToken())")!)
         
-        let dataTask = session.dataTaskWithRequest(request) { (data:NSData?, response:NSURLResponse?, error:NSError?) -> Void in
+        let dataTask = session.dataTask(with: request, completionHandler: { (data:Data?, response:URLResponse?, error:Error?) -> Void in
             if error != nil {
-                completeWithRecord(record: nil, error: error)
+                completeWithRecord(nil, error)
                 return
             }
-            if let response = response as? NSHTTPURLResponse, let data = data  {
+            if let response = response as? HTTPURLResponse, let data = data  {
+                
                 if response.statusCode == 404 {
+                    /*
                     let userInfo = [
                         NSLocalizedDescriptionKey :  "Not found."
                     ]
-                    let notFoundError = NSError(domain: "NotFound", code: 404, userInfo: userInfo)
-                    completeWithRecord(record: nil, error: notFoundError)
+                    let notFoundError = Error(domain: "NotFound", code: 404, userInfo: userInfo)
+                    completeWithRecord(nil, notFoundError)
+                    */
                     return
                 }
+                /*
                 if response.statusCode == 403 {
                     let userInfo = [
                         NSLocalizedDescriptionKey :  "API rate limit exceeded. (But here's the good news: Authenticated requests get a higher rate limit.)"
                     ]
-                    let notFoundError = NSError(domain: "OverLimit", code: 403, userInfo: userInfo)
-                    completeWithRecord(record: nil, error: notFoundError)
+                    let notFoundError = Error(domain: "OverLimit", code: 403, userInfo: userInfo)
+                    completeWithRecord(nil, notFoundError)
                     return
                 }
                 if response.statusCode == 505 {
                     let userInfo = [
                         NSLocalizedDescriptionKey :  "Looks like something went wrong!"
                     ]
-                    let notFoundError = NSError(domain: "ServerError", code: 403, userInfo: userInfo)
-                    completeWithRecord(record: nil, error: notFoundError)
+                    let notFoundError = Error(domain: "ServerError", code: 403, userInfo: userInfo)
+                    completeWithRecord(nil, notFoundError)
                     return
                 }
-                if let indata = self.parseData(data) as? NSDictionary {
-                    completeWithRecord(record: indata, error: nil)
+                 */
+                if let indata = self.parseData(data) as? [String : Any] {
+                    completeWithRecord(indata, nil)
                 }
             }
-        }
+        } )
+        
         dataTask.resume()
         
     }
     
-    static func parseData (data : NSData)  -> AnyObject!  {
-        //var error: NSError?
-        return try! NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers)
+    static func parseData (_ data : Data)  -> AnyObject!  {
+        //var error: Error?
+        return try! JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as AnyObject
     }
     
 }

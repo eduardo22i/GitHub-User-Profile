@@ -8,7 +8,7 @@
 
 import UIKit
 
-typealias DownloadComplete =  (data : NSData?, error : NSError?) -> Void
+typealias DownloadComplete =  (_ data : Data?, _ error : Error?) -> Void
 
 class User: NSObject {
     
@@ -45,23 +45,23 @@ class User: NSObject {
     var following = 0
     
     var alternateDescription : String!
-    var imageData : NSData!
+    var imageData : Data!
     
     override init () {
         super.init()
     }
     
-    func downloadImage(block : DownloadComplete) {
+    func downloadImage(_ block : @escaping DownloadComplete) {
         if imageData != nil {
-            block( data: imageData , error :  nil )
+            block( imageData , nil )
             return
         } else {
-            dispatch_async(dispatch_queue_create("", nil), { () -> Void in
-                let url = NSURL(string: self.avatar_url)
-                if let data = NSData(contentsOfURL: url!) {
+            DispatchQueue(label: "", attributes: []).async(execute: { () -> Void in
+                let url = URL(string: self.avatar_url)
+                if let data = try? Data(contentsOf: url!) {
                     self.imageData = data
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        block( data: data, error :  nil )
+                    DispatchQueue.main.async(execute: { () -> Void in
+                        block( data, nil )
                     })
                 }
             })

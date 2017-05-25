@@ -8,9 +8,9 @@
 
 import UIKit
 
-typealias DownloadCompleteUser     = (user : User?, error : NSError?) -> Void
-typealias DownloadCompleteRecord   = (record : AnyObject?, error : NSError?) -> Void
-typealias DownloadCompleteRecords  = (records : [AnyObject]?, error : NSError?) -> Void
+typealias DownloadCompleteUser     = (_ user : User?, _ error : Error?) -> Void
+typealias DownloadCompleteRecord   = (_ record : AnyObject?, _ error : Error?) -> Void
+typealias DownloadCompleteRecords  = (_ records : [AnyObject]?, _ error : Error?) -> Void
 
 class DataManager: NSObject {
     
@@ -22,113 +22,111 @@ class DataManager: NSObject {
     
     //MARK: - GET
     
-    static func getUser(username: String, block : DownloadCompleteUser) {
-        HTTPManager.getFirst("\(UserClass)/\(username)", options : nil, completeWithRecord: { (record, error : NSError?) -> Void in
+    static func getUser(_ username: String, block : @escaping DownloadCompleteUser) {
+        HTTPManager.getFirst("\(UserClass)/\(username)", options : nil, completeWithRecord: { (record, error : Error?) -> Void in
             if let error = error {
-                block(user : nil, error: error)
+                block(nil, error)
                 return
             }
             let user = User()
-            self.setKeysAndValues(user, dictionary: record as! NSDictionary)
-            block(user : user, error: nil)
+            self.setKeysAndValues(user, dictionary: record!)
+            block(user, nil)
         })
     }
     
-    static func getRepos(username: String, options : NSDictionary!, block : DownloadCompleteRecords ) {
+    static func getRepos(_ username: String, options : NSDictionary!, block : @escaping DownloadCompleteRecords ) {
         
         HTTPManager.findAll("\(UserClass)/\(username)/\(RepoClass)", options : prepareRequestParameters(options), completeWithArray: { (records, error) -> Void in
             
             if let error = error {
-                block(records : nil, error: error)
+                block(nil, error)
                 return
             }
             
             var repos = [Repo()]
-            for repoDic in records {
-                if let repo = self.setKeysAndValues(Repo(), dictionary: repoDic as! NSDictionary) as? Repo {
+            for repoDic in records! {
+                if let repo = self.setKeysAndValues(Repo(), dictionary: repoDic) as? Repo {
                     repos.append(repo)
                 }
             }
-            repos.removeAtIndex(0)
-            block(records : repos, error: nil)
+            repos.remove(at: 0)
+            block(repos, nil)
         })
     }
     
-    static func getBranches(username: String, repo : String, options : NSDictionary!, block : DownloadCompleteRecords) {
-        HTTPManager.findAll("\(RepoClass)/\(username)/\(repo)/\(BranchClass)", options : prepareRequestParameters(options), completeWithArray: { (records, error : NSError?) -> Void in
+    static func getBranches(_ username: String, repo : String, options : NSDictionary!, block : @escaping DownloadCompleteRecords) {
+        HTTPManager.findAll("\(RepoClass)/\(username)/\(repo)/\(BranchClass)", options : prepareRequestParameters(options), completeWithArray: { (records, error : Error?) -> Void in
             
             if let error = error {
-                block(records : nil, error: error)
+                block(nil, error)
                 return
             }
             
             var branches = [Branch()]
-            for repoDic in records {
-                if let branch = self.setKeysAndValues(Branch(), dictionary: repoDic as! NSDictionary) as? Branch {
+            for repoDic in records! {
+                if let branch = self.setKeysAndValues(Branch(), dictionary: repoDic) as? Branch {
                     branches.append(branch)
                 }
             }
-            branches.removeAtIndex(0)
-            block(records: branches, error: nil)
+            branches.remove(at: 0)
+            block(branches, nil)
         })
     }
     
-    static func getCommits(username: String, repo : String, options : NSDictionary!, block : DownloadCompleteRecords) {
-        HTTPManager.findAll("\(RepoClass)/\(username)/\(repo)/\(CommitsClass)", options : prepareRequestParameters(options), completeWithArray: { (records, error : NSError?) -> Void in
+    static func getCommits(_ username: String, repo : String, options : NSDictionary!, block : @escaping DownloadCompleteRecords) {
+        HTTPManager.findAll("\(RepoClass)/\(username)/\(repo)/\(CommitsClass)", options : prepareRequestParameters(options), completeWithArray: { (records, error : Error?) -> Void in
             
             if let error = error {
-                block(records : nil, error: error)
+                block(nil, error)
                 return
             }
             
             var commits = [Commit()]
-            for repoDic in records {
-                if let commit = self.setKeysAndValues(Commit(), dictionary: repoDic as! NSDictionary) as? Commit {
+            for repoDic in records! {
+                if let commit = self.setKeysAndValues(Commit(), dictionary: repoDic) as? Commit {
                     commits.append(commit)
                 }
             }
-            commits.removeAtIndex(0)
-            block(records: commits, error: nil)
+            commits.remove(at: 0)
+            block(commits, nil)
         })
     }
     
     //MARK: - Helpers
     
-    static func prepareRequestParameters (options : NSDictionary!) -> NSDictionary {
+    static func prepareRequestParameters (_ options : NSDictionary!) -> NSDictionary {
         let optionsSend = NSMutableDictionary()
         if let options = options as? [String : AnyObject] {
-            optionsSend.setValuesForKeysWithDictionary(options)
+            optionsSend.setValuesForKeys(options)
         }
         optionsSend.setValue(100, forKey: "per_page")
         return optionsSend
     }
     
     
-    static func setKeysAndValues (object : AnyObject, dictionary : NSDictionary)  -> AnyObject  {
+    @discardableResult static func setKeysAndValues (_ object : AnyObject, dictionary : [String : Any])  -> AnyObject  {
         
         for (key, value) in dictionary {
-            if !(key as! String == "description") {
-                if let keyName = key  as? String {
-                    if let keyValue = value as? String {
-                        if (object.respondsToSelector(NSSelectorFromString(keyName))) {
-                            object.setValue(keyValue, forKey: keyName)
-                        }
+            if !(key == "description") {
+                if let keyValue = value as? String {
+                    if (object.responds(to: NSSelectorFromString(key))) {
+                        object.setValue(keyValue, forKey: key)
                     }
-                    if let keyValue = value as? Int {
-                        if (object.respondsToSelector(NSSelectorFromString(keyName))) {
-                            object.setValue(keyValue, forKey: keyName)
-                        }
+                }
+                if let keyValue = value as? Int {
+                    if (object.responds(to: NSSelectorFromString(key))) {
+                        object.setValue(keyValue, forKey: key)
                     }
-                    if let keyValue = value as? NSDictionary {
-                        if (object.respondsToSelector(NSSelectorFromString(keyName))) {
-                            object.setValue(keyValue, forKey: keyName)
-                        }
+                }
+                if let keyValue = value as? NSDictionary {
+                    if (object.responds(to: NSSelectorFromString(key))) {
+                        object.setValue(keyValue, forKey: key)
                     }
                 }
             } else {
                 let key = "alternateDescription"
                 if let value = value as? String {
-                    if (object.respondsToSelector(NSSelectorFromString(key))) {
+                    if (object.responds(to: NSSelectorFromString(key))) {
                         object.setValue(value, forKey: key)
                     }
                 }

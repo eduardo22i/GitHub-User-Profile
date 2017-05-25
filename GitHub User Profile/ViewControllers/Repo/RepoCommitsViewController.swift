@@ -28,14 +28,14 @@ class RepoCommitsViewController: UIViewController, UITableViewDelegate, UITableV
                 for commit in commits {
                     self.commits.append(commit)
                     if let login = commit.author["login"] as? String {
-                        if !commitsUsersLogin.containsObject(login) {
-                            commitsUsersLogin.addObject(login)
+                        if !commitsUsersLogin.contains(login) {
+                            commitsUsersLogin.add(login)
                         	DataManager.getUser(login, block: { (user, error) -> Void in
                                 if let user = user {
                                     user.downloadImage({ (data, error) -> Void in
                                         self.tableView.reloadData()
                                     })
-                                    self.commitsUsers.addObject(user)
+                                    self.commitsUsers.add(user)
                                 }
                                 self.tableView.reloadData()
                             })
@@ -64,22 +64,22 @@ class RepoCommitsViewController: UIViewController, UITableViewDelegate, UITableV
     
     // MARK: - Table view data source
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
         return commits.count
     }
     
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Configure the cell...
-        let cell = tableView.dequeueReusableCellWithIdentifier("repoBranchCell", forIndexPath: indexPath) 
+        let cell = tableView.dequeueReusableCell(withIdentifier: "repoBranchCell", for: indexPath) 
         
         cell.detailTextLabel?.text = ""
         cell.imageView?.image = UIImage(named: "Oct Icon")
@@ -93,10 +93,10 @@ class RepoCommitsViewController: UIViewController, UITableViewDelegate, UITableV
         for usercommit in self.commitsUsers {
             if let login = commit.author["login"] as? String, let usercommit = usercommit as? User {
                 if login == usercommit.login {
-                    cell.detailTextLabel?.text = "\(usercommit.login) authored"
+                    cell.detailTextLabel?.text = "\(login) authored"
                     
                     if let data = usercommit.imageData {
-                        cell.imageView!.image = UIImage(data: data)
+                        cell.imageView!.image = UIImage(data: data as Data)
                         cell.imageView?.clipsToBounds = true
                         cell.imageView?.addImageInsets(UIEdgeInsets(top: 50, left: 50, bottom: 50, right: 50))
                         cell.imageView?.addRoundedCorner()
@@ -107,7 +107,7 @@ class RepoCommitsViewController: UIViewController, UITableViewDelegate, UITableV
             }
         }
         
-        if let date = commit.commit["author"]!["date"] as? String {
+        if let date = (commit.commit["author"] as? [String : Any])?["date"] as? String {
             let userCommitLabel = cell.detailTextLabel?.text ?? ""
             cell.detailTextLabel?.text = "\(userCommitLabel) on \(date)"
         }
@@ -116,21 +116,21 @@ class RepoCommitsViewController: UIViewController, UITableViewDelegate, UITableV
         
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 65
     }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.1
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let commit = commits[indexPath.row ]
         
         for usercommit in self.commitsUsers {
             if let login = commit.author["login"] as? String, let usercommit = usercommit as? User {
                 if login == usercommit.login {
-                    let vc = storyboard?.instantiateViewControllerWithIdentifier("viewController") as! ViewController
+                    let vc = storyboard?.instantiateViewController(withIdentifier: "viewController") as! ViewController
                     
                     vc.defaultUser = login
                     vc.shouldSearchUser = false

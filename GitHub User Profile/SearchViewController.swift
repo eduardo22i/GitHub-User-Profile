@@ -9,7 +9,7 @@
 import UIKit
 
 protocol UserSearchDelegate {
-    func didInputUser(user : String)
+    func didInputUser(_ user : String)
 }
 
 class SearchViewController: UIViewController, UISearchBarDelegate {
@@ -44,28 +44,28 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
     }
     */
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         SearchViewController.userSearchInput = searchBar.text ?? ""
         searchBar.resignFirstResponder()
-        self.dismissViewControllerAnimated(true, completion: { () -> Void in
+        self.dismiss(animated: true, completion: { () -> Void in
             
         })
     }
     
     // MARK: - UISearchBarDelegate
     
-    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         SearchViewController.userSearchInput = ""
         searchBar.resignFirstResponder()
-        self.dismissViewControllerAnimated(true, completion: { () -> Void in
+        self.dismiss(animated: true, completion: { () -> Void in
             
         })
     }
     
-    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         SearchViewController.userSearchInput = searchBar.text ?? ""
         searchBar.resignFirstResponder()
-        self.dismissViewControllerAnimated(true, completion: { () -> Void in
+        self.dismiss(animated: true, completion: { () -> Void in
             if let delegate = self.delegate {
                 delegate.didInputUser(searchBar.text ?? "")
             }

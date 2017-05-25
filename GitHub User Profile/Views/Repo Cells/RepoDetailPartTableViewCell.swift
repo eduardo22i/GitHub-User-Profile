@@ -9,7 +9,7 @@
 import UIKit
 
 protocol RepoDetailPartDelegate {
-    func detailButtonClicked(segueIdentifier : String)
+    func detailButtonClicked(_ segueIdentifier : String)
 }
 
 class RepoDetailPartTableViewCell: UITableViewCell {
@@ -26,13 +26,13 @@ class RepoDetailPartTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
     }
 
-    @IBAction func performAction (sender : AnyObject!) {
+    @IBAction func performAction (_ sender : AnyObject!) {
         delegate.detailButtonClicked(segueIdentifier)
     }
 }
