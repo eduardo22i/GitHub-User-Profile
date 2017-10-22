@@ -134,7 +134,7 @@ class HTTPManager: NSObject {
         var optionsurl = ""
         
         if let options =  options {
-            //optionsurl = options.toURLString()
+            optionsurl = options.toURLString()
         }
         
         let urlstr = "\(url)\(className)?\(optionsurl)\(urlToken())"
@@ -183,62 +183,7 @@ class HTTPManager: NSObject {
             
         }
     }
-    
-    static func getFirst (_ className : String, options : NSDictionary!, completeWithRecord : @escaping DownloadCompleteWithRecord) {
-        
-        var optionsurl = ""
-        let session = URLSession.shared
-        
-        if let options =  options {
-            //optionsurl = options.toURLString()
-        }
-    
-        let request = URLRequest(url: URL(string: "\(url)\(className)?\(optionsurl)\(urlToken())")!)
-        
-        let dataTask = session.dataTask(with: request, completionHandler: { (data:Data?, response:URLResponse?, error:Error?) -> Void in
-            if error != nil {
-                completeWithRecord(nil, error)
-                return
-            }
-            if let response = response as? HTTPURLResponse, let data = data  {
-                
-                if response.statusCode == 404 {
-                    /*
-                    let userInfo = [
-                        NSLocalizedDescriptionKey :  "Not found."
-                    ]
-                    let notFoundError = Error(domain: "NotFound", code: 404, userInfo: userInfo)
-                    completeWithRecord(nil, notFoundError)
-                    */
-                    return
-                }
-                /*
-                if response.statusCode == 403 {
-                    let userInfo = [
-                        NSLocalizedDescriptionKey :  "API rate limit exceeded. (But here's the good news: Authenticated requests get a higher rate limit.)"
-                    ]
-                    let notFoundError = Error(domain: "OverLimit", code: 403, userInfo: userInfo)
-                    completeWithRecord(nil, notFoundError)
-                    return
-                }
-                if response.statusCode == 505 {
-                    let userInfo = [
-                        NSLocalizedDescriptionKey :  "Looks like something went wrong!"
-                    ]
-                    let notFoundError = Error(domain: "ServerError", code: 403, userInfo: userInfo)
-                    completeWithRecord(nil, notFoundError)
-                    return
-                }
-                 */
-                if let indata = self.parseData(data) as? [String : Any] {
-                    completeWithRecord(indata, nil)
-                }
-            }
-        } )
-        
-        dataTask.resume()
-        
-    }
+
     
     static func parseData (_ data : Data)  -> AnyObject!  {
         //var error: Error?

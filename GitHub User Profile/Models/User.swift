@@ -22,7 +22,7 @@ class User {
     var company : String?
     var location : String?
     var url : String?
-    var avatarURL : String?
+    var avatarURL : URL?
     
     var type : Type?
     
@@ -37,15 +37,16 @@ class User {
             block( imageData , nil )
             return
         } else {
-            DispatchQueue(label: "", attributes: []).async(execute: { () -> Void in
-                let url = URL(string: self.avatarURL!)
-                if let data = try? Data(contentsOf: url!) {
+            if let avatarURL = self.avatarURL {
+                let request = URLRequest(url: avatarURL)
+                HTTPManager.make(request: request, completeBlock: { (data, error) in
                     self.imageData = data
                     DispatchQueue.main.async(execute: { () -> Void in
                         block( data, nil )
                     })
-                }
-            })
+                    
+                })
+            }
         }
     }
    
@@ -70,11 +71,11 @@ extension User: Codable {
         id = try container.decode(Int.self, forKey: .id)
         username = try container.decode(String.self, forKey: .username)
         email = try? container.decode(String.self, forKey: .email)
-        name = try container.decode(String.self, forKey: .name)
+        name = try? container.decode(String.self, forKey: .name)
         company = try? container.decode(String.self, forKey: .company)
-        location = try container.decode(String.self, forKey: .location)
-        url = try container.decode(String.self, forKey: .url)
-        avatarURL = try container.decode(String.self, forKey: .avatarURL)
+        location = try? container.decode(String.self, forKey: .location)
+        url = try? container.decode(String.self, forKey: .url)
+        avatarURL = try? container.decode(URL.self, forKey: .avatarURL)
         if let type = try? container.decode(String.self, forKey: .type) {
             self.type = Type(rawValue: type)
         }

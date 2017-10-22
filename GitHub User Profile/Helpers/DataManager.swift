@@ -32,7 +32,7 @@ class DataManager: NSObject {
             }
             if let data = data {
                 let decoder = JSONDecoder()
-                let user = try! decoder.decode(User.self, from: data)
+                let user = try? decoder.decode(User.self, from: data)
                 block(user, nil)
             }
         }
@@ -54,7 +54,7 @@ class DataManager: NSObject {
                 let decoder = JSONDecoder()
                 decoder.dateDecodingStrategy = .iso8601
 
-                let repos = try! decoder.decode([Repo].self, from: data)
+                let repos = try? decoder.decode([Repo].self, from: data)
                 block(repos, nil)
             }
             

@@ -8,19 +8,36 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UserSearchDelegate {
+class ViewController: UIViewController, UserSearchDelegate {
 
     var defaultUser = ""
     var shouldSearchUser = true
+    var isLoading = true {
+        didSet {
+            infoImageView.isHidden = !isLoading
+            infoTextLabel.isHidden = !isLoading
+            tableView.isHidden = isLoading
+        }
+    }
     
     var user : User! {
         didSet {
             if !shouldSearchUser {
                 return
             }
-            tableView.isHidden = false
-            tableView.reloadData()
-            displayUser ()
+            
+            isLoading = false
+            if user != nil {
+                if #available(iOS 11.0, *) {
+                    self.navigationItem.searchController?.isActive = false
+                }
+                tableView.reloadData()
+                displayUser ()
+            } else {
+                if #available(iOS 11.0, *) {
+                    self.navigationItem.searchController?.isActive = true
+                }
+            }
         }
     }
     
@@ -32,6 +49,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     let defaults = UserDefaults.standard
     
+    let searchController = UISearchController(searchResultsController: nil)
+    
     @IBOutlet var infoImageView : UIImageView!
     @IBOutlet var infoTextLabel : UILabel!
     @IBOutlet var tableView : UITableView!
@@ -40,12 +59,26 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        
+        
+        searchController.searchBar.delegate = self
+        
+        if #available(iOS 11.0, *) {
+            navigationController?.navigationBar.prefersLargeTitles = true
+            navigationItem.hidesSearchBarWhenScrolling = true
+            
+            self.navigationItem.searchController = searchController
+        }
+
+        
+        tableView.estimatedRowHeight = 55
+        
+        isLoading = true
+        
         if !shouldSearchUser {
             displayUser ()
             return
         }
-        
-        tableView.isHidden = true
         
         if let user = defaults.string(forKey: "user") {
             defaultUser = user
@@ -77,17 +110,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func searchUser (_ userStr : String) {
         DataManager.getUser(userStr, block: { (user, error) -> Void in
             if let error = error {
-                self.infoTextLabel.text = error.localizedDescription
+                self.infoTextLabel.text = error.description
                 self.tableView.isHidden = true
                 
-                switch error._code {
+                switch error.code {
                 case 403:
-                    self.infoImageView.image = UIImage(named: "muertosoctocat")
+                    self.infoImageView.image =  #imageLiteral(resourceName: "muertosoctocat")
                 case 404:
-                    self.infoImageView.image = UIImage(named: "obiwanoctocat")
+                    self.infoImageView.image = #imageLiteral(resourceName: "obiwanoctocat")
                     break;
                 case 505:
-                    self.infoImageView.image = UIImage(named: "deckfailoctocat")
+                    self.infoImageView.image = #imageLiteral(resourceName: "deckfailoctocat")
                     break;
                 default:
                     break;
@@ -105,75 +138,25 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        if segue.identifier == "showRepoSegue" {
+        if let vc = segue.destination as? RepoViewController {
             let indexPath = self.tableView.indexPathForSelectedRow
             let repo = repos[indexPath?.row ?? 0]
-            let vc = segue.destination as? RepoViewController
-            vc?.repo = repo
-            vc?.user = user
-        } else {
-            let vc = segue.destination as? SearchViewController
-            vc?.delegate = self
-            vc?.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+            vc.repo = repo
+            vc.user = user
+        }
+        
+        if let vc = segue.destination as? SearchViewController {
+            vc.delegate = self
+            vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         }
     }
     
-    // MARK: - Table view data source
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
-        return 2
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
-        return section == 0 ? user == nil ? 0 : 1 : repos.count
-    }
-    
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-               // Configure the cell...
-        if indexPath.section == 0 {
-            
-            let cellu = tableView.dequeueReusableCell(withIdentifier: "userInfoCellIdentifier", for: indexPath) as! UserInfoTableViewCell
-            cellu.userNameLabel.text = user.name ?? "No Name :("
-            cellu.usernameLabel.text = user.username
-            cellu.userCompanyLabel.text = user.company ?? "No Company :("
-            cellu.userLocationLabel.text = user.location ?? "No Location :("
-            cellu.userEmailLabel.text = user.email ?? "No Email :("
-            cellu.userURLLabel.text = user.url ?? "No URL :("
-            
-            cellu.userImageView.image = UIImage(named: "Oct Icon")
-            user.downloadImage({ (data, error) -> Void in
-                cellu.userImageView.image = UIImage(data: data!)
-            })
-            cellu.userImageView.addRoundedCorner()
-            
-            return cellu
-        } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath) as! RepoTableViewCell
-            
-            let repo = repos[indexPath.row ]
-            cell.repoNameLabel.text = repo.name
-            cell.starsLabel.text = "\(repo.stargazersCount)"
-            
-            return cell
-        }
-        
-        
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return indexPath.section == 0 ? 150 : 55
-    }
-    
+
     //MARK: - UserSearchDelegate
     
     func didInputUser(_ userStr: String) {
         infoTextLabel.text = "Loading"
-        infoImageView.image = UIImage(named: "jetpackoctocat")
+        infoImageView.image = #imageLiteral(resourceName: "jetpackoctocat")
         
         tableView.isHidden = true
         
@@ -183,5 +166,78 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         searchUser(defaultUser)
     }
     
+}
+
+// MARK: - UITableViewDataSource
+extension ViewController : UITableViewDelegate, UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        // Return the number of sections.
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // Return the number of rows in the section.
+        return section == 0 ? user == nil ? 0 : 1 : repos.count
+    }
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // Configure the cell...
+        
+        let identifier = indexPath.section == 0 ? "UserInfoCell" : "RepoCell"
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier)!
+        
+        if let cell = cell as? UserInfoTableViewCell {
+            cell.userNameLabel.text = user.name ?? "No Name :("
+            cell.usernameLabel.text = user.username
+            cell.userCompanyLabel.text = user.company
+            cell.userLocationLabel.text = user.location
+            cell.userEmailLabel.text = user.email
+            cell.userURLLabel.text = user.url
+            
+            cell.userImageView.image = #imageLiteral(resourceName: "Oct Icon")
+            user.downloadImage({ (data, error) -> Void in
+                cell.userImageView.image = UIImage(data: data!)
+            })
+            cell.userImageView.addRoundedCorner()
+            
+        }
+        if let cell = cell as? RepoTableViewCell {
+            
+            let repo = repos[indexPath.row ]
+            cell.repoNameLabel.text = repo.name
+            cell.starsLabel.text = "\(repo.stargazersCount)"
+            
+        }
+        
+        return cell
+        
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return indexPath.section == 0 ? UITableViewAutomaticDimension : 55
+    }
+    
+}
+
+// MARK: - UISearchBarDelegate
+extension ViewController : UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        
+
+        infoTextLabel.text = "Loading"
+        infoImageView.image = #imageLiteral(resourceName: "jetpackoctocat")
+        
+        isLoading = true
+        
+        defaultUser = searchBar.text ?? ""
+        defaults.set(defaultUser, forKey: "user")
+        
+        searchUser(defaultUser)
+        
+    }
 }
 
