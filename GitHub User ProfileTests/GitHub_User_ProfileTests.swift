@@ -23,7 +23,9 @@ class GitHub_User_ProfileTests: XCTestCase {
     
     func testExample() {
         // This is an example of a functional test case.
-        XCTAssert(true, "Pass")
+        
+        let request =  HTTPManager.createRequest(endpoint: .user, path: "eduardo22i", method: .get)
+        XCTAssertEqual(request.url?.absoluteString ?? "", "https://api.github.com/users/eduardo22i")
     }
     
     func testPerformanceExample() {
