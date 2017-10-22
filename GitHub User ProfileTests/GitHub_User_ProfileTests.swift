@@ -11,6 +11,8 @@ import XCTest
 
 class GitHub_User_ProfileTests: XCTestCase {
     
+    let username = "eduardo22i"
+    
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -21,11 +23,16 @@ class GitHub_User_ProfileTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
+    func testRequests() {
         // This is an example of a functional test case.
         
-        let request =  HTTPManager.createRequest(endpoint: .user, path: "eduardo22i", method: .get)
-        XCTAssertEqual(request.url?.absoluteString ?? "", "https://api.github.com/users/eduardo22i")
+        let userRequest =  HTTPManager.createRequest(endpoint: .user, path: username, method: .get)
+        XCTAssertEqual(userRequest.url?.absoluteString ?? "", "https://api.github.com/users/eduardo22i")
+        
+        let path = username + "/" + Endpoint.repos.rawValue
+        let usersReposRequest = HTTPManager.createRequest(endpoint: .user, path: path)
+        XCTAssertEqual(usersReposRequest.url?.absoluteString ?? "", "https://api.github.com/users/eduardo22i/repos")
+        
     }
     
     func testPerformanceExample() {

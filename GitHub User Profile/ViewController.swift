@@ -66,7 +66,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 return
             }
             
-            if let repos = repos as? [Repo] {
+            if let repos = repos {
                 self.repos = repos
             }
             self.tableView.isHidden = false
@@ -157,7 +157,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             let repo = repos[indexPath.row ]
             cell.repoNameLabel.text = repo.name
-            cell.starsLabel.text = "\(repo.stargazers_count)"
+            cell.starsLabel.text = "\(repo.stargazersCount)"
             
             return cell
         }

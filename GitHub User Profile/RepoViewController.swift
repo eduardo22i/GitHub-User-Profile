@@ -11,7 +11,7 @@ import UIKit
 class RepoViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, RepoDetailPartDelegate {
 
     var user : User!
-    var repo = Repo()
+    var repo : Repo!
     var commits : [Commit] = []
     var repoSettings = [ ["Label" : "Description", "Type": "description"], ["Label" : "Branches", "Type": "branches"], ["Label" : "Commits", "Type": "commits"] ]
     
@@ -60,8 +60,9 @@ class RepoViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         let photoLibraryAction = UIAlertAction(title: "Open in Safari", style: .default) { (action) in
             
-            let url = URL(string: self.repo.html_url)
-            UIApplication.shared.openURL(url!)
+            if let url = self.repo.url {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
         }
         
         alertController.addAction(photoLibraryAction)
@@ -90,14 +91,14 @@ class RepoViewController: UIViewController, UITableViewDelegate, UITableViewData
         // Configure the cell...
         if (repoSettings[indexPath.section]["Type"] == "description") {
             let cell = tableView.dequeueReusableCell(withIdentifier: "repoDescriptionCell", for: indexPath) as! RepoDescriptionTableViewCell
-            cell.descriptionTextView.text = repo.alternateDescription
+            cell.descriptionTextView.text = repo.description
             return cell
         } else {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "RepoDetailPartCell", for: indexPath) as! RepoDetailPartTableViewCell
             cell.delegate = self
             if (repoSettings[indexPath.section]["Type"] == "branches") {
-                cell.detailLabel.text = repo.default_branch
+                cell.detailLabel.text = repo.defaultBranch
                 cell.detailIcon.image = UIImage(named: "BranchIcon")
                 cell.detailButton.setTitle("View More Branches", for: UIControlState())
                 cell.segueIdentifier = "showRepoBranchesSegue"

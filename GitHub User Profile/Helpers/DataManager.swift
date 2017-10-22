@@ -14,7 +14,6 @@ typealias DownloadCompleteRecords  = (_ records : [AnyObject]?, _ error : Error?
 
 class DataManager: NSObject {
     
-    static var UserClass = "users"
     static var RepoClass = "repos"
     static var BranchClass = "branches"
     static var CommitsClass = "commits"
@@ -39,24 +38,30 @@ class DataManager: NSObject {
         }
     }
     
-    static func getRepos(_ username: String, options : NSDictionary!, block : @escaping DownloadCompleteRecords ) {
+    static func getRepos(_ username: String, options : [String : Any]!, block : @escaping (_ repos : [Repo]?, _ error : APIError?) -> Void ) {
         
-        HTTPManager.findAll("\(UserClass)/\(username)/\(RepoClass)", options : prepareRequestParameters(options), completeWithArray: { (records, error) -> Void in
+        let path = username + "/" + Endpoint.repos.rawValue
+        let request = HTTPManager.createRequest(endpoint: .user, path: path, parameters: options)
+        
+        HTTPManager.make(request: request) { (data, error) in
             
             if let error = error {
                 block(nil, error)
                 return
             }
             
-            var repos = [Repo()]
-            for repoDic in records! {
-                if let repo = self.setKeysAndValues(Repo(), dictionary: repoDic) as? Repo {
-                    repos.append(repo)
-                }
+            if let data = data {
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .iso8601
+
+                let repos = try! decoder.decode([Repo].self, from: data)
+                block(repos, nil)
             }
-            repos.remove(at: 0)
-            block(repos, nil)
-        })
+            
+            
+            
+        
+        }
     }
     
     static func getBranches(_ username: String, repo : String, options : NSDictionary!, block : @escaping DownloadCompleteRecords) {

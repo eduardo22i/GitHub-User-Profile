@@ -51,6 +51,7 @@ enum HTTPMethod : String {
 
 enum Endpoint : String {
     case user = "users"
+    case repos = "repos"
 }
 
 typealias DownloadCompleteWithArray =  (_ records : [[String : Any]]?, _ error : Error?) -> Void

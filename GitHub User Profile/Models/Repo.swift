@@ -8,52 +8,68 @@
 
 import UIKit
 
-class Repo: NSObject {
+class Repo {
     
-    var keys_url : String!
-    var statuses_url : String!
-    var issues_url : String!
-    var default_branch : String!
-    var issue_events_url : String!
-    var id = 0
-    var events_url : String!
-    var subscription_url : String!
-    var watchers = 0
-    var git_commits_url : String!
-    var subscribers_url : String!
-    var clone_url : String!
-    var has_wiki = 0
-    var url : String!
-    var pulls_url : String!
-    var fork = 0
-    var notifications_url : String!
-    var rdescription : String!
-    var collaborators_url : String!
-    var languages_url : String!
-    var has_issues = 0
-    var html_url : String!
-    var comments_url : String!
-    var isPrivate = 0
-    var size = 0
-    var git_tags_url : String!
-    var updated_at : String!
-    var ssh_url : String!
+    var id : Int!
     var name : String!
-    var contents_url : String!
-    var archive_url : String!
-    var milestones_url : String!
-    var blobs_url : String!
-    var contributors_url : String!
-    var open_issues_count = 0
-    var forks_count = 0
-    var trees_url : String!
-    var svn_url : String!
-    var commits_url : String!
-    var created_at : String!
-    var forks_url : String!
-    var has_downloads = 0
-    var teams_url : String!
-    var stargazers_count = 0
+    var description : String?
+
+    var defaultBranch : String!
     
-    var alternateDescription : String!
+    var url : URL!
+    
+    var watchersCount = 0
+    var stargazersCount = 0
+    
+    var isForked = false
+    var isPrivate = false
+    
+    var branches = [Branch]()
+    
+    var pushedAt : Date?
+    var updatedAt : Date!
+    var createdAt : Date!
+    
+    required init(from decoder: Decoder) throws {
+        try self.decode(decoder: decoder)
+    }
+}
+
+extension Repo: Codable {
+    private enum CodingKeys : String, CodingKey {
+        case id = "id"
+        case name = "name"
+        case description = "description"
+        case defaultBranch = "default_branch"
+        case url = "html_url"
+        case watchersCount = "watchers"
+        case stargazersCount = "stargazers_count"
+        case isForked = "fork"
+        case isPrivate = "private"
+        case pushedAt = "pushed_at"
+        case updatedAt = "updated_at"
+        case createdAt = "created_at"
+    }
+    
+    func decode(decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        id = try container.decode(Int.self, forKey: .id)
+        name = try container.decode(String.self, forKey: .name)
+        description = try? container.decode(String.self, forKey: .description)
+        defaultBranch = try container.decode(String.self, forKey: .defaultBranch)
+        url = try container.decode(URL.self, forKey: .url)
+        watchersCount = try container.decode(Int.self, forKey: .watchersCount)
+        stargazersCount = try container.decode(Int.self, forKey: .stargazersCount)
+        isForked = try container.decode(Bool.self, forKey: .isForked)
+        isPrivate = try container.decode(Bool.self, forKey: .isPrivate)
+        
+        pushedAt = try? container.decode(Date.self, forKey: .pushedAt)
+        updatedAt = try container.decode(Date.self, forKey: .updatedAt)
+        createdAt = try container.decode(Date.self, forKey: .createdAt)
+        
+    }
+    
+    func encode(to encoder: Encoder) throws {
+    }
 }
