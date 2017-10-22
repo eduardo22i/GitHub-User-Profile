@@ -74,10 +74,10 @@ class HTTPManager: NSObject {
         urlComponents.scheme = "https"
         urlComponents.host = HTTPManager.url
         urlComponents.path = "/" + endpoint.rawValue
+        
         if let path = path {
             urlComponents.path += "/" + path
         }
-        
         
         if let parameters = parameters {
             urlComponents.queryItems = []
