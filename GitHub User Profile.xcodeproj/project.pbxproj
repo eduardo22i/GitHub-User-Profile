@@ -23,6 +23,7 @@
 		F9401CC71B8078F4003FFD42 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9401CC61B8078F4003FFD42 /* User.swift */; };
 		F94F3E451B8E1C3F005DA695 /* RepoCommitsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94F3E441B8E1C3F005DA695 /* RepoCommitsViewController.swift */; };
 		F94F3E471B8E3773005DA695 /* OctoCatImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F94F3E461B8E3773005DA695 /* OctoCatImages.xcassets */; };
+		F951A28D1F9D11AA007795D5 /* HTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DDA72C1B85ABE2003B3C66 /* HTTPManager.swift */; };
 		F9B4B3F71B8C3F86004A6BFD /* RepoDetailPartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B4B3F61B8C3F86004A6BFD /* RepoDetailPartTableViewCell.swift */; };
 		F9B4B3F91B8C42FC004A6BFD /* RepoDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B4B3F81B8C42FC004A6BFD /* RepoDescriptionTableViewCell.swift */; };
 		F9DDA72D1B85ABE2003B3C66 /* HTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DDA72C1B85ABE2003B3C66 /* HTTPManager.swift */; };
@@ -338,6 +339,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F9401CB91B807423003FFD42 /* GitHub_User_ProfileTests.swift in Sources */,
+				F951A28D1F9D11AA007795D5 /* HTTPManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

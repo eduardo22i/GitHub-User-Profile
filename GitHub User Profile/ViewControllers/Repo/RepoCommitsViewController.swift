@@ -92,7 +92,7 @@ class RepoCommitsViewController: UIViewController, UITableViewDelegate, UITableV
         
         for usercommit in self.commitsUsers {
             if let login = commit.author["login"] as? String, let usercommit = usercommit as? User {
-                if login == usercommit.login {
+                if login == usercommit.username {
                     cell.detailTextLabel?.text = "\(login) authored"
                     
                     if let data = usercommit.imageData {
@@ -129,7 +129,7 @@ class RepoCommitsViewController: UIViewController, UITableViewDelegate, UITableV
         
         for usercommit in self.commitsUsers {
             if let login = commit.author["login"] as? String, let usercommit = usercommit as? User {
-                if login == usercommit.login {
+                if login == usercommit.username {
                     let vc = storyboard?.instantiateViewController(withIdentifier: "viewController") as! ViewController
                     
                     vc.defaultUser = login

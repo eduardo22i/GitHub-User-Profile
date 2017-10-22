@@ -22,16 +22,21 @@ class DataManager: NSObject {
     
     //MARK: - GET
     
-    static func getUser(_ username: String, block : @escaping DownloadCompleteUser) {
-        HTTPManager.getFirst("\(UserClass)/\(username)", options : nil, completeWithRecord: { (record, error : Error?) -> Void in
+    static func getUser(_ username: String, block : @escaping (_ user : User?, _ error : APIError?) -> Void) {
+        
+        let request = HTTPManager.createRequest(endpoint: .user, path: username)
+        
+        HTTPManager.make(request: request) { (data, error) in
             if let error = error {
                 block(nil, error)
                 return
             }
-            let user = User()
-            self.setKeysAndValues(user, dictionary: record!)
-            block(user, nil)
-        })
+            if let data = data {
+                let decoder = JSONDecoder()
+                let user = try! decoder.decode(User.self, from: data)
+                block(user, nil)
+            }
+        }
     }
     
     static func getRepos(_ username: String, options : NSDictionary!, block : @escaping DownloadCompleteRecords ) {

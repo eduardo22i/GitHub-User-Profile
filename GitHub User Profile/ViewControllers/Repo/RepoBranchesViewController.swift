@@ -21,7 +21,7 @@ class RepoBranchesViewController: UIViewController, UITableViewDelegate, UITable
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        DataManager.getBranches(user.login, repo: repo.name, options : nil) { (records, error) -> Void in
+        DataManager.getBranches(user.username, repo: repo.name, options : nil) { (records, error) -> Void in
             
             if error != nil {
                 return

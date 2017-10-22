@@ -103,7 +103,7 @@ class RepoViewController: UIViewController, UITableViewDelegate, UITableViewData
                 cell.segueIdentifier = "showRepoBranchesSegue"
             } else if (repoSettings[indexPath.section]["Type"] == "commits") {
                 cell.detailLabel.text = "Commits"
-                DataManager.getCommits(user.login, repo: repo.name, options: nil) { (records, error) -> Void in
+                DataManager.getCommits(user.username, repo: repo.name, options: nil) { (records, error) -> Void in
                     if let records = records as? [Commit] {
                         self.commits = records
                         

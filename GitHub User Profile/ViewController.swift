@@ -18,7 +18,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             if !shouldSearchUser {
                 return
             }
-            displayUser ()
+            tableView.reloadData()
+            self.tableView.isHidden = false
+            //displayUser ()
             
         }
     }
@@ -49,10 +51,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if let user = defaults.string(forKey: "user") {
             defaultUser = user
             searchUser(defaultUser)
-        } else {
-            
         }
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -61,21 +60,19 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func displayUser () {
-        if let username = user.login {
-            infoTextLabel.text = "Loading"
-            DataManager.getRepos(username, options: ["page" : 1], block: { (repos, error) -> Void in
-                
-                if error != nil {
-                    return
-                }
-                
-                if let repos = repos as? [Repo] {
-                    self.repos = repos
-                }
-                self.tableView.isHidden = false
-                
-            })
-        }
+        infoTextLabel.text = "Loading"
+        DataManager.getRepos(user.username, options: ["page" : 1], block: { (repos, error) -> Void in
+            
+            if error != nil {
+                return
+            }
+            
+            if let repos = repos as? [Repo] {
+                self.repos = repos
+            }
+            self.tableView.isHidden = false
+            
+        })
     }
     
     func searchUser (_ userStr : String) {
@@ -143,11 +140,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             let cellu = tableView.dequeueReusableCell(withIdentifier: "userInfoCellIdentifier", for: indexPath) as! UserInfoTableViewCell
             cellu.userNameLabel.text = user.name ?? "No Name :("
-            cellu.usernameLabel.text = user.login
+            cellu.usernameLabel.text = user.username
             cellu.userCompanyLabel.text = user.company ?? "No Company :("
             cellu.userLocationLabel.text = user.location ?? "No Location :("
             cellu.userEmailLabel.text = user.email ?? "No Email :("
-            cellu.userURLLabel.text = user.blog ?? "No URL :("
+            cellu.userURLLabel.text = user.url ?? "No URL :("
             
             cellu.userImageView.image = UIImage(named: "Oct Icon")
             user.downloadImage({ (data, error) -> Void in
