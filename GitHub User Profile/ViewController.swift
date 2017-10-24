@@ -201,7 +201,6 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
             user.downloadImage({ (data, error) -> Void in
                 cell.userImageView.image = UIImage(data: data!)
             })
-            cell.userImageView.addRoundedCorner()
             
         }
         if let cell = cell as? RepoTableViewCell {

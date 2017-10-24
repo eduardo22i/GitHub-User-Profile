@@ -13,10 +13,17 @@ class Extension : NSObject {
 }
 
 extension UIView {
-    func addRoundedCorner () {
-        self.layer.cornerRadius =  5
-        self.layer.masksToBounds = true
+    
+    @IBInspectable var cornerRadius: CGFloat {
+        get {
+            return layer.cornerRadius
+        }
+        set {
+            layer.cornerRadius = newValue
+            layer.masksToBounds = newValue > 0
+        }
     }
+    
 }
 
 extension UIImageView {

@@ -99,8 +99,6 @@ class RepoCommitsViewController: UIViewController, UITableViewDelegate, UITableV
                         cell.imageView!.image = UIImage(data: data as Data)
                         cell.imageView?.clipsToBounds = true
                         cell.imageView?.addImageInsets(UIEdgeInsets(top: 50, left: 50, bottom: 50, right: 50))
-                        cell.imageView?.addRoundedCorner()
-                        
                     }
                     
                 }
