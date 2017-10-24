@@ -38,7 +38,7 @@ class DataManager: NSObject {
         }
     }
     
-    static func getRepos(_ username: String, options : [String : Any]!, block : @escaping (_ repos : [Repo]?, _ error : APIError?) -> Void ) {
+    static func getRepos(_ username: String, options : [String : Any]?, block : @escaping (_ repos : [Repo]?, _ error : APIError?) -> Void ) {
         
         let path = username + "/" + Endpoint.repos.rawValue
         let request = HTTPManager.createRequest(endpoint: .user, path: path, parameters: options)
@@ -57,30 +57,28 @@ class DataManager: NSObject {
                 let repos = try? decoder.decode([Repo].self, from: data)
                 block(repos, nil)
             }
-            
-            
-            
         
         }
     }
     
-    static func getBranches(_ username: String, repo : String, options : NSDictionary!, block : @escaping DownloadCompleteRecords) {
-        HTTPManager.findAll("\(RepoClass)/\(username)/\(repo)/\(BranchClass)", options : prepareRequestParameters(options), completeWithArray: { (records, error : Error?) -> Void in
+    static func getBranches(_ username: String, repo : String, options : [String : Any]?, block : @escaping (_ repos : [Branch]?, _ error : APIError?) -> Void ) {
+        
+        let path = username + "/" + repo + "/" + Endpoint.branches.rawValue
+        let request = HTTPManager.createRequest(endpoint: .repos, path: path, parameters: options)
+        
+        HTTPManager.make(request: request) { (data, error) in
             
             if let error = error {
                 block(nil, error)
                 return
             }
             
-            var branches = [Branch()]
-            for repoDic in records! {
-                if let branch = self.setKeysAndValues(Branch(), dictionary: repoDic) as? Branch {
-                    branches.append(branch)
-                }
+            if let data = data {
+                let decoder = JSONDecoder()
+                let branches = try? decoder.decode([Branch].self, from: data)
+                block(branches, nil)
             }
-            branches.remove(at: 0)
-            block(branches, nil)
-        })
+        }
     }
     
     static func getCommits(_ username: String, repo : String, options : NSDictionary!, block : @escaping DownloadCompleteRecords) {

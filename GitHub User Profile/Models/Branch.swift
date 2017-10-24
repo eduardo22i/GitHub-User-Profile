@@ -8,11 +8,22 @@
 
 import UIKit
 
-class Branch: NSObject {
+class Branch: Codable {
     
-    var name = ""
-    var commit : NSDictionary!
+    var name : String?
+    //var commit : NSDictionary!
     
-    var alternateDescription : String!
-
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        name = try container.decode(String.self, forKey: .name)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        
+    }
+    
+    private enum CodingKeys : String, CodingKey {
+        case name = "name"
+    }
 }

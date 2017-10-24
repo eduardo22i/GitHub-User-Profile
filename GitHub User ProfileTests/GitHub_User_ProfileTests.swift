@@ -12,6 +12,7 @@ import XCTest
 class GitHub_User_ProfileTests: XCTestCase {
     
     let username = "eduardo22i"
+    let projectName = "github-user-profile"
     
     override func setUp() {
         super.setUp()
@@ -29,9 +30,13 @@ class GitHub_User_ProfileTests: XCTestCase {
         let userRequest =  HTTPManager.createRequest(endpoint: .user, path: username, method: .get)
         XCTAssertEqual(userRequest.url?.absoluteString ?? "", "https://api.github.com/users/eduardo22i")
         
-        let path = username + "/" + Endpoint.repos.rawValue
-        let usersReposRequest = HTTPManager.createRequest(endpoint: .user, path: path)
+        let reposPath = username + "/" + Endpoint.repos.rawValue
+        let usersReposRequest = HTTPManager.createRequest(endpoint: .user, path: reposPath)
         XCTAssertEqual(usersReposRequest.url?.absoluteString ?? "", "https://api.github.com/users/eduardo22i/repos")
+        
+        let branchesPath = username + "/" + projectName + "/" + Endpoint.branches.rawValue
+        let branchesRequest = HTTPManager.createRequest(endpoint: .repos, path: branchesPath)
+        XCTAssertEqual(branchesRequest.url?.absoluteString ?? "", "https://api.github.com/repos/eduardo22i/github-user-profile/branches")
         
     }
     

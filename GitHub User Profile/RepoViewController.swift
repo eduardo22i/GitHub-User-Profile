@@ -19,6 +19,12 @@ class RepoViewController: UIViewController, RepoDetailPartDelegate {
         }
     }
     
+    var currentBranch : Branch? {
+        didSet {
+            self.branchLabel.text = currentBranch?.name
+        }
+    }
+    
     @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var branchLabel: UILabel!
     @IBOutlet weak var commitsButton: UIButton!
@@ -29,9 +35,13 @@ class RepoViewController: UIViewController, RepoDetailPartDelegate {
         // Do any additional setup after loading the view.
         self.title = repo.name
         
+        self.descriptionTextView.textContainer.lineFragmentPadding = 0
+        self.descriptionTextView.textContainerInset = .zero
+
+        
         self.descriptionTextView.text = repo.description
         self.branchLabel.text = repo.defaultBranch
-        
+       
         DataManager.getCommits(user.username, repo: repo.name, options: nil) { (records, error) -> Void in
             if let records = records as? [Commit] {
                 self.commits = records
@@ -45,19 +55,20 @@ class RepoViewController: UIViewController, RepoDetailPartDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-
-    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        if segue.identifier == "showRepoBranchesSegue" {
-            let vc = segue.destination as? RepoBranchesViewController
-            vc?.repo = repo
-            vc?.user = user
-        } else if segue.identifier == "showRepoCommitsSegue" {
+      
+        if let vc = (segue.destination as? UINavigationController)?.topViewController as?  RepoBranchesViewController {
+            vc.delegate = self
+            vc.repo = repo
+            vc.user = user
+        }
+        
+        if segue.identifier == "showRepoCommitsSegue" {
             let vc = segue.destination as? RepoCommitsViewController
             vc?.repo = repo
             //vc?.user = user
@@ -93,5 +104,13 @@ class RepoViewController: UIViewController, RepoDetailPartDelegate {
     func detailButtonClicked(_ segueIdentifier: String) {
         self.performSegue(withIdentifier: segueIdentifier, sender: self)
 
+    }
+}
+
+extension RepoViewController: RepoBranchesViewControllerDelegate {
+    
+    func repoBranchesViewController(_ repoBranchesViewController: RepoBranchesViewController, didSelect branch: Branch) {
+        self.currentBranch = branch
+        repoBranchesViewController.dismiss(animated: true, completion: nil)
     }
 }

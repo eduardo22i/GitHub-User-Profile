@@ -8,12 +8,16 @@
 
 import UIKit
 
-class RepoBranchesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+protocol RepoBranchesViewControllerDelegate {
+    func repoBranchesViewController(_ repoBranchesViewController: RepoBranchesViewController, didSelect branch: Branch)
+}
 
+class RepoBranchesViewController: UIViewController {
+    
+    var delegate : RepoBranchesViewControllerDelegate?
+    
     var user : User!
     var repo : Repo!
-    
-    var branches : [Branch] = []
     
     @IBOutlet var tableView : UITableView!
     
@@ -21,19 +25,15 @@ class RepoBranchesViewController: UIViewController, UITableViewDelegate, UITable
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        DataManager.getBranches(user.username, repo: repo.name, options : nil) { (records, error) -> Void in
-            
-            if error != nil {
-                return
-            }
-            
-            if let branches = records as? [Branch] {
-                for branch in branches {
-                    self.branches.append(branch)
-                }
-                self.tableView.reloadData()
-            }
-        }
+        
+        self.title = repo.name
+        
+        tableView.tableFooterView = UIView(frame: CGRect.zero)
+        
+        DataManager.getBranches(user.username, repo: repo.name, options: nil, block: { (branches, error) in
+            self.repo.branches = branches ?? []
+            self.tableView.reloadData()
+        })
     }
 
     override func didReceiveMemoryWarning() {
@@ -41,7 +41,12 @@ class RepoBranchesViewController: UIViewController, UITableViewDelegate, UITable
         // Dispose of any resources that can be recreated.
     }
     
-
+    // MARK: - Actions
+    
+    @IBAction func cancelAction(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -49,29 +54,25 @@ class RepoBranchesViewController: UIViewController, UITableViewDelegate, UITable
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-    }
-    */
+     }
+     */
     
-    // MARK: - Table view data source
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
-        return 1
-    }
+}
+
+// MARK: - Table view data source
+extension RepoBranchesViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return branches.count
+        return repo.branches.count
     }
-    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Configure the cell...
         let cell = tableView.dequeueReusableCell(withIdentifier: "repoBranchCell", for: indexPath) 
         
-        let branch = branches[indexPath.row ]
+        let branch = repo.branches[indexPath.row ]
+        
         cell.textLabel?.text = branch.name
         cell.detailTextLabel?.text = repo.defaultBranch == branch.name ? "Default" : ""
         
@@ -86,44 +87,13 @@ class RepoBranchesViewController: UIViewController, UITableViewDelegate, UITable
         return 55
     }
     
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0.1
-    }
-    
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-    // Return NO if you do not want the specified item to be editable.
-    return true
-    }
-    */
-    
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-    if editingStyle == .Delete {
-    // Delete the row from the data source
-    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-    } else if editingStyle == .Insert {
-    // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }
-    }
-    */
-    
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-    
-    }
-    */
-    
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-    // Return NO if you do not want the item to be re-orderable.
-    return true
-    }
-    */
+}
 
-
+// MARK: - Table view data source
+extension RepoBranchesViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let branch = repo.branches[indexPath.row]
+        self.delegate?.repoBranchesViewController(self, didSelect: branch)
+    }
 }

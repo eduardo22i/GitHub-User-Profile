@@ -52,6 +52,7 @@ enum HTTPMethod : String {
 enum Endpoint : String {
     case user = "users"
     case repos = "repos"
+    case branches = "branches"
 }
 
 typealias DownloadCompleteWithArray =  (_ records : [[String : Any]]?, _ error : Error?) -> Void
@@ -101,7 +102,9 @@ class HTTPManager: NSObject {
         let dataTask = session.dataTask(with: request) { (data, response, error) in
             
             if error != nil {
-                block(nil, .noNetwork)
+                DispatchQueue.main.async {
+                    block(nil, .noNetwork)
+                }
                 return
             }
             
