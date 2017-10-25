@@ -12,16 +12,22 @@ class RepoViewController: UIViewController, RepoDetailPartDelegate {
 
     var user : User!
     var repo : Repo!
-    var commits : [Commit] = [] {
-        didSet {
-            let plusString = self.commits.count >= 100 ? "+" : ""
-            self.commitsButton.setTitle("\(self.commits.count)\(plusString) Commits", for: .normal)
-        }
-    }
     
     var currentBranch : Branch? {
         didSet {
             self.branchLabel.text = currentBranch?.name
+            
+            guard let currentBranch = currentBranch else { return }
+            
+            DataManager.getCommits(user.username, repo: repo.name, branch: currentBranch.name!, options: nil) { (commits, error) in
+                
+                if let commits = commits {
+                    currentBranch.commits = commits
+                    
+                    let plusString = commits.count >= 100 ? "+" : ""
+                    self.commitsButton.setTitleWithoutAnimation("\(commits.count)\(plusString) Commits", for: .normal)
+                }
+            }
         }
     }
     
@@ -34,19 +40,13 @@ class RepoViewController: UIViewController, RepoDetailPartDelegate {
 
         // Do any additional setup after loading the view.
         self.title = repo.name
+
+        currentBranch = repo.branches.first
         
         self.descriptionTextView.textContainer.lineFragmentPadding = 0
         self.descriptionTextView.textContainerInset = .zero
 
-        
         self.descriptionTextView.text = repo.description
-        self.branchLabel.text = repo.defaultBranch
-       
-        DataManager.getCommits(user.username, repo: repo.name, options: nil) { (records, error) -> Void in
-            if let records = records as? [Commit] {
-                self.commits = records
-            }
-        }
         
     }
     
@@ -68,11 +68,8 @@ class RepoViewController: UIViewController, RepoDetailPartDelegate {
             vc.user = user
         }
         
-        if segue.identifier == "showRepoCommitsSegue" {
-            let vc = segue.destination as? RepoCommitsViewController
-            vc?.repo = repo
-            //vc?.user = user
-            vc?.commits = commits
+        if let vc = segue.destination as? RepoCommitsViewController {
+            vc.commits = currentBranch?.commits ?? []
         }
     }
 
@@ -103,7 +100,6 @@ class RepoViewController: UIViewController, RepoDetailPartDelegate {
     //MARK: - RepoDetailPartDelegate
     func detailButtonClicked(_ segueIdentifier: String) {
         self.performSegue(withIdentifier: segueIdentifier, sender: self)
-
     }
 }
 

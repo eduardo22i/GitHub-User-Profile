@@ -8,14 +8,52 @@
 
 import UIKit
 
-class Commit: NSObject {
+class Commit {
     
-    var commit : NSDictionary = NSDictionary()
-    var comments_url : String!
-    var author : NSDictionary = NSDictionary()
-    var committer : NSDictionary = NSDictionary()
-    var html_url : String!
-    var sha : String!
-    var url : String!
+    var sha : String?
+    var message : String?
+    var date : Date?
+    var user : User?
     
+    required init(from decoder: Decoder) throws {
+        try self.decode(decoder: decoder)
+    }
+}
+
+extension Commit: Codable {
+    private enum CodingKeys : String, CodingKey {
+        case commit = "commit"
+        case message = "message"
+        case author = "author"
+        case date = "date"
+        case login = "login"
+    }
+    
+    func decode(decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        let commitContainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .commit)
+        
+        message = try commitContainer.decode(String.self, forKey: .message)
+        
+        let commitAuthorContainer = try commitContainer.nestedContainer(keyedBy: CodingKeys.self, forKey: .author)
+        
+        date = try commitAuthorContainer.decode(Date.self, forKey: .date)
+
+        let authorContainer = try container.nestedContainer(keyedBy: CodingKeys.self, forKey: .author)
+        
+        if let login = try? authorContainer.decode(String.self, forKey: .login) {
+            
+            DataManager.getUser(login, block: { (user, error) in
+                if let user = user {
+                    self.user = user
+                }
+            })
+        }
+
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        
+    }
 }

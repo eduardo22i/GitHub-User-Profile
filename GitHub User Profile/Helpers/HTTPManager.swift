@@ -53,6 +53,7 @@ enum Endpoint : String {
     case user = "users"
     case repos = "repos"
     case branches = "branches"
+    case commits = "commits"
 }
 
 typealias DownloadCompleteWithArray =  (_ records : [[String : Any]]?, _ error : Error?) -> Void

@@ -68,6 +68,7 @@ extension Repo: Codable {
         updatedAt = try container.decode(Date.self, forKey: .updatedAt)
         createdAt = try container.decode(Date.self, forKey: .createdAt)
         
+        branches.append(Branch(name: defaultBranch))
     }
     
     func encode(to encoder: Encoder) throws {

@@ -81,23 +81,29 @@ class DataManager: NSObject {
         }
     }
     
-    static func getCommits(_ username: String, repo : String, options : NSDictionary!, block : @escaping DownloadCompleteRecords) {
-        HTTPManager.findAll("\(RepoClass)/\(username)/\(repo)/\(CommitsClass)", options : prepareRequestParameters(options), completeWithArray: { (records, error : Error?) -> Void in
+    static func getCommits(_ username: String, repo : String, branch: String, options : [String : Any]?, block : @escaping (_ repos : [Commit]?, _ error : APIError?) -> Void) {
+        
+        var parameters = options ?? [:]
+        parameters["sha"] = branch
+        
+        let path = username + "/" + repo + "/" + Endpoint.commits.rawValue
+        let request = HTTPManager.createRequest(endpoint: .repos, path: path, parameters: parameters)
+        
+        HTTPManager.make(request: request) { (data, error) in
             
             if let error = error {
                 block(nil, error)
                 return
             }
             
-            var commits = [Commit()]
-            for repoDic in records! {
-                if let commit = self.setKeysAndValues(Commit(), dictionary: repoDic) as? Commit {
-                    commits.append(commit)
-                }
+            if let data = data {
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .iso8601
+                
+                let commits = try? decoder.decode([Commit].self, from: data)
+                block(commits, nil)
             }
-            commits.remove(at: 0)
-            block(commits, nil)
-        })
+        }
     }
     
     //MARK: - Helpers

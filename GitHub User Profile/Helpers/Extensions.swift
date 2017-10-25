@@ -42,6 +42,14 @@ extension UIImageView {
     }
 }
 
+extension UIButton {
+    func setTitleWithoutAnimation(_ title : String?, for controlState: UIControlState) {
+        UIView.setAnimationsEnabled(false)
+        self.setTitle(title, for: controlState)
+        UIView.setAnimationsEnabled(true)
+    }
+
+}
 extension String {
     var removeComma:String {
         return components(separatedBy: CharacterSet(charactersIn: ",")).joined(separator: "")
