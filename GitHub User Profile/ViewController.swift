@@ -59,17 +59,13 @@ class ViewController: UIViewController, UserSearchDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        
-        
         searchController.searchBar.delegate = self
         
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
-            navigationItem.hidesSearchBarWhenScrolling = true
-            
-            self.navigationItem.searchController = searchController
         }
-
+        
+        self.navigationController?.navigationBar.shadowImage = UIImage()
         
         tableView.estimatedRowHeight = 55
         
@@ -110,8 +106,8 @@ class ViewController: UIViewController, UserSearchDelegate {
     func searchUser (_ userStr : String) {
         DataManager.getUser(userStr, block: { (user, error) -> Void in
             if let error = error {
+                self.isLoading = true
                 self.infoTextLabel.text = error.description
-                self.tableView.isHidden = true
                 
                 switch error.code {
                 case 403:
@@ -139,7 +135,7 @@ class ViewController: UIViewController, UserSearchDelegate {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if let vc = segue.destination as? RepoViewController {
-            let indexPath = self.tableView.indexPathForSelectedRow
+            let indexPath = tableView.indexPath(for: sender as! UITableViewCell)
             let repo = repos[indexPath?.row ?? 0]
             vc.repo = repo
             vc.user = user
