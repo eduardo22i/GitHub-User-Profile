@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "obiwanoctocat.jpg"
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "muertosoctocat.jpg",
       "scale" : "2x"
     },
     {

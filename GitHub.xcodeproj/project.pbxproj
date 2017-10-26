@@ -22,7 +22,6 @@
 		F9401CC41B80745F003FFD42 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9401CC31B80745F003FFD42 /* DataManager.swift */; };
 		F9401CC71B8078F4003FFD42 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9401CC61B8078F4003FFD42 /* User.swift */; };
 		F94F3E451B8E1C3F005DA695 /* RepoCommitsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94F3E441B8E1C3F005DA695 /* RepoCommitsViewController.swift */; };
-		F94F3E471B8E3773005DA695 /* OctoCatImages.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F94F3E461B8E3773005DA695 /* OctoCatImages.xcassets */; };
 		F951A28D1F9D11AA007795D5 /* HTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DDA72C1B85ABE2003B3C66 /* HTTPManager.swift */; };
 		F99B72181F9D5E77003A8DDF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92C2EA11B818E2D00846566 /* Extensions.swift */; };
 		F9B4B3F71B8C3F86004A6BFD /* RepoDetailPartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B4B3F61B8C3F86004A6BFD /* RepoDetailPartTableViewCell.swift */; };
@@ -50,20 +49,19 @@
 		F92C2EA31B819B0300846566 /* RepoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoViewController.swift; sourceTree = "<group>"; };
 		F92C2EA51B81B9BD00846566 /* RepoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoTableViewCell.swift; sourceTree = "<group>"; };
 		F92C2EA71B81C8B400846566 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		F9401C9D1B807423003FFD42 /* GitHub User Profile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GitHub User Profile.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9401C9D1B807423003FFD42 /* GitHub iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GitHub iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9401CA11B807423003FFD42 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F9401CA21B807423003FFD42 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F9401CA41B807423003FFD42 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F9401CA71B807423003FFD42 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F9401CA91B807423003FFD42 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		F9401CAC1B807423003FFD42 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		F9401CB21B807423003FFD42 /* GitHub User ProfileTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "GitHub User ProfileTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F9401CB21B807423003FFD42 /* GitHub UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "GitHub UnitTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9401CB71B807423003FFD42 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F9401CB81B807423003FFD42 /* GitHub_User_ProfileTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHub_User_ProfileTests.swift; sourceTree = "<group>"; };
 		F9401CC31B80745F003FFD42 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		F9401CC61B8078F4003FFD42 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F94F3E441B8E1C3F005DA695 /* RepoCommitsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoCommitsViewController.swift; sourceTree = "<group>"; };
-		F94F3E461B8E3773005DA695 /* OctoCatImages.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = OctoCatImages.xcassets; sourceTree = "<group>"; };
 		F9B4B3F61B8C3F86004A6BFD /* RepoDetailPartTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoDetailPartTableViewCell.swift; sourceTree = "<group>"; };
 		F9B4B3F81B8C42FC004A6BFD /* RepoDescriptionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoDescriptionTableViewCell.swift; sourceTree = "<group>"; };
 		F9DDA72C1B85ABE2003B3C66 /* HTTPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPManager.swift; sourceTree = "<group>"; };
@@ -103,8 +101,9 @@
 		F9401C941B807423003FFD42 = {
 			isa = PBXGroup;
 			children = (
-				F9401C9F1B807423003FFD42 /* GitHub User Profile */,
-				F9401CB51B807423003FFD42 /* GitHub User ProfileTests */,
+				F98C48971FA27C6F00F8DC5A /* Shared */,
+				F9401C9F1B807423003FFD42 /* iOS */,
+				F9401CB51B807423003FFD42 /* UnitTests */,
 				F9401C9E1B807423003FFD42 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -112,55 +111,33 @@
 		F9401C9E1B807423003FFD42 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F9401C9D1B807423003FFD42 /* GitHub User Profile.app */,
-				F9401CB21B807423003FFD42 /* GitHub User ProfileTests.xctest */,
+				F9401C9D1B807423003FFD42 /* GitHub iOS.app */,
+				F9401CB21B807423003FFD42 /* GitHub UnitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		F9401C9F1B807423003FFD42 /* GitHub User Profile */ = {
+		F9401C9F1B807423003FFD42 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				F9FA94041B892A5D00C598C8 /* ViewControllers */,
-				F92C2E9E1B81839000846566 /* Views */,
-				F9401CC51B8078E0003FFD42 /* Models */,
-				F9401CC21B807439003FFD42 /* Helpers */,
 				F9401CA21B807423003FFD42 /* AppDelegate.swift */,
-				F9401CA41B807423003FFD42 /* ViewController.swift */,
-				F92C2EA31B819B0300846566 /* RepoViewController.swift */,
-				F92C2EA71B81C8B400846566 /* SearchViewController.swift */,
+				F92C2E9E1B81839000846566 /* Views */,
+				F9FA94041B892A5D00C598C8 /* ViewControllers */,
 				F9401CA61B807423003FFD42 /* Main.storyboard */,
 				F9401CA91B807423003FFD42 /* Images.xcassets */,
-				F94F3E461B8E3773005DA695 /* OctoCatImages.xcassets */,
 				F9401CAB1B807423003FFD42 /* LaunchScreen.xib */,
-				F9401CA01B807423003FFD42 /* Supporting Files */,
-			);
-			path = "GitHub User Profile";
-			sourceTree = "<group>";
-		};
-		F9401CA01B807423003FFD42 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
 				F9401CA11B807423003FFD42 /* Info.plist */,
 			);
-			name = "Supporting Files";
+			path = iOS;
 			sourceTree = "<group>";
 		};
-		F9401CB51B807423003FFD42 /* GitHub User ProfileTests */ = {
+		F9401CB51B807423003FFD42 /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
 				F9401CB81B807423003FFD42 /* GitHub_User_ProfileTests.swift */,
-				F9401CB61B807423003FFD42 /* Supporting Files */,
-			);
-			path = "GitHub User ProfileTests";
-			sourceTree = "<group>";
-		};
-		F9401CB61B807423003FFD42 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
 				F9401CB71B807423003FFD42 /* Info.plist */,
 			);
-			name = "Supporting Files";
+			path = UnitTests;
 			sourceTree = "<group>";
 		};
 		F9401CC21B807439003FFD42 /* Helpers */ = {
@@ -184,6 +161,15 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		F98C48971FA27C6F00F8DC5A /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				F9401CC51B8078E0003FFD42 /* Models */,
+				F9401CC21B807439003FFD42 /* Helpers */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		F9B4B3F51B8C3F24004A6BFD /* Repo Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -196,6 +182,9 @@
 		F9FA94041B892A5D00C598C8 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				F9401CA41B807423003FFD42 /* ViewController.swift */,
+				F92C2EA31B819B0300846566 /* RepoViewController.swift */,
+				F92C2EA71B81C8B400846566 /* SearchViewController.swift */,
 				F9FA94051B892A7F00C598C8 /* Repo */,
 			);
 			path = ViewControllers;
@@ -213,9 +202,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		F9401C9C1B807423003FFD42 /* GitHub User Profile */ = {
+		F9401C9C1B807423003FFD42 /* GitHub iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F9401CBC1B807423003FFD42 /* Build configuration list for PBXNativeTarget "GitHub User Profile" */;
+			buildConfigurationList = F9401CBC1B807423003FFD42 /* Build configuration list for PBXNativeTarget "GitHub iOS" */;
 			buildPhases = (
 				F9401C991B807423003FFD42 /* Sources */,
 				F9401C9A1B807423003FFD42 /* Frameworks */,
@@ -225,14 +214,14 @@
 			);
 			dependencies = (
 			);
-			name = "GitHub User Profile";
+			name = "GitHub iOS";
 			productName = "GitHub User Profile";
-			productReference = F9401C9D1B807423003FFD42 /* GitHub User Profile.app */;
+			productReference = F9401C9D1B807423003FFD42 /* GitHub iOS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		F9401CB11B807423003FFD42 /* GitHub User ProfileTests */ = {
+		F9401CB11B807423003FFD42 /* GitHub UnitTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F9401CBF1B807423003FFD42 /* Build configuration list for PBXNativeTarget "GitHub User ProfileTests" */;
+			buildConfigurationList = F9401CBF1B807423003FFD42 /* Build configuration list for PBXNativeTarget "GitHub UnitTests" */;
 			buildPhases = (
 				F9401CAE1B807423003FFD42 /* Sources */,
 				F9401CAF1B807423003FFD42 /* Frameworks */,
@@ -243,9 +232,9 @@
 			dependencies = (
 				F9401CB41B807423003FFD42 /* PBXTargetDependency */,
 			);
-			name = "GitHub User ProfileTests";
+			name = "GitHub UnitTests";
 			productName = "GitHub User ProfileTests";
-			productReference = F9401CB21B807423003FFD42 /* GitHub User ProfileTests.xctest */;
+			productReference = F9401CB21B807423003FFD42 /* GitHub UnitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -257,7 +246,7 @@
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0900;
-				ORGANIZATIONNAME = "Estamp World";
+				ORGANIZATIONNAME = Estamp;
 				TargetAttributes = {
 					F9401C9C1B807423003FFD42 = {
 						CreatedOnToolsVersion = 6.4;
@@ -270,7 +259,7 @@
 					};
 				};
 			};
-			buildConfigurationList = F9401C981B807423003FFD42 /* Build configuration list for PBXProject "GitHub User Profile" */;
+			buildConfigurationList = F9401C981B807423003FFD42 /* Build configuration list for PBXProject "GitHub" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -283,8 +272,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F9401C9C1B807423003FFD42 /* GitHub User Profile */,
-				F9401CB11B807423003FFD42 /* GitHub User ProfileTests */,
+				F9401C9C1B807423003FFD42 /* GitHub iOS */,
+				F9401CB11B807423003FFD42 /* GitHub UnitTests */,
 			);
 		};
 /* End PBXProject section */
@@ -295,7 +284,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F9401CA81B807423003FFD42 /* Main.storyboard in Resources */,
-				F94F3E471B8E3773005DA695 /* OctoCatImages.xcassets in Resources */,
 				F9401CAD1B807423003FFD42 /* LaunchScreen.xib in Resources */,
 				F9401CAA1B807423003FFD42 /* Images.xcassets in Resources */,
 			);
@@ -350,7 +338,7 @@
 /* Begin PBXTargetDependency section */
 		F9401CB41B807423003FFD42 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = F9401C9C1B807423003FFD42 /* GitHub User Profile */;
+			target = F9401C9C1B807423003FFD42 /* GitHub iOS */;
 			targetProxy = F9401CB31B807423003FFD42 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -483,9 +471,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = "GitHub User Profile/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.estampworld.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.estamp.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 4.0;
@@ -499,9 +487,9 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = "GitHub User Profile/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.estampworld.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.estamp.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_VERSION = 4.0;
@@ -512,15 +500,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "GitHub User ProfileTests/Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.estampworld.$(PRODUCT_NAME:rfc1034identifier)";
+				INFOPLIST_FILE = UnitTests/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.estamp.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GitHub User Profile.app/GitHub User Profile";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GitHub.app/GitHub";
 			};
 			name = Debug;
 		};
@@ -528,18 +517,19 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = "GitHub User ProfileTests/Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.estampworld.$(PRODUCT_NAME:rfc1034identifier)";
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = UnitTests/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.estamp.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GitHub User Profile.app/GitHub User Profile";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GitHub.app/GitHub";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F9401C981B807423003FFD42 /* Build configuration list for PBXProject "GitHub User Profile" */ = {
+		F9401C981B807423003FFD42 /* Build configuration list for PBXProject "GitHub" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F9401CBA1B807423003FFD42 /* Debug */,
@@ -548,7 +538,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F9401CBC1B807423003FFD42 /* Build configuration list for PBXNativeTarget "GitHub User Profile" */ = {
+		F9401CBC1B807423003FFD42 /* Build configuration list for PBXNativeTarget "GitHub iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F9401CBD1B807423003FFD42 /* Debug */,
@@ -557,7 +547,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F9401CBF1B807423003FFD42 /* Build configuration list for PBXNativeTarget "GitHub User ProfileTests" */ = {
+		F9401CBF1B807423003FFD42 /* Build configuration list for PBXNativeTarget "GitHub UnitTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F9401CC01B807423003FFD42 /* Debug */,

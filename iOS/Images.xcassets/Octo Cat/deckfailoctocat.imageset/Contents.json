@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "muertosoctocat.jpg"
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "deckfailoctocat.png",
       "scale" : "2x"
     },
     {
