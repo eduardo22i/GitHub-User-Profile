@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RepoViewController: UIViewController, RepoDetailPartDelegate {
+class RepoViewController: UIViewController {
 
     var user : User!
     var repo : Repo!
@@ -96,11 +96,6 @@ class RepoViewController: UIViewController, RepoDetailPartDelegate {
        
     }
     
-    
-    //MARK: - RepoDetailPartDelegate
-    func detailButtonClicked(_ segueIdentifier: String) {
-        self.performSegue(withIdentifier: segueIdentifier, sender: self)
-    }
 }
 
 extension RepoViewController: BranchesViewControllerDelegate {
