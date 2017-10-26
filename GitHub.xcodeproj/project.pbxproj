@@ -24,6 +24,7 @@
 		F94F3E451B8E1C3F005DA695 /* CommitsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94F3E441B8E1C3F005DA695 /* CommitsViewController.swift */; };
 		F951A28D1F9D11AA007795D5 /* HTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DDA72C1B85ABE2003B3C66 /* HTTPManager.swift */; };
 		F99B72181F9D5E77003A8DDF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92C2EA11B818E2D00846566 /* Extensions.swift */; };
+		F9A4CE9B1FA284C4000AAF5D /* Extensions+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A4CE9A1FA284C4000AAF5D /* Extensions+iOS.swift */; };
 		F9B4B3F71B8C3F86004A6BFD /* RepoDetailPartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B4B3F61B8C3F86004A6BFD /* RepoDetailPartTableViewCell.swift */; };
 		F9B4B3F91B8C42FC004A6BFD /* RepoDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B4B3F81B8C42FC004A6BFD /* RepoDescriptionTableViewCell.swift */; };
 		F9DDA72D1B85ABE2003B3C66 /* HTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DDA72C1B85ABE2003B3C66 /* HTTPManager.swift */; };
@@ -62,6 +63,7 @@
 		F9401CC31B80745F003FFD42 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		F9401CC61B8078F4003FFD42 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F94F3E441B8E1C3F005DA695 /* CommitsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommitsViewController.swift; sourceTree = "<group>"; };
+		F9A4CE9A1FA284C4000AAF5D /* Extensions+iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+iOS.swift"; sourceTree = "<group>"; };
 		F9B4B3F61B8C3F86004A6BFD /* RepoDetailPartTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoDetailPartTableViewCell.swift; sourceTree = "<group>"; };
 		F9B4B3F81B8C42FC004A6BFD /* RepoDescriptionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoDescriptionTableViewCell.swift; sourceTree = "<group>"; };
 		F9DDA72C1B85ABE2003B3C66 /* HTTPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPManager.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				F9401CA91B807423003FFD42 /* Assets.xcassets */,
 				F9401CAB1B807423003FFD42 /* LaunchScreen.xib */,
 				F9401CA11B807423003FFD42 /* Info.plist */,
+				F9A4CE991FA284B3000AAF5D /* Helpers */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -176,6 +179,14 @@
 				F92C2EA71B81C8B400846566 /* SearchViewController.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		F9A4CE991FA284B3000AAF5D /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				F9A4CE9A1FA284C4000AAF5D /* Extensions+iOS.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		F9B4B3F51B8C3F24004A6BFD /* Repo Cells */ = {
@@ -315,6 +326,7 @@
 				F92C2EA81B81C8B400846566 /* SearchViewController.swift in Sources */,
 				F92C2EA41B819B0300846566 /* RepoViewController.swift in Sources */,
 				F92C2EA01B81849100846566 /* UserInfoTableViewCell.swift in Sources */,
+				F9A4CE9B1FA284C4000AAF5D /* Extensions+iOS.swift in Sources */,
 				F9B4B3F71B8C3F86004A6BFD /* RepoDetailPartTableViewCell.swift in Sources */,
 				F9401CC71B8078F4003FFD42 /* User.swift in Sources */,
 				F9FA94071B892AC200C598C8 /* BranchesViewController.swift in Sources */,
