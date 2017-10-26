@@ -69,12 +69,13 @@ class ViewController: UIViewController, UserSearchDelegate {
         
         tableView.estimatedRowHeight = 55
         
-        isLoading = true
-        
         if !shouldSearchUser {
             displayUser ()
+            isLoading = false
             return
         }
+        
+        isLoading = true
         
         if let user = defaults.string(forKey: "user") {
             defaultUser = user
