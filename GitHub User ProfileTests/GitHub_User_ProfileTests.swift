@@ -40,9 +40,8 @@ class GitHub_User_ProfileTests: XCTestCase {
         XCTAssertEqual(branchesRequest.url?.absoluteString ?? "", "https://api.github.com/repos/eduardo22i/github-user-profile/branches")
         
         let commitsPath = username + "/" + projectName + "/" + Endpoint.commits.rawValue
-        let commitsRequest = HTTPManager.createRequest(endpoint: .repos, path: commitsPath, parameters: ["sha" : "branch"])
+        let commitsRequest = HTTPManager.createRequest(endpoint: .repos, path: commitsPath, parameters: ["sha" : "commits"])
         XCTAssertEqual(commitsRequest.url?.absoluteString ?? "", "https://api.github.com/repos/eduardo22i/github-user-profile/commits?sha=commits")
-        
         
     }
     

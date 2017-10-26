@@ -56,9 +56,6 @@ enum Endpoint : String {
     case commits = "commits"
 }
 
-typealias DownloadCompleteWithArray =  (_ records : [[String : Any]]?, _ error : Error?) -> Void
-typealias DownloadCompleteWithRecord =  (_ record : [String : Any]?, _ error : Error?) -> Void
-
 class HTTPManager: NSObject {
     
     static let url = "api.github.com"
@@ -131,67 +128,6 @@ class HTTPManager: NSObject {
         }
         
         dataTask.resume()
-    }
-    
-    static func findAll (_ className : String, options : NSDictionary!, completeWithArray : @escaping DownloadCompleteWithArray) {
-        
-        var optionsurl = ""
-        
-        if let options =  options {
-            optionsurl = options.toURLString()
-        }
-        
-        let urlstr = "\(url)\(className)?\(optionsurl)\(urlToken())"
-        let request = URLRequest(url: URL(string: urlstr)!)
-        
-        NSURLConnection.sendAsynchronousRequest(request, queue: OperationQueue.main) {(response, data, error) in
-            if error != nil {
-                completeWithArray(nil, error)
-                return
-            }
-            if let response = response as? HTTPURLResponse, let data = data  {
-                if response.statusCode == 404 {
-                    /*
-                    let userInfo = [
-                        NSLocalizedDescriptionKey :  "Not found."
-                    ]
-                    let notFoundError = Error(domain: "NotFound", code: 404, userInfo: userInfo)
-                    completeWithArray(nil, notFoundError)
-                    */
-                    return
-                }
-                /*
-                if response.statusCode == 403 {
-                    let userInfo = [
-                        NSLocalizedDescriptionKey :  "API rate limit exceeded. (But here's the good news: Authenticated requests get a higher rate limit.)"
-                    ]
-                    let notFoundError = Error(domain: "OverLimit", code: 403, userInfo: userInfo)
-                    completeWithArray(nil, notFoundError)
-                    return
-                }
-                if response.statusCode == 505 {
-                    let userInfo = [
-                        NSLocalizedDescriptionKey :  "Looks like something went wrong!"
-                    ]
-                    let notFoundError = Error(domain: "ServerError", code: 403, userInfo: userInfo)
-                    completeWithArray(nil, notFoundError)
-                    return
-                }
-                */
-                if let indata = self.parseData(data) as? [[String : Any]] {
-                    completeWithArray(indata, nil)
-                }
-                
-                
-            }
-            
-        }
-    }
-
-    
-    static func parseData (_ data : Data)  -> AnyObject!  {
-        //var error: Error?
-        return try! JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.mutableContainers) as AnyObject
     }
     
 }

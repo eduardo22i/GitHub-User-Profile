@@ -8,17 +8,8 @@
 
 import UIKit
 
-typealias DownloadCompleteUser     = (_ user : User?, _ error : Error?) -> Void
-typealias DownloadCompleteRecord   = (_ record : AnyObject?, _ error : Error?) -> Void
-typealias DownloadCompleteRecords  = (_ records : [AnyObject]?, _ error : Error?) -> Void
-
 class DataManager: NSObject {
-    
-    static var RepoClass = "repos"
-    static var BranchClass = "branches"
-    static var CommitsClass = "commits"
-    
-    
+
     //MARK: - GET
     
     static func getUser(_ username: String, block : @escaping (_ user : User?, _ error : APIError?) -> Void) {
@@ -104,52 +95,6 @@ class DataManager: NSObject {
                 block(commits, nil)
             }
         }
-    }
-    
-    //MARK: - Helpers
-    
-    static func prepareRequestParameters (_ options : NSDictionary!) -> NSDictionary {
-        let optionsSend = NSMutableDictionary()
-        if let options = options as? [String : AnyObject] {
-            optionsSend.setValuesForKeys(options)
-        }
-        optionsSend.setValue(100, forKey: "per_page")
-        return optionsSend
-    }
-    
-    
-    @discardableResult static func setKeysAndValues (_ object : AnyObject, dictionary : [String : Any])  -> AnyObject  {
-        
-        for (key, value) in dictionary {
-            if !(key == "description") {
-                if let keyValue = value as? String {
-                    if (object.responds(to: NSSelectorFromString(key))) {
-                        object.setValue(keyValue, forKey: key)
-                    }
-                }
-                if let keyValue = value as? Int {
-                    if (object.responds(to: NSSelectorFromString(key))) {
-                        object.setValue(keyValue, forKey: key)
-                    }
-                }
-                if let keyValue = value as? NSDictionary {
-                    if (object.responds(to: NSSelectorFromString(key))) {
-                        object.setValue(keyValue, forKey: key)
-                    }
-                }
-            } else {
-                let key = "alternateDescription"
-                if let value = value as? String {
-                    if (object.responds(to: NSSelectorFromString(key))) {
-                        object.setValue(value, forKey: key)
-                    }
-                }
-            }
-            
-        }
-        
-        return object
-        
     }
     
 }
