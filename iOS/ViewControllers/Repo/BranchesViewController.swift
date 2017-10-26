@@ -1,20 +1,20 @@
 //
-//  RepoBranchesViewController.swift
+//  BranchesViewController.swift
 //  GitHub User Profile
 //
 //  Created by Eduardo Irías on 8/22/15.
-//  Copyright (c) 2015 Estamp World. All rights reserved.
+//  Copyright (c) 2015 Estamp. All rights reserved.
 //
 
 import UIKit
 
-protocol RepoBranchesViewControllerDelegate {
-    func repoBranchesViewController(_ repoBranchesViewController: RepoBranchesViewController, didSelect branch: Branch)
+protocol BranchesViewControllerDelegate {
+    func repoBranchesViewController(_ repoBranchesViewController: BranchesViewController, didSelect branch: Branch)
 }
 
-class RepoBranchesViewController: UIViewController {
+class BranchesViewController: UIViewController {
     
-    var delegate : RepoBranchesViewControllerDelegate?
+    var delegate : BranchesViewControllerDelegate?
     
     var user : User!
     var repo : Repo!
@@ -60,7 +60,7 @@ class RepoBranchesViewController: UIViewController {
 }
 
 // MARK: - Table view data source
-extension RepoBranchesViewController: UITableViewDataSource {
+extension BranchesViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
@@ -90,7 +90,7 @@ extension RepoBranchesViewController: UITableViewDataSource {
 }
 
 // MARK: - Table view data source
-extension RepoBranchesViewController: UITableViewDelegate {
+extension BranchesViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let branch = repo.branches[indexPath.row]

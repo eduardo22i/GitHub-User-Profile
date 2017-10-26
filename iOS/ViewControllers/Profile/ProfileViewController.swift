@@ -1,14 +1,14 @@
 //
-//  ViewController.swift
+//  ProfileViewController.swift
 //  GitHub User Profile
 //
 //  Created by Eduardo Irías on 8/16/15.
-//  Copyright (c) 2015 Estamp World. All rights reserved.
+//  Copyright (c) 2015 Estamp. All rights reserved.
 //
 
 import UIKit
 
-class ViewController: UIViewController, UserSearchDelegate {
+class ProfileViewController: UIViewController, UserSearchDelegate {
 
     var defaultUser = ""
     var shouldSearchUser = true
@@ -166,7 +166,7 @@ class ViewController: UIViewController, UserSearchDelegate {
 }
 
 // MARK: - UITableViewDataSource
-extension ViewController : UITableViewDelegate, UITableViewDataSource {
+extension ProfileViewController : UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         // Return the number of sections.
@@ -219,7 +219,7 @@ extension ViewController : UITableViewDelegate, UITableViewDataSource {
 }
 
 // MARK: - UISearchBarDelegate
-extension ViewController : UISearchBarDelegate {
+extension ProfileViewController : UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         

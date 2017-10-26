@@ -62,13 +62,13 @@ class RepoViewController: UIViewController, RepoDetailPartDelegate {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
       
-        if let vc = (segue.destination as? UINavigationController)?.topViewController as?  RepoBranchesViewController {
+        if let vc = (segue.destination as? UINavigationController)?.topViewController as?  BranchesViewController {
             vc.delegate = self
             vc.repo = repo
             vc.user = user
         }
         
-        if let vc = segue.destination as? RepoCommitsViewController {
+        if let vc = segue.destination as? CommitsViewController {
             vc.commits = currentBranch?.commits ?? []
         }
     }
@@ -103,9 +103,9 @@ class RepoViewController: UIViewController, RepoDetailPartDelegate {
     }
 }
 
-extension RepoViewController: RepoBranchesViewControllerDelegate {
+extension RepoViewController: BranchesViewControllerDelegate {
     
-    func repoBranchesViewController(_ repoBranchesViewController: RepoBranchesViewController, didSelect branch: Branch) {
+    func repoBranchesViewController(_ repoBranchesViewController: BranchesViewController, didSelect branch: Branch) {
         self.currentBranch = branch
         repoBranchesViewController.dismiss(animated: true, completion: nil)
     }

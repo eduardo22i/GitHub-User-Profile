@@ -1,14 +1,14 @@
 //
-//  RepoCommitsViewController.swift
+//  CommitsViewController.swift
 //  GitHub User Profile
 //
 //  Created by Eduardo Irías on 8/26/15.
-//  Copyright (c) 2015 Estamp World. All rights reserved.
+//  Copyright (c) 2015 Estamp. All rights reserved.
 //
 
 import UIKit
 
-class RepoCommitsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class CommitsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var commits : [Commit] = []
         
@@ -94,7 +94,7 @@ class RepoCommitsViewController: UIViewController, UITableViewDelegate, UITableV
         let commit = commits[indexPath.row ]
         
         if let user = commit.user {
-            let vc = storyboard?.instantiateViewController(withIdentifier: "viewController") as! ViewController
+            let vc = storyboard?.instantiateViewController(withIdentifier: "viewController") as! ProfileViewController
             
             vc.defaultUser = user.username
             vc.shouldSearchUser = false
