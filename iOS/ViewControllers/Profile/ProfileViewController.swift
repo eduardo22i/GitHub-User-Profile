@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController, UserSearchDelegate {
+class ProfileViewController: UIViewController {
 
     var defaultUser = ""
     var shouldSearchUser = true
@@ -147,22 +147,6 @@ class ProfileViewController: UIViewController, UserSearchDelegate {
             vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
         }
     }
-    
-
-    //MARK: - UserSearchDelegate
-    
-    func didInputUser(_ userStr: String) {
-        infoTextLabel.text = "Loading"
-        infoImageView.image = #imageLiteral(resourceName: "jetpackoctocat")
-        
-        tableView.isHidden = true
-        
-        defaultUser = userStr
-        defaults.set(defaultUser, forKey: "user")
-
-        searchUser(defaultUser)
-    }
-    
 }
 
 // MARK: - UITableViewDataSource
@@ -216,6 +200,21 @@ extension ProfileViewController : UITableViewDelegate, UITableViewDataSource {
         return indexPath.section == 0 ? UITableViewAutomaticDimension : 55
     }
     
+}
+
+// MARK: - SearchViewControllerDelegate
+extension ProfileViewController : SearchViewControllerDelegate {
+    func searchViewController(_ searchViewController: SearchViewController, didInputUser user: String) {
+        infoTextLabel.text = "Loading"
+        infoImageView.image = #imageLiteral(resourceName: "jetpackoctocat")
+        
+        tableView.isHidden = true
+        
+        defaultUser = user
+        defaults.set(defaultUser, forKey: "user")
+        
+        searchUser(defaultUser)
+    }
 }
 
 // MARK: - UISearchBarDelegate

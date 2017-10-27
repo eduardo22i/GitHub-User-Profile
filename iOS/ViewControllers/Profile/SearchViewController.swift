@@ -8,15 +8,15 @@
 
 import UIKit
 
-protocol UserSearchDelegate {
-    func didInputUser(_ user : String)
+protocol SearchViewControllerDelegate {
+    func searchViewController(_ searchViewController : SearchViewController, didInputUser user : String)
 }
 
 class SearchViewController: UIViewController, UISearchBarDelegate {
 
     static var userSearchInput = ""
     
-    var delegate : UserSearchDelegate!
+    var delegate : SearchViewControllerDelegate?
     
     @IBOutlet var searchBar: UISearchBar!
     
@@ -66,9 +66,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
         SearchViewController.userSearchInput = searchBar.text ?? ""
         searchBar.resignFirstResponder()
         self.dismiss(animated: true, completion: { () -> Void in
-            if let delegate = self.delegate {
-                delegate.didInputUser(searchBar.text ?? "")
-            }
+            self.delegate?.searchViewController(self, didInputUser: searchBar.text ?? "")
         })
     }
 }
