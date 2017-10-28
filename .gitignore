@@ -1,7 +1,7 @@
 .DS_Store
+xcshareddata
 xcuserdata
 DerivedData
 Carthage
 Cartfile.resolved
-
-GitHub\.xcodeproj/project\.xcworkspace/
+project\.xcworkspace/

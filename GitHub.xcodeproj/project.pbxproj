@@ -511,7 +511,6 @@
 		F9401CC01B807423003FFD42 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -528,7 +527,6 @@
 		F9401CC11B807423003FFD42 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = UnitTests/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.estamp.$(PRODUCT_NAME:rfc1034identifier)";
