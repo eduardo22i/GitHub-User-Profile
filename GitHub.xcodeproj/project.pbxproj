@@ -18,7 +18,7 @@
 		F9401CA81B807423003FFD42 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9401CA61B807423003FFD42 /* Main.storyboard */; };
 		F9401CAA1B807423003FFD42 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9401CA91B807423003FFD42 /* Assets.xcassets */; };
 		F9401CAD1B807423003FFD42 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F9401CAB1B807423003FFD42 /* LaunchScreen.xib */; };
-		F9401CB91B807423003FFD42 /* GitHub_User_ProfileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9401CB81B807423003FFD42 /* GitHub_User_ProfileTests.swift */; };
+		F9401CB91B807423003FFD42 /* URLs_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9401CB81B807423003FFD42 /* URLs_Tests.swift */; };
 		F9401CC41B80745F003FFD42 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9401CC31B80745F003FFD42 /* DataManager.swift */; };
 		F9401CC71B8078F4003FFD42 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9401CC61B8078F4003FFD42 /* User.swift */; };
 		F94F3E451B8E1C3F005DA695 /* CommitsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94F3E441B8E1C3F005DA695 /* CommitsViewController.swift */; };
@@ -57,7 +57,7 @@
 		F9401CAC1B807423003FFD42 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		F9401CB21B807423003FFD42 /* GitHub UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "GitHub UnitTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9401CB71B807423003FFD42 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F9401CB81B807423003FFD42 /* GitHub_User_ProfileTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHub_User_ProfileTests.swift; sourceTree = "<group>"; };
+		F9401CB81B807423003FFD42 /* URLs_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLs_Tests.swift; sourceTree = "<group>"; };
 		F9401CC31B80745F003FFD42 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		F9401CC61B8078F4003FFD42 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F94F3E441B8E1C3F005DA695 /* CommitsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommitsViewController.swift; sourceTree = "<group>"; };
@@ -132,7 +132,7 @@
 		F9401CB51B807423003FFD42 /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
-				F9401CB81B807423003FFD42 /* GitHub_User_ProfileTests.swift */,
+				F9401CB81B807423003FFD42 /* URLs_Tests.swift */,
 				F9401CB71B807423003FFD42 /* Info.plist */,
 			);
 			path = UnitTests;
@@ -263,10 +263,12 @@
 				TargetAttributes = {
 					F9401C9C1B807423003FFD42 = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = KDY2FY8979;
 						LastSwiftMigration = 0900;
 					};
 					F9401CB11B807423003FFD42 = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = KDY2FY8979;
 						LastSwiftMigration = 0900;
 						TestTargetID = F9401C9C1B807423003FFD42;
 					};
@@ -339,7 +341,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F9401CB91B807423003FFD42 /* GitHub_User_ProfileTests.swift in Sources */,
+				F9401CB91B807423003FFD42 /* URLs_Tests.swift in Sources */,
 				F99B72181F9D5E77003A8DDF /* Extensions.swift in Sources */,
 				F951A28D1F9D11AA007795D5 /* HTTPManager.swift in Sources */,
 			);
@@ -482,7 +484,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = KDY2FY8979;
 				INFOPLIST_FILE = "$(SRCROOT)/iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.estamp.$(PRODUCT_NAME:rfc1034identifier)";
@@ -498,7 +500,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = KDY2FY8979;
 				INFOPLIST_FILE = "$(SRCROOT)/iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.estamp.$(PRODUCT_NAME:rfc1034identifier)";
@@ -511,7 +513,8 @@
 		F9401CC01B807423003FFD42 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEVELOPMENT_TEAM = "";
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = KDY2FY8979;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -527,7 +530,8 @@
 		F9401CC11B807423003FFD42 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				DEVELOPMENT_TEAM = "";
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = KDY2FY8979;
 				INFOPLIST_FILE = UnitTests/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.estamp.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";

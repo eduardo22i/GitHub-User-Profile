@@ -10,3 +10,6 @@ dependencies:
   pre:
     - gem install fastlane
 
+test:
+    override:
+        - swift test
