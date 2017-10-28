@@ -53,7 +53,21 @@ class RepoViewController: UIViewController {
         
         DataManager.shared.getReadme(username: user.username, repo: repo.name) { (file, error) in
             if let rawContent = file?.content {
-                self.readmeTextView.text = String(data: rawContent, encoding: String.Encoding.utf8)
+                let content = String(data: rawContent, encoding: String.Encoding.utf8)
+                
+                var attributedString = NSMutableAttributedString(string: content!)
+                
+                let range = NSRange(location: 0, length: attributedString.string.count)
+                attributedString.addAttribute(NSAttributedStringKey.font, value: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body), range: range )
+                
+                
+                attributedString = attributedString.replace(tag: "###", withAttributes: [NSAttributedStringKey.font : UIFont.preferredFont(forTextStyle: UIFontTextStyle.title3 )])
+
+                attributedString = attributedString.replace(tag: "##", withAttributes: [NSAttributedStringKey.font : UIFont.preferredFont(forTextStyle: UIFontTextStyle.title2 )])
+                
+                attributedString = attributedString.replace(tag: "#", withAttributes: [NSAttributedStringKey.font : UIFont.preferredFont(forTextStyle: UIFontTextStyle.title1)])
+                
+                self.readmeTextView.attributedText = attributedString
             }
         }
     }

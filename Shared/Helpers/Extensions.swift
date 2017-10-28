@@ -17,3 +17,33 @@ extension String {
         return URL(string: addingPercentEncoding(withAllowedCharacters: CharacterSet.urlFragmentAllowed)! )!
     }
 }
+
+extension NSMutableAttributedString {
+    
+    func replace(tag: String, withAttributes attributes: [NSAttributedStringKey: Any]) -> NSMutableAttributedString {
+        let closeTag = "\n"
+        
+        let resultingText = self
+        
+        
+        while true {
+            let plainString = resultingText.string as NSString
+            let openTagRange = plainString.range(of: tag)
+            if openTagRange.length == 0 {
+                break
+            }
+            
+            let affectedLocation = openTagRange.location + openTagRange.length
+            
+            let searchRange = NSRange(location: affectedLocation, length: plainString.length - affectedLocation)
+            
+            let closeTagRange = plainString.range(of: closeTag, options: NSString.CompareOptions.init(rawValue: 0), range: searchRange)
+            
+            resultingText.setAttributes(attributes, range: NSRange(location: affectedLocation, length: closeTagRange.location - affectedLocation))
+            
+            resultingText.deleteCharacters(in: openTagRange)
+        }
+        
+        return resultingText
+    }
+}
