@@ -10,6 +10,13 @@ import Foundation
 
 class DataManager: NSObject {
 
+    /**
+     Returns the shared defaults object.
+     If the shared defaults object does not exist yet, it is created.
+     */
+    static let shared = DataManager()
+    private override init() {}
+    
     //MARK: - GET
     
     static func getUser(_ username: String, block : @escaping (_ user : User?, _ error : APIError?) -> Void) {
@@ -94,6 +101,29 @@ class DataManager: NSObject {
                 let commits = try? decoder.decode([Commit].self, from: data)
                 block(commits, nil)
             }
+        }
+    }
+    
+    func getReadme(username: String, repo : String, options : [String : Any]? = nil, block : @escaping (_ readme : File?, _ error : APIError?) -> Void) {
+    
+        let path = username + "/" + repo + "/" + Endpoint.readme.rawValue
+    
+        let request =  HTTPManager.createRequest(endpoint: .repos, path: path, parameters: options)
+        
+        HTTPManager.make(request: request) { (data, error) in
+            
+            if let error = error {
+                block(nil, error)
+                return
+            }
+            
+            if let data = data {
+                let decoder = JSONDecoder()
+                
+                let file = try? decoder.decode(File.self, from: data)
+                block(file, nil)
+            }
+            
         }
     }
     

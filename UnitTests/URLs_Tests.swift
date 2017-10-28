@@ -45,6 +45,16 @@ class GitHub_User_ProfileTests: XCTestCase {
         
     }
     
+    func testReadMeRequest() {
+        
+        let path = username + "/" + projectName + "/" + Endpoint.readme.rawValue
+
+        let userRequest =  HTTPManager.createRequest(endpoint: .repos, path: path, method: .get)
+        
+        XCTAssertEqual(userRequest.url?.absoluteString ?? "", "https://api.github.com/repos/eduardo22i/github-user-profile/readme")
+        
+    }
+    
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measure() {

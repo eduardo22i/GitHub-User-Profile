@@ -34,20 +34,28 @@ class RepoViewController: UIViewController {
     @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var branchLabel: UILabel!
     @IBOutlet weak var commitsButton: UIButton!
+    @IBOutlet weak var readmeTextView: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
         self.title = repo.name
 
         currentBranch = repo.branches.first
         
-        self.descriptionTextView.textContainer.lineFragmentPadding = 0
-        self.descriptionTextView.textContainerInset = .zero
+        self.descriptionTextView.removeInnerSpacing()
 
+        self.readmeTextView.removeInnerSpacing()
+        
         self.descriptionTextView.text = repo.description
         
+        DataManager.shared.getReadme(username: user.username, repo: repo.name) { (file, error) in
+            if let rawContent = file?.content {
+                self.readmeTextView.text = String(data: rawContent, encoding: String.Encoding.utf8)
+            }
+        }
     }
     
     override func didReceiveMemoryWarning() {

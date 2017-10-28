@@ -54,6 +54,7 @@ enum Endpoint : String {
     case repos = "repos"
     case branches = "branches"
     case commits = "commits"
+    case readme = "readme"
 }
 
 class HTTPManager: NSObject {

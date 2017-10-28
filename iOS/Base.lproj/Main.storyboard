@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="HxF-v7-Rsr">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment version="4352" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
@@ -12,16 +15,16 @@
         <!--Profile-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="viewController" id="BYZ-38-t0r" customClass="ProfileViewController" customModule="GitHub_User_Profile" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="viewController" id="BYZ-38-t0r" customClass="ProfileViewController" customModule="GitHub_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="SHG-AC-t3r">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="UserInfoCell" rowHeight="145" id="jcx-kX-ftK" customClass="UserInfoTableViewCell" customModule="GitHub_User_Profile" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="UserInfoCell" rowHeight="145" id="jcx-kX-ftK" customClass="UserInfoTableViewCell" customModule="GitHub_iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="22" width="375" height="145"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jcx-kX-ftK" id="KE6-Ja-U7I">
@@ -118,7 +121,7 @@
                                             <outlet property="usernameLabel" destination="DlV-YT-kNv" id="NIk-Ti-5bc"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="RepoCell" id="Hxg-ot-Zbf" customClass="RepoTableViewCell" customModule="GitHub_User_Profile" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="RepoCell" id="Hxg-ot-Zbf" customClass="RepoTableViewCell" customModule="GitHub_iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="167" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Hxg-ot-Zbf" id="MTF-11-uBF">
@@ -195,7 +198,7 @@
                                 </connections>
                             </tableView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="jetpackoctocat" translatesAutoresizingMaskIntoConstraints="NO" id="P9s-Hg-Yzi">
-                                <rect key="frame" x="20" y="200" width="560" height="180"/>
+                                <rect key="frame" x="16" y="233.5" width="343" height="180"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="180" id="b0E-BB-kh6">
                                         <variation key="heightClass=compact-widthClass=compact" constant="120"/>
@@ -203,7 +206,7 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gNo-DH-KBw">
-                                <rect key="frame" x="20" y="499.5" width="560" height="20.5"/>
+                                <rect key="frame" x="16" y="566.5" width="343" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.58823529409999997" green="0.58823529409999997" blue="0.58823529409999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -260,16 +263,16 @@
         <!--Search View Controller-->
         <scene sceneID="ahz-cU-Sdy">
             <objects>
-                <viewController id="Edj-cN-5w3" customClass="SearchViewController" customModule="GitHub_User_Profile" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Edj-cN-5w3" customClass="SearchViewController" customModule="GitHub_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KqN-JB-e0g">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KZy-Lh-UJd">
-                                <rect key="frame" x="0.0" y="20" width="600" height="44"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <subviews>
                                     <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="GitHub Username" showsCancelButton="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZYT-hB-mW3">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="44" id="1bU-v7-dvA"/>
                                         </constraints>
@@ -307,23 +310,23 @@
         <!--Repo-->
         <scene sceneID="MJC-mt-nQt">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="Rgo-TM-v2h" customClass="RepoViewController" customModule="GitHub_User_Profile" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Rgo-TM-v2h" customClass="RepoViewController" customModule="GitHub_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1W7-Y8-Suc">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cj5-Td-b8o">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x6K-7g-pdy">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="10"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="10"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="10" id="dlh-hv-TzY"/>
                                         </constraints>
                                     </view>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="Repo description" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hjr-44-qZd">
-                                        <rect key="frame" x="8" y="72" width="584" height="32"/>
+                                        <rect key="frame" x="8" y="8" width="359" height="32"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
@@ -331,27 +334,27 @@
                                         <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
                                     </textView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BranchIcon" translatesAutoresizingMaskIntoConstraints="NO" id="c4n-aw-PWx">
-                                        <rect key="frame" x="8" y="120.5" width="14" height="14"/>
+                                        <rect key="frame" x="8" y="56.5" width="14" height="14"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="14" id="0qd-AL-WL2"/>
                                             <constraint firstAttribute="height" constant="14" id="skc-pF-iPC"/>
                                         </constraints>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HistoryIcon" translatesAutoresizingMaskIntoConstraints="NO" id="o6E-8U-fKc">
-                                        <rect key="frame" x="505" y="120.5" width="14" height="14"/>
+                                        <rect key="frame" x="280" y="56.5" width="14" height="14"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="14" id="21g-Rw-ahQ"/>
                                             <constraint firstAttribute="width" constant="14" id="KbY-7c-oh7"/>
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Default Branch" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oPs-XG-OvA">
-                                        <rect key="frame" x="30" y="112" width="108" height="30"/>
+                                        <rect key="frame" x="30" y="48" width="108" height="30"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wEP-he-eXh">
-                                        <rect key="frame" x="527" y="111.5" width="65" height="32"/>
+                                        <rect key="frame" x="302" y="47.5" width="65" height="32"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                         <state key="normal" title="Commits">
                                             <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -361,7 +364,7 @@
                                         </connections>
                                     </button>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" text="README" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t1S-VJ-qRu">
-                                        <rect key="frame" x="8" y="150" width="584" height="38"/>
+                                        <rect key="frame" x="8" y="94" width="359" height="38"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="textColor" red="0.40972608329999999" green="0.40971383449999998" blue="0.40972077849999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
@@ -369,7 +372,7 @@
                                         <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES"/>
                                     </textView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZwL-9b-QEb">
-                                        <rect key="frame" x="8" y="112" width="130" height="30"/>
+                                        <rect key="frame" x="8" y="48" width="130" height="30"/>
                                         <connections>
                                             <segue destination="il9-h2-AqB" kind="presentation" id="rdo-Yj-Scc"/>
                                         </connections>
@@ -378,7 +381,7 @@
                                 <constraints>
                                     <constraint firstItem="x6K-7g-pdy" firstAttribute="top" secondItem="Cj5-Td-b8o" secondAttribute="top" id="1pJ-G6-X3L"/>
                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="oPs-XG-OvA" secondAttribute="trailing" constant="8" id="3ES-Mb-iRF"/>
-                                    <constraint firstItem="t1S-VJ-qRu" firstAttribute="top" secondItem="oPs-XG-OvA" secondAttribute="bottom" constant="8" id="6wF-Ou-e8a"/>
+                                    <constraint firstItem="t1S-VJ-qRu" firstAttribute="top" secondItem="oPs-XG-OvA" secondAttribute="bottom" constant="16" id="6wF-Ou-e8a"/>
                                     <constraint firstItem="wEP-he-eXh" firstAttribute="trailing" secondItem="hjr-44-qZd" secondAttribute="trailing" id="8DE-Wx-AA0"/>
                                     <constraint firstItem="ZwL-9b-QEb" firstAttribute="leading" secondItem="c4n-aw-PWx" secondAttribute="leading" id="ADm-ca-Soa"/>
                                     <constraint firstItem="t1S-VJ-qRu" firstAttribute="trailing" secondItem="hjr-44-qZd" secondAttribute="trailing" id="B0v-g1-5ke"/>
@@ -408,8 +411,7 @@
                             <constraint firstItem="Cj5-Td-b8o" firstAttribute="trailing" secondItem="h4d-R0-pHz" secondAttribute="trailing" id="GHj-0n-CYv"/>
                             <constraint firstItem="Cj5-Td-b8o" firstAttribute="leading" secondItem="h4d-R0-pHz" secondAttribute="leading" id="Q4c-e4-UqU"/>
                             <constraint firstItem="h4d-R0-pHz" firstAttribute="bottom" secondItem="Cj5-Td-b8o" secondAttribute="bottom" id="baQ-wn-zS1"/>
-                            <constraint firstItem="Cj5-Td-b8o" firstAttribute="centerY" secondItem="1W7-Y8-Suc" secondAttribute="centerY" id="kYY-c4-XlR"/>
-                            <constraint firstItem="Cj5-Td-b8o" firstAttribute="top" secondItem="1W7-Y8-Suc" secondAttribute="top" id="vGB-gG-h66"/>
+                            <constraint firstItem="Cj5-Td-b8o" firstAttribute="top" secondItem="h4d-R0-pHz" secondAttribute="top" id="gPw-sp-MDe"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="h4d-R0-pHz"/>
                     </view>
@@ -424,6 +426,7 @@
                         <outlet property="branchLabel" destination="oPs-XG-OvA" id="RGy-uw-pXP"/>
                         <outlet property="commitsButton" destination="wEP-he-eXh" id="2T2-Qg-LrO"/>
                         <outlet property="descriptionTextView" destination="hjr-44-qZd" id="jT2-44-kxd"/>
+                        <outlet property="readmeTextView" destination="t1S-VJ-qRu" id="cH9-TM-54k"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PT1-c4-JDd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -433,20 +436,20 @@
         <!--Branches-->
         <scene sceneID="EaV-2B-L6r">
             <objects>
-                <viewController title="Branches" id="jxY-ID-M7i" customClass="BranchesViewController" customModule="GitHub_User_Profile" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Branches" id="jxY-ID-M7i" customClass="BranchesViewController" customModule="GitHub_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="TK0-Yo-zwH">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="rU3-9U-Zge">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="repoBranchCell" textLabel="QI6-ot-mdK" detailTextLabel="mFH-rZ-0bz" imageView="eF6-Ei-K5Q" style="IBUITableViewCellStyleValue1" id="VBo-et-QQi">
-                                        <rect key="frame" x="0.0" y="22" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="22" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VBo-et-QQi" id="Id0-kN-Tnp">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QI6-ot-mdK">
@@ -457,7 +460,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mFH-rZ-0bz">
-                                                    <rect key="frame" x="543.5" y="12" width="41.5" height="19.5"/>
+                                                    <rect key="frame" x="318.5" y="12" width="41.5" height="19.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -504,20 +507,20 @@
         <!--Commits-->
         <scene sceneID="CQQ-Ec-zzN">
             <objects>
-                <viewController title="Commits" id="Tp7-7H-xj8" customClass="CommitsViewController" customModule="GitHub_User_Profile" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Commits" id="Tp7-7H-xj8" customClass="CommitsViewController" customModule="GitHub_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ndt-l5-CQD">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="AKl-TE-W59">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="repoBranchCell" textLabel="0ze-tu-uP1" detailTextLabel="8bZ-3J-6OQ" imageView="Iui-Kv-RXS" style="IBUITableViewCellStyleSubtitle" id="D7t-kx-1WZ">
-                                        <rect key="frame" x="0.0" y="22" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="22" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="D7t-kx-1WZ" id="LCN-uc-aEK">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0ze-tu-uP1">
@@ -614,7 +617,7 @@
         <image name="Oct Icon" width="120" height="120"/>
         <image name="RepoIcon" width="50" height="50"/>
         <image name="StarIcon" width="50" height="50"/>
-        <image name="jetpackoctocat" width="896" height="896"/>
+        <image name="jetpackoctocat" width="448" height="448"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="C3z-33-3WI"/>

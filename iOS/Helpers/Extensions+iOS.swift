@@ -22,6 +22,13 @@ extension UIView {
     
 }
 
+extension UITextView {
+    func removeInnerSpacing() {
+        self.textContainer.lineFragmentPadding = 0
+        self.textContainerInset = .zero
+    }
+}
+
 extension UIImageView {
     func addImageInsets(_ insets: UIEdgeInsets) {
         if let image = self.image {
