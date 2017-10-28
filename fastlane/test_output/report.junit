@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<testsuites name='GitHub UnitTests.xctest' tests='2' failures='0'>
-  <testsuite name='GitHub_UnitTests.GitHub_User_ProfileTests' tests='2' failures='0'>
-    <testcase classname='GitHub_UnitTests.GitHub_User_ProfileTests' name='testPerformanceExample' time='0.434'/>
-    <testcase classname='GitHub_UnitTests.GitHub_User_ProfileTests' name='testRequests' time='0.101'/>
-  </testsuite>
-</testsuites>
