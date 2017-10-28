@@ -5,3 +5,9 @@ DerivedData
 Carthage
 Cartfile.resolved
 project\.xcworkspace/
+
+fastlane/report\.xml
+
+fastlane/test_output/report\.html
+
+*.junit
