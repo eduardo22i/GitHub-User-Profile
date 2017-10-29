@@ -62,12 +62,63 @@ class RepoViewController: UIViewController {
                 
                 
                 attributedString = attributedString.replace(tag: "###", withAttributes: [NSAttributedStringKey.font : UIFont.preferredFont(forTextStyle: UIFontTextStyle.title3 )])
-
+                
                 attributedString = attributedString.replace(tag: "##", withAttributes: [NSAttributedStringKey.font : UIFont.preferredFont(forTextStyle: UIFontTextStyle.title2 )])
                 
                 attributedString = attributedString.replace(tag: "#", withAttributes: [NSAttributedStringKey.font : UIFont.preferredFont(forTextStyle: UIFontTextStyle.title1)])
                 
                 self.readmeTextView.attributedText = attributedString
+                
+                self.downloadImage(attributedString: attributedString)
+            }
+            
+        }
+    }
+    
+    func downloadImage(attributedString: NSMutableAttributedString) {
+        
+        DispatchQueue.init(label: "Download Markup Images").async {
+            
+            let plainString = attributedString.string
+            
+            if let range = plainString.range(of: "\\!\\[[\\w\\s]*\\]\\(([^)]+)\\)", options: .regularExpression, range: plainString.startIndex..<plainString.endIndex, locale: nil) {
+                
+                let imageFormatString = String(plainString[range]) + ""
+                
+                
+                if let urlRange = imageFormatString.range(of: "\\(([^)]+)\\)", options: .regularExpression, range: imageFormatString.startIndex..<imageFormatString.endIndex, locale: nil) {
+                    
+                    var imageUrlString  = String(imageFormatString[urlRange])
+                    
+                    if let i = imageUrlString.characters.index(of: "(") {
+                        imageUrlString.remove(at: i)
+                    }
+                    
+                    if let i = imageUrlString.characters.index(of: ")") {
+                        imageUrlString.remove(at: i)
+                    }
+                    
+                    if let url = URL(string: String(imageUrlString)) {
+                        let request = URLRequest(url: url)
+                        HTTPManager.make(request: request, completeBlock: { (data, error) in
+                            
+                            if let data = data {
+                                let textAttachment = NSTextAttachment()
+                                textAttachment.image = UIImage(data: data)
+                                let attrStringWithImage = NSAttributedString(attachment: textAttachment)
+                                
+                                attributedString.replaceCharacters(in: NSRange(range, in: plainString), with: attrStringWithImage)
+                                
+                            } else {
+                                attributedString.replaceCharacters(in: NSRange(range, in: plainString), with: "❓")
+                            }
+                            
+                            self.readmeTextView.attributedText = attributedString
+                            self.downloadImage(attributedString: attributedString)
+                        })
+                    }
+                }
+                
             }
         }
     }
