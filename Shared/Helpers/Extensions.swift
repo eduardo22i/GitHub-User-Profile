@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Estamp. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 extension String {
     var removeComma:String {
@@ -20,11 +20,9 @@ extension String {
 
 extension NSMutableAttributedString {
     
-    func replace(tag: String, withAttributes attributes: [NSAttributedStringKey: Any]) -> NSMutableAttributedString {
-        let closeTag = "\n"
+    func replace(tag: String, closeTag : String, withAttributes attributes: [NSAttributedStringKey: Any]) -> NSMutableAttributedString {
         
         let resultingText = self
-        
         
         while true {
             let plainString = resultingText.string as NSString

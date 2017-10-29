@@ -60,16 +60,49 @@ class RepoViewController: UIViewController {
                 let range = NSRange(location: 0, length: attributedString.string.count)
                 attributedString.addAttribute(NSAttributedStringKey.font, value: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body), range: range )
                 
+                attributedString = attributedString.replace(tag: "### ", closeTag: "\n", withAttributes: [NSAttributedStringKey.font : UIFont.preferredFont(forTextStyle: UIFontTextStyle.title3 )])
                 
-                attributedString = attributedString.replace(tag: "###", withAttributes: [NSAttributedStringKey.font : UIFont.preferredFont(forTextStyle: UIFontTextStyle.title3 )])
+                attributedString = attributedString.replace(tag: "## ", closeTag: "\n", withAttributes: [NSAttributedStringKey.font : UIFont.preferredFont(forTextStyle: UIFontTextStyle.title2 )])
                 
-                attributedString = attributedString.replace(tag: "##", withAttributes: [NSAttributedStringKey.font : UIFont.preferredFont(forTextStyle: UIFontTextStyle.title2 )])
+                attributedString = attributedString.replace(tag: "# ", closeTag: "\n", withAttributes: [NSAttributedStringKey.font : UIFont.preferredFont(forTextStyle: UIFontTextStyle.title1)])
                 
-                attributedString = attributedString.replace(tag: "#", withAttributes: [NSAttributedStringKey.font : UIFont.preferredFont(forTextStyle: UIFontTextStyle.title1)])
+                self.replaceCodeStyle(attributedString: attributedString)
                 
                 self.readmeTextView.attributedText = attributedString
                 
                 self.downloadImage(attributedString: attributedString)
+            }
+            
+        }
+    }
+    
+    func replaceCodeStyle(attributedString: NSMutableAttributedString) {
+        
+        
+        while true {
+            
+            let plainString = attributedString.string
+            
+            if let range = plainString.range(of: "(```)([^(```)]+)(```)", options: .regularExpression, range: plainString.startIndex..<plainString.endIndex, locale: nil) {
+                
+                
+                attributedString.setAttributes( [NSAttributedStringKey.font : UIFont.preferredFont(forTextStyle: UIFontTextStyle.callout), NSAttributedStringKey.backgroundColor: UIColor.groupTableViewBackground ], range: NSRange(range, in: plainString))
+                
+                let initialStartIndex = range.lowerBound
+                let initialEndIndex = plainString.index(initialStartIndex, offsetBy: 3 )
+                
+                let endingEndIndex = range.upperBound
+                let endingStartIndex = plainString.index(endingEndIndex, offsetBy: -3 )
+                
+                
+                let initialRange =  NSRange(initialStartIndex...initialEndIndex, in: plainString)
+                let endingRange =  NSRange(endingStartIndex...endingEndIndex, in: plainString)
+                
+                attributedString.replaceCharacters(in: endingRange, with: "")
+                attributedString.replaceCharacters(in: initialRange, with: "")
+                
+            } else {
+                break
             }
             
         }
