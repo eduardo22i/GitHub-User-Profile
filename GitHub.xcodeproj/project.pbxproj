@@ -26,6 +26,7 @@
 		F99B72181F9D5E77003A8DDF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92C2EA11B818E2D00846566 /* Extensions.swift */; };
 		F9A4CE9B1FA284C4000AAF5D /* Extensions+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A4CE9A1FA284C4000AAF5D /* Extensions+iOS.swift */; };
 		F9A4CE9D1FA51B11000AAF5D /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A4CE9C1FA51B11000AAF5D /* File.swift */; };
+		F9B7FC571FA66DCE00CE4F37 /* Markdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B7FC561FA66DCE00CE4F37 /* Markdown.swift */; };
 		F9DDA72D1B85ABE2003B3C66 /* HTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DDA72C1B85ABE2003B3C66 /* HTTPManager.swift */; };
 		F9E9790F1B8DA39B0083211E /* Commit.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E9790E1B8DA39B0083211E /* Commit.swift */; };
 		F9FA94071B892AC200C598C8 /* BranchesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9FA94061B892AC200C598C8 /* BranchesViewController.swift */; };
@@ -64,6 +65,7 @@
 		F94F3E441B8E1C3F005DA695 /* CommitsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommitsViewController.swift; sourceTree = "<group>"; };
 		F9A4CE9A1FA284C4000AAF5D /* Extensions+iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+iOS.swift"; sourceTree = "<group>"; };
 		F9A4CE9C1FA51B11000AAF5D /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		F9B7FC561FA66DCE00CE4F37 /* Markdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Markdown.swift; sourceTree = "<group>"; };
 		F9DDA72C1B85ABE2003B3C66 /* HTTPManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPManager.swift; sourceTree = "<group>"; };
 		F9E9790E1B8DA39B0083211E /* Commit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Commit.swift; sourceTree = "<group>"; };
 		F9FA94061B892AC200C598C8 /* BranchesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BranchesViewController.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 				F9FA94081B892DE300C598C8 /* Branch.swift */,
 				F9E9790E1B8DA39B0083211E /* Commit.swift */,
 				F9A4CE9C1FA51B11000AAF5D /* File.swift */,
+				F9B7FC561FA66DCE00CE4F37 /* Markdown.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -328,6 +331,7 @@
 				F9A4CE9B1FA284C4000AAF5D /* Extensions+iOS.swift in Sources */,
 				F9401CC71B8078F4003FFD42 /* User.swift in Sources */,
 				F9FA94071B892AC200C598C8 /* BranchesViewController.swift in Sources */,
+				F9B7FC571FA66DCE00CE4F37 /* Markdown.swift in Sources */,
 				F9401CA51B807423003FFD42 /* ProfileViewController.swift in Sources */,
 				F9FA94091B892DE300C598C8 /* Branch.swift in Sources */,
 				F90C92A31B8100F7009669E6 /* Repo.swift in Sources */,

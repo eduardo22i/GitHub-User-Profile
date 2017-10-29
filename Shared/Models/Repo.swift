@@ -30,6 +30,8 @@ class Repo {
     var updatedAt : Date!
     var createdAt : Date!
     
+    var readme : Markdown!
+    
     required init(from decoder: Decoder) throws {
         try self.decode(decoder: decoder)
     }

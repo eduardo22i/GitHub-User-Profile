@@ -46,112 +46,17 @@ class RepoViewController: UIViewController {
         currentBranch = repo.branches.first
         
         self.descriptionTextView.removeInnerSpacing()
-
         self.readmeTextView.removeInnerSpacing()
         
         self.descriptionTextView.text = repo.description
         
+        self.readmeTextView.attributedText = nil
         DataManager.shared.getReadme(username: user.username, repo: repo.name) { (file, error) in
             if let rawContent = file?.content {
                 let content = String(data: rawContent, encoding: String.Encoding.utf8)
-                
-                var attributedString = NSMutableAttributedString(string: content!)
-                
-                let range = NSRange(location: 0, length: attributedString.string.count)
-                attributedString.addAttribute(NSAttributedStringKey.font, value: UIFont.preferredFont(forTextStyle: UIFontTextStyle.body), range: range )
-                
-                attributedString = attributedString.replace(tag: "### ", closeTag: "\n", withAttributes: [NSAttributedStringKey.font : UIFont.preferredFont(forTextStyle: UIFontTextStyle.title3 )])
-                
-                attributedString = attributedString.replace(tag: "## ", closeTag: "\n", withAttributes: [NSAttributedStringKey.font : UIFont.preferredFont(forTextStyle: UIFontTextStyle.title2 )])
-                
-                attributedString = attributedString.replace(tag: "# ", closeTag: "\n", withAttributes: [NSAttributedStringKey.font : UIFont.preferredFont(forTextStyle: UIFontTextStyle.title1)])
-                
-                self.replaceCodeStyle(attributedString: attributedString)
-                
-                self.readmeTextView.attributedText = attributedString
-                
-                self.downloadImage(attributedString: attributedString)
-            }
-            
-        }
-    }
-    
-    func replaceCodeStyle(attributedString: NSMutableAttributedString) {
-        
-        
-        while true {
-            
-            let plainString = attributedString.string
-            
-            if let range = plainString.range(of: "(```)([^(```)]+)(```)", options: .regularExpression, range: plainString.startIndex..<plainString.endIndex, locale: nil) {
-                
-                
-                attributedString.setAttributes( [NSAttributedStringKey.font : UIFont.preferredFont(forTextStyle: UIFontTextStyle.callout), NSAttributedStringKey.backgroundColor: UIColor.groupTableViewBackground ], range: NSRange(range, in: plainString))
-                
-                let initialStartIndex = range.lowerBound
-                let initialEndIndex = plainString.index(initialStartIndex, offsetBy: 3 )
-                
-                let endingEndIndex = range.upperBound
-                let endingStartIndex = plainString.index(endingEndIndex, offsetBy: -3 )
-                
-                
-                let initialRange =  NSRange(initialStartIndex...initialEndIndex, in: plainString)
-                let endingRange =  NSRange(endingStartIndex...endingEndIndex, in: plainString)
-                
-                attributedString.replaceCharacters(in: endingRange, with: "")
-                attributedString.replaceCharacters(in: initialRange, with: "")
-                
-            } else {
-                break
-            }
-            
-        }
-    }
-    
-    func downloadImage(attributedString: NSMutableAttributedString) {
-        
-        DispatchQueue.init(label: "Download Markup Images").async {
-            
-            let plainString = attributedString.string
-            
-            if let range = plainString.range(of: "\\!\\[[\\w\\s]*\\]\\(([^)]+)\\)", options: .regularExpression, range: plainString.startIndex..<plainString.endIndex, locale: nil) {
-                
-                let imageFormatString = String(plainString[range]) + ""
-                
-                
-                if let urlRange = imageFormatString.range(of: "\\(([^)]+)\\)", options: .regularExpression, range: imageFormatString.startIndex..<imageFormatString.endIndex, locale: nil) {
-                    
-                    var imageUrlString  = String(imageFormatString[urlRange])
-                    
-                    if let i = imageUrlString.characters.index(of: "(") {
-                        imageUrlString.remove(at: i)
-                    }
-                    
-                    if let i = imageUrlString.characters.index(of: ")") {
-                        imageUrlString.remove(at: i)
-                    }
-                    
-                    if let url = URL(string: String(imageUrlString)) {
-                        let request = URLRequest(url: url)
-                        HTTPManager.make(request: request, completeBlock: { (data, error) in
-                            
-                            if let data = data {
-                                let textAttachment = NSTextAttachment()
-                                textAttachment.image = UIImage(data: data)
-                                let attrStringWithImage = NSAttributedString(attachment: textAttachment)
-                                
-                                attributedString.replaceCharacters(in: NSRange(range, in: plainString), with: attrStringWithImage)
-                                
-                            } else {
-                                attributedString.replaceCharacters(in: NSRange(range, in: plainString), with: "❓")
-                            }
-                            
-                            self.readmeTextView.attributedText = attributedString
-                            self.downloadImage(attributedString: attributedString)
-                        })
-                    }
-                }
-                
+                self.repo.readme = Markdown(plainText: content!, updateBlock: { (markdown) in
+                    self.readmeTextView.attributedText = markdown.attributedString
+                })
             }
         }
     }
