@@ -25,6 +25,8 @@ class SearchViewController: UIViewController, UISearchBarDelegate {
 
         // Do any additional setup after loading the view.
         searchBar.text = SearchViewController.userSearchInput
+        searchBar.autocapitalizationType = .none
+
         searchBar.becomeFirstResponder()
     }
 

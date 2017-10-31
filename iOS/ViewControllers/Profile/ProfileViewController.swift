@@ -31,8 +31,13 @@ class ProfileViewController: UIViewController {
                 if #available(iOS 11.0, *) {
                     self.navigationItem.searchController?.isActive = false
                 }
+                repos.removeAll()
+                page = 1
+                containsMoreRepos = true
+                tableView.scrollToRow(at:  IndexPath(row: 0, section: 0), at: UITableViewScrollPosition.top, animated: false)
+                
                 tableView.reloadData()
-                displayUser ()
+                displayUser (page: page)
             } else {
                 if #available(iOS 11.0, *) {
                     self.navigationItem.searchController?.isActive = true
@@ -46,6 +51,9 @@ class ProfileViewController: UIViewController {
             tableView.reloadData()
         }
     }
+    
+    var containsMoreRepos = false
+    var page = 1
     
     let defaults = UserDefaults.standard
     
@@ -67,10 +75,12 @@ class ProfileViewController: UIViewController {
         
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
+        
+        tableView.tableFooterView = UIView(frame: CGRect.zero)
         tableView.estimatedRowHeight = 55
         
         if !shouldSearchUser {
-            displayUser ()
+            displayUser(page: page)
             isLoading = false
             return
         }
@@ -88,23 +98,28 @@ class ProfileViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func displayUser () {
+    func displayUser(page : Int) {
         infoTextLabel.text = "Loading"
-        DataManager.getRepos(user.username, options: ["page" : 1], block: { (repos, error) -> Void in
+        DataManager.getRepos(user.username, options: ["page" : page], block: { (repos, error) -> Void in
             
             if error != nil {
                 return
             }
             
+            if repos?.count == 0 || repos == nil {
+                self.containsMoreRepos = false
+            }
+            
+            
             if let repos = repos {
-                self.repos = repos
+                self.repos.append(contentsOf: repos)
             }
             self.tableView.isHidden = false
             
         })
     }
     
-    func searchUser (_ userStr : String) {
+    func searchUser(_ userStr : String) {
         DataManager.getUser(userStr, block: { (user, error) -> Void in
             if let error = error {
                 self.isLoading = true
@@ -150,7 +165,7 @@ class ProfileViewController: UIViewController {
 }
 
 // MARK: - UITableViewDataSource
-extension ProfileViewController : UITableViewDelegate, UITableViewDataSource {
+extension ProfileViewController : UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         // Return the number of sections.
@@ -198,6 +213,17 @@ extension ProfileViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return indexPath.section == 0 ? UITableViewAutomaticDimension : 55
+    }
+
+}
+
+extension ProfileViewController : UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == repos.count - 1 && containsMoreRepos {
+            page += 1
+            displayUser(page: page)
+        }
     }
     
 }
