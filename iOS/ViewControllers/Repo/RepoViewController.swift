@@ -19,7 +19,7 @@ class RepoViewController: UIViewController {
             
             guard let currentBranch = currentBranch else { return }
             
-            DataManager.getCommits(user.username, repo: repo.name, branch: currentBranch.name!, options: nil) { (commits, error) in
+            DataManager.shared.getCommits(username: user.username, repo: repo.name, branch: currentBranch.name!, options: nil) { (commits, error) in
                 
                 if let commits = commits {
                     currentBranch.commits = commits
@@ -55,7 +55,10 @@ class RepoViewController: UIViewController {
             if let rawContent = file?.content {
                 let content = String(data: rawContent, encoding: String.Encoding.utf8)
                 self.repo.readme = Markdown(plainText: content!, updateBlock: { (markdown) in
-                    self.readmeTextView.attributedText = markdown.attributedString
+                    DispatchQueue.main.async {
+                        self.readmeTextView.attributedText = markdown.attributedString
+                        self.readmeTextView.textColor = UIColor.black
+                    }
                 })
             }
         }

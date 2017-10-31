@@ -30,7 +30,7 @@ class BranchesViewController: UIViewController {
         
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         
-        DataManager.getBranches(user.username, repo: repo.name, options: nil, block: { (branches, error) in
+        DataManager.shared.getBranches(username: user.username, repo: repo.name, options: nil, block: { (branches, error) in
             self.repo.branches = branches ?? []
             self.tableView.reloadData()
         })

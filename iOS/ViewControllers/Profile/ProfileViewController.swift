@@ -100,7 +100,7 @@ class ProfileViewController: UIViewController {
     
     func displayUser(page : Int) {
         infoTextLabel.text = "Loading"
-        DataManager.getRepos(user.username, options: ["page" : page], block: { (repos, error) -> Void in
+        DataManager.shared.getRepos(username: user.username, options: ["page" : page], block: { (repos, error) -> Void in
             
             if error != nil {
                 return
@@ -120,7 +120,7 @@ class ProfileViewController: UIViewController {
     }
     
     func searchUser(_ userStr : String) {
-        DataManager.getUser(userStr, block: { (user, error) -> Void in
+        DataManager.shared.getUser(username: userStr, block: { (user, error) -> Void in
             if let error = error {
                 self.isLoading = true
                 self.infoTextLabel.text = error.description

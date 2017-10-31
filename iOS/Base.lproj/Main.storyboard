@@ -408,8 +408,8 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="x6K-7g-pdy" firstAttribute="width" secondItem="1W7-Y8-Suc" secondAttribute="width" id="3Ms-4u-qSJ"/>
-                            <constraint firstItem="Cj5-Td-b8o" firstAttribute="trailing" secondItem="h4d-R0-pHz" secondAttribute="trailing" id="GHj-0n-CYv"/>
-                            <constraint firstItem="Cj5-Td-b8o" firstAttribute="leading" secondItem="h4d-R0-pHz" secondAttribute="leading" id="Q4c-e4-UqU"/>
+                            <constraint firstItem="Cj5-Td-b8o" firstAttribute="trailing" secondItem="1W7-Y8-Suc" secondAttribute="trailing" id="GHj-0n-CYv"/>
+                            <constraint firstItem="Cj5-Td-b8o" firstAttribute="leading" secondItem="1W7-Y8-Suc" secondAttribute="leading" id="Q4c-e4-UqU"/>
                             <constraint firstItem="h4d-R0-pHz" firstAttribute="bottom" secondItem="Cj5-Td-b8o" secondAttribute="bottom" id="baQ-wn-zS1"/>
                             <constraint firstItem="Cj5-Td-b8o" firstAttribute="top" secondItem="h4d-R0-pHz" secondAttribute="top" id="gPw-sp-MDe"/>
                         </constraints>

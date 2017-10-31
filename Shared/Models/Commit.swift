@@ -44,7 +44,7 @@ extension Commit: Codable {
         
         if let login = try? authorContainer.decode(String.self, forKey: .login) {
             
-            DataManager.getUser(login, block: { (user, error) in
+            DataManager.shared.getUser(username: login, block: { (user, error) in
                 if let user = user {
                     self.user = user
                 }

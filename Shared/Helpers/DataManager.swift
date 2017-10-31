@@ -19,7 +19,7 @@ class DataManager: NSObject {
     
     //MARK: - GET
     
-    static func getUser(_ username: String, block : @escaping (_ user : User?, _ error : APIError?) -> Void) {
+    func getUser(username: String, block : @escaping (_ user : User?, _ error : APIError?) -> Void) {
         
         let request = HTTPManager.createRequest(endpoint: .user, path: username)
         
@@ -36,7 +36,7 @@ class DataManager: NSObject {
         }
     }
     
-    static func getRepos(_ username: String, options : [String : Any]?, block : @escaping (_ repos : [Repo]?, _ error : APIError?) -> Void ) {
+    func getRepos(username: String, options : [String : Any]?, block : @escaping (_ repos : [Repo]?, _ error : APIError?) -> Void ) {
         
         let path = username + "/" + Endpoint.repos.rawValue
         let request = HTTPManager.createRequest(endpoint: .user, path: path, parameters: options)
@@ -59,7 +59,7 @@ class DataManager: NSObject {
         }
     }
     
-    static func getBranches(_ username: String, repo : String, options : [String : Any]?, block : @escaping (_ repos : [Branch]?, _ error : APIError?) -> Void ) {
+    func getBranches(username: String, repo : String, options : [String : Any]?, block : @escaping (_ repos : [Branch]?, _ error : APIError?) -> Void ) {
         
         let path = username + "/" + repo + "/" + Endpoint.branches.rawValue
         let request = HTTPManager.createRequest(endpoint: .repos, path: path, parameters: options)
@@ -79,7 +79,7 @@ class DataManager: NSObject {
         }
     }
     
-    static func getCommits(_ username: String, repo : String, branch: String, options : [String : Any]?, block : @escaping (_ repos : [Commit]?, _ error : APIError?) -> Void) {
+    func getCommits(username: String, repo : String, branch: String, options : [String : Any]?, block : @escaping (_ repos : [Commit]?, _ error : APIError?) -> Void) {
         
         var parameters = options ?? [:]
         parameters["sha"] = branch

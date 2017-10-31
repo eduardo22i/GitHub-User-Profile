@@ -61,14 +61,6 @@ class HTTPManager: NSObject {
     
     static let url = "api.github.com"
     
-    static func urlToken () -> String {
-        let defaults = UserDefaults.standard
-        if let accessToken = defaults.string(forKey: "accessToken") {
-            return "access_token=\(accessToken)"
-        }
-        return ""
-    }
-    
     static func createRequest(endpoint : Endpoint, path : String? = nil, parameters : [String : Any]? = nil, method : HTTPMethod = .get) -> URLRequest {
         
         var urlComponents = URLComponents()
@@ -90,6 +82,10 @@ class HTTPManager: NSObject {
         
         var request = URLRequest(url: urlComponents.url!)
         request.httpMethod = method.rawValue
+        
+        if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
+            request.addValue("token \(accessToken)", forHTTPHeaderField: "Authorization")
+        }        
         
         return request
     }
