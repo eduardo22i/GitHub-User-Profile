@@ -1,5 +1,5 @@
 //
-//  ProfileViewController.swift
+//  UserViewController.swift
 //  GitHub User Profile
 //
 //  Created by Eduardo Irías on 8/16/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController {
+class UserViewController: UIViewController {
 
     var defaultUser = ""
     var shouldSearchUser = true
@@ -165,7 +165,7 @@ class ProfileViewController: UIViewController {
 }
 
 // MARK: - UITableViewDataSource
-extension ProfileViewController : UITableViewDataSource {
+extension UserViewController : UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         // Return the number of sections.
@@ -217,7 +217,7 @@ extension ProfileViewController : UITableViewDataSource {
 
 }
 
-extension ProfileViewController : UITableViewDelegate {
+extension UserViewController : UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == repos.count - 1 && containsMoreRepos {
@@ -229,7 +229,7 @@ extension ProfileViewController : UITableViewDelegate {
 }
 
 // MARK: - SearchViewControllerDelegate
-extension ProfileViewController : SearchViewControllerDelegate {
+extension UserViewController : SearchViewControllerDelegate {
     func searchViewController(_ searchViewController: SearchViewController, didInputUser user: String) {
         infoTextLabel.text = "Loading"
         infoImageView.image = #imageLiteral(resourceName: "jetpackoctocat")
@@ -244,7 +244,7 @@ extension ProfileViewController : SearchViewControllerDelegate {
 }
 
 // MARK: - UISearchBarDelegate
-extension ProfileViewController : UISearchBarDelegate {
+extension UserViewController : UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         

@@ -94,7 +94,7 @@ class CommitsViewController: UIViewController, UITableViewDelegate, UITableViewD
         let commit = commits[indexPath.row ]
         
         if let user = commit.user {
-            let vc = storyboard?.instantiateViewController(withIdentifier: "viewController") as! ProfileViewController
+            let vc = storyboard?.instantiateViewController(withIdentifier: "viewController") as! UserViewController
             
             vc.defaultUser = user.username
             vc.shouldSearchUser = false

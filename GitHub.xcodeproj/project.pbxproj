@@ -14,7 +14,7 @@
 		F92C2EA61B81B9BD00846566 /* RepoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92C2EA51B81B9BD00846566 /* RepoTableViewCell.swift */; };
 		F92C2EA81B81C8B400846566 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92C2EA71B81C8B400846566 /* SearchViewController.swift */; };
 		F9401CA31B807423003FFD42 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9401CA21B807423003FFD42 /* AppDelegate.swift */; };
-		F9401CA51B807423003FFD42 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9401CA41B807423003FFD42 /* ProfileViewController.swift */; };
+		F9401CA51B807423003FFD42 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9401CA41B807423003FFD42 /* UserViewController.swift */; };
 		F9401CA81B807423003FFD42 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9401CA61B807423003FFD42 /* Main.storyboard */; };
 		F9401CAA1B807423003FFD42 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9401CA91B807423003FFD42 /* Assets.xcassets */; };
 		F9401CAD1B807423003FFD42 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = F9401CAB1B807423003FFD42 /* LaunchScreen.xib */; };
@@ -53,7 +53,7 @@
 		F9401C9D1B807423003FFD42 /* GitHub iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GitHub iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9401CA11B807423003FFD42 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F9401CA21B807423003FFD42 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F9401CA41B807423003FFD42 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		F9401CA41B807423003FFD42 /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
 		F9401CA71B807423003FFD42 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F9401CA91B807423003FFD42 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F9401CAC1B807423003FFD42 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -177,7 +177,7 @@
 		F98C48A61FA282C700F8DC5A /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				F9401CA41B807423003FFD42 /* ProfileViewController.swift */,
+				F9401CA41B807423003FFD42 /* UserViewController.swift */,
 				F92C2EA71B81C8B400846566 /* SearchViewController.swift */,
 			);
 			path = Profile;
@@ -332,7 +332,7 @@
 				F9401CC71B8078F4003FFD42 /* User.swift in Sources */,
 				F9FA94071B892AC200C598C8 /* BranchesViewController.swift in Sources */,
 				F9B7FC571FA66DCE00CE4F37 /* Markdown.swift in Sources */,
-				F9401CA51B807423003FFD42 /* ProfileViewController.swift in Sources */,
+				F9401CA51B807423003FFD42 /* UserViewController.swift in Sources */,
 				F9FA94091B892DE300C598C8 /* Branch.swift in Sources */,
 				F90C92A31B8100F7009669E6 /* Repo.swift in Sources */,
 				F92C2EA61B81B9BD00846566 /* RepoTableViewCell.swift in Sources */,
