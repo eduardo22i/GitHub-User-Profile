@@ -76,6 +76,7 @@ class ProfileViewController: UIViewController {
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
         
+        tableView.tableFooterView = UIView(frame: CGRect.zero)
         tableView.estimatedRowHeight = 55
         
         if !shouldSearchUser {
