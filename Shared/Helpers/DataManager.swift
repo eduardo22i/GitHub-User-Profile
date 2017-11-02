@@ -10,6 +10,9 @@ import Foundation
 
 class DataManager: NSObject {
 
+    var clientId = ""
+    var clientSecretId = ""
+    
     /**
      Returns the shared defaults object.
      If the shared defaults object does not exist yet, it is created.
@@ -18,6 +21,31 @@ class DataManager: NSObject {
     private override init() {}
     
     //MARK: - GET
+    
+    func postLogin(username: String, password: String, block : @escaping (_ user : User?, _ error : APIError?) -> Void) {
+        
+        let path = Endpoint.client.rawValue + "/" + clientId
+        
+        let request =  HTTPManager.createRequest(endpoint: .authorization, path: path, method: .put)
+                
+        HTTPManager.make(request: request) { (data, error) in
+            if let error = error {
+                block(nil, error)
+                return
+            }
+            if let data = data {
+                let decoder = JSONDecoder()
+                let loginResponse = try? decoder.decode(LoginResponse.self, from: data)
+                
+                guard let token = loginResponse?.token else {
+                    block(nil, APIError.notFound)
+                    return
+                }
+                
+                block(User() , nil)
+            }
+        }
+    }
     
     func getUser(username: String, block : @escaping (_ user : User?, _ error : APIError?) -> Void) {
         

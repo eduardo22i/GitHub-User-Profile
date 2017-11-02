@@ -1,12 +1,45 @@
 //
-//  HTTPManager.swift
-//  GitHub User Profile
+//  Extensions.swift
+//  GitHub UnitTests
 //
-//  Created by Eduardo Irías on 8/19/15.
-//  Copyright (c) 2015 Estamp. All rights reserved.
+//  Created by Eduardo Irias on 11/2/17.
+//  Copyright © 2017 Estamp. All rights reserved.
 //
 
 import Foundation
+
+extension URLRequest {
+    
+    func mockDataTask() -> Data? {
+        
+        let bundle : Bundle! = Bundle(identifier: "com.estamp.GitHub-UnitTests")!
+        
+        guard let fileUrl = bundle.url(forResource: "MockRequestMap", withExtension: "plist"),
+            let plistData = try? Data(contentsOf: fileUrl) else {
+                return nil
+        }
+        
+        guard let result = try? PropertyListSerialization.propertyList(from: plistData, options: [], format: nil) as? [String: String] else {
+            return nil
+        }
+        
+        guard let resource = result?[self.url!.absoluteString] else {
+            return nil
+        }
+        
+        
+        guard let pathURL =  bundle.url(forResource: resource, withExtension: "json") else {
+            return nil
+        }
+        
+        
+        guard let data = try? Data(contentsOf: pathURL, options: Data.ReadingOptions.mappedIfSafe) else {
+            return nil
+        }
+        
+        return data
+    }
+}
 
 class HTTPManager: NSObject {
     
@@ -36,46 +69,14 @@ class HTTPManager: NSObject {
         
         if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
             request.addValue("token \(accessToken)", forHTTPHeaderField: "Authorization")
-        }        
+        }
         
         return request
     }
     
     static func make (request : URLRequest, completeBlock block : @escaping (_ records: Data?, _ error : APIError?) -> Void) {
         
-        let session = URLSession.shared
-        
-        let dataTask = session.dataTask(with: request) { (data, response, error) in
-            
-            if error != nil {
-                DispatchQueue.main.async {
-                    block(nil, .noNetwork)
-                }
-                return
-            }
-            
-            if let response = response as? HTTPURLResponse, let data = data  {
-                
-                DispatchQueue.main.async {
-                    
-                    if response.statusCode == 404 {
-                        block(nil, APIError.notFound)
-                        return
-                    } else  if response.statusCode == 403 {
-                        block(nil, APIError.limitExceeded)
-                        return
-                    } else if response.statusCode == 505 {
-                        block(nil, APIError.serverError)
-                        return
-                    }
-                    
-                    block(data, nil)
-                }
-            }
-            
-        }
-        
-        dataTask.resume()
+        block(request.mockDataTask(), nil)
     }
     
 }

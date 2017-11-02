@@ -1,0 +1,20 @@
+{
+    "id": 123456,
+    "url": "https://api.github.com/authorizations/12345t6",
+    "app": {
+        "name": "GitHub for iOS ",
+        "url": "http://estamp.co",
+        "client_id": "clientid12345"
+    },
+    "token": "magictoken12345🦄",
+    "hashed_token": "7a723d4eb2ca54d9e2717655b2618770",
+    "token_last_eight": "en12345🦄",
+    "note": "admin script",
+    "note_url": null,
+    "created_at": "2017-10-31T20:17:35Z",
+    "updated_at": "2017-10-31T20:17:35Z",
+    "scopes": [
+               "public_repo"
+               ],
+    "fingerprint": null
+}

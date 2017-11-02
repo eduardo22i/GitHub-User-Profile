@@ -15,6 +15,8 @@ enum Type : String {
 
 class User {
     
+    static var current : User?
+    
     var id: Int!
     var username : String!
     var email : String?
@@ -27,6 +29,9 @@ class User {
     var type : Type?
     
     var imageData : Data?
+    
+    init() {
+    }
     
     required init(from decoder: Decoder) throws {
         try self.decode(decoder: decoder)
@@ -93,4 +98,31 @@ extension User: Codable {
         try container.encode(avatarURL, forKey: .avatarURL)
         try container.encode(type, forKey: .type)
     }
+}
+
+struct LoginRequest : Encodable {
+    
+    enum CodingKeys: String, CodingKey {
+        case clientSecret = "client_secret"
+        case scopes
+        case note
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encode(DataManager.shared.clientSecretId, forKey: .clientSecret)
+        try container.encode(["public_repo"], forKey: .scopes)
+        try container.encode(["note"], forKey: .note)
+    }
+    
+}
+
+
+struct LoginResponse : Codable {
+    
+    var id : Int?
+    var token : String?
+
 }

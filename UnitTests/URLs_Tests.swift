@@ -11,6 +11,7 @@ import XCTest
 
 class GitHub_User_ProfileTests: XCTestCase {
     
+    let clientId = "12345"
     let username = "eduardo22i"
     let projectName = "github-user-profile"
     let branch = "developer"
@@ -49,9 +50,20 @@ class GitHub_User_ProfileTests: XCTestCase {
         
         let path = username + "/" + projectName + "/" + Endpoint.readme.rawValue
 
-        let userRequest =  HTTPManager.createRequest(endpoint: .repos, path: path, method: .get)
+        let request =  HTTPManager.createRequest(endpoint: .repos, path: path, method: .get)
         
-        XCTAssertEqual(userRequest.url?.absoluteString ?? "", "https://api.github.com/repos/eduardo22i/github-user-profile/readme")
+        XCTAssertEqual(request.url?.absoluteString ?? "", "https://api.github.com/repos/eduardo22i/github-user-profile/readme")
+        
+    }
+    
+    
+    func testLoginRequest() {
+        
+        let path = Endpoint.client.rawValue + "/" + clientId
+        
+        let request =  HTTPManager.createRequest(endpoint: .authorization, path: path, method: .put)
+        
+        XCTAssertEqual(request.url?.absoluteString ?? "", "https://api.github.com/authorizations/clients/12345")
         
     }
     
