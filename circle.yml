@@ -2,7 +2,7 @@
 
 machine:
     xcode:
-        version: "9.0"
+        version: "9.1"
 
 ## Customize dependencies
 
@@ -12,4 +12,4 @@ dependencies:
 
 test:
     override:
-        - fastlane test
+        - fastlane scan

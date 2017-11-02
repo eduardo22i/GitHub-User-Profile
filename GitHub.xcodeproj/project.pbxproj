@@ -24,7 +24,6 @@
 		F94F3E451B8E1C3F005DA695 /* CommitsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94F3E441B8E1C3F005DA695 /* CommitsViewController.swift */; };
 		F96A2E5C1FABCFF400170894 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96A2E5B1FABCFF400170894 /* Constants.swift */; };
 		F96A2E5D1FABCFF400170894 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96A2E5B1FABCFF400170894 /* Constants.swift */; };
-		F96A2E5F1FABD1CF00170894 /* MockRequestMap.plist in Resources */ = {isa = PBXBuildFile; fileRef = F9B7FC6C1FABC56800CE4F37 /* MockRequestMap.plist */; };
 		F99B72181F9D5E77003A8DDF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92C2EA11B818E2D00846566 /* Extensions.swift */; };
 		F9A4CE9B1FA284C4000AAF5D /* Extensions+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A4CE9A1FA284C4000AAF5D /* Extensions+iOS.swift */; };
 		F9A4CE9D1FA51B11000AAF5D /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A4CE9C1FA51B11000AAF5D /* File.swift */; };
@@ -314,12 +313,10 @@
 				TargetAttributes = {
 					F9401C9C1B807423003FFD42 = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = KDY2FY8979;
 						LastSwiftMigration = 0900;
 					};
 					F9401CB11B807423003FFD42 = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = KDY2FY8979;
 						LastSwiftMigration = 0900;
 						TestTargetID = F9401C9C1B807423003FFD42;
 					};
@@ -352,7 +349,6 @@
 				F9401CA81B807423003FFD42 /* Main.storyboard in Resources */,
 				F9401CAD1B807423003FFD42 /* LaunchScreen.xib in Resources */,
 				F9401CAA1B807423003FFD42 /* Assets.xcassets in Resources */,
-				F96A2E5F1FABD1CF00170894 /* MockRequestMap.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -553,9 +549,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = KDY2FY8979;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.estamp.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -569,7 +566,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = KDY2FY8979;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.estamp.$(PRODUCT_NAME:rfc1034identifier)";
@@ -582,7 +579,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = KDY2FY8979;
+				DEVELOPMENT_TEAM = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -599,7 +596,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = KDY2FY8979;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = UnitTests/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.estamp.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
