@@ -82,7 +82,7 @@ extension User: Codable {
         url = try? container.decode(String.self, forKey: .url)
         avatarURL = try? container.decode(URL.self, forKey: .avatarURL)
         if let type = try? container.decode(String.self, forKey: .type) {
-            self.type = Type(rawValue: type)
+            self.type = Type(rawValue: type.lowercased())
         }
     }
     

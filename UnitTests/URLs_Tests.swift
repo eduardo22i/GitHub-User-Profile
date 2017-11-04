@@ -12,8 +12,8 @@ import XCTest
 class GitHub_User_ProfileTests: XCTestCase {
     
     let clientId = "12345"
-    let username = "eduardo22i"
-    let projectName = "github-user-profile"
+    let username = "octocat"
+    let projectName = "hello-worId"
     let branch = "developer"
     
     override func setUp() {
@@ -29,20 +29,20 @@ class GitHub_User_ProfileTests: XCTestCase {
     func testRequests() {
         // This is an example of a functional test case.
         
-        let userRequest =  HTTPManager.createRequest(endpoint: .user, path: username, method: .get)
-        XCTAssertEqual(userRequest.url?.absoluteString ?? "", "https://api.github.com/users/eduardo22i")
+        let userRequest =  HTTPManager.createRequest(endpoint: .users, path: username, method: .get)
+        XCTAssertEqual(userRequest.url?.absoluteString ?? "", "https://api.github.com/users/octocat")
         
         let reposPath = username + "/" + Endpoint.repos.rawValue
-        let usersReposRequest = HTTPManager.createRequest(endpoint: .user, path: reposPath)
-        XCTAssertEqual(usersReposRequest.url?.absoluteString ?? "", "https://api.github.com/users/eduardo22i/repos")
+        let usersReposRequest = HTTPManager.createRequest(endpoint: .users, path: reposPath)
+        XCTAssertEqual(usersReposRequest.url?.absoluteString ?? "", "https://api.github.com/users/octocat/repos")
         
         let branchesPath = username + "/" + projectName + "/" + Endpoint.branches.rawValue
         let branchesRequest = HTTPManager.createRequest(endpoint: .repos, path: branchesPath)
-        XCTAssertEqual(branchesRequest.url?.absoluteString ?? "", "https://api.github.com/repos/eduardo22i/github-user-profile/branches")
+        XCTAssertEqual(branchesRequest.url?.absoluteString ?? "", "https://api.github.com/repos/octocat/hello-worId/branches")
         
         let commitsPath = username + "/" + projectName + "/" + Endpoint.commits.rawValue
         let commitsRequest = HTTPManager.createRequest(endpoint: .repos, path: commitsPath, parameters: ["sha" : "commits"])
-        XCTAssertEqual(commitsRequest.url?.absoluteString ?? "", "https://api.github.com/repos/eduardo22i/github-user-profile/commits?sha=commits")
+        XCTAssertEqual(commitsRequest.url?.absoluteString ?? "", "https://api.github.com/repos/octocat/hello-worId/commits?sha=commits")
         
     }
     
@@ -52,7 +52,7 @@ class GitHub_User_ProfileTests: XCTestCase {
 
         let request =  HTTPManager.createRequest(endpoint: .repos, path: path, method: .get)
         
-        XCTAssertEqual(request.url?.absoluteString ?? "", "https://api.github.com/repos/eduardo22i/github-user-profile/readme")
+        XCTAssertEqual(request.url?.absoluteString ?? "", "https://api.github.com/repos/octocat/hello-worId/readme")
         
     }
     

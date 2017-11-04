@@ -52,7 +52,8 @@ enum HTTPMethod : String {
 enum Endpoint : String {
     case authorization = "authorizations"
     case client = "clients"
-    case user = "users"
+    case user = "user"
+    case users = "users"
     case repos = "repos"
     case branches = "branches"
     case commits = "commits"

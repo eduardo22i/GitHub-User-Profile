@@ -42,14 +42,27 @@ class DataManager: NSObject {
                     return
                 }
                 
-                block(User() , nil)
+                UserDefaults.standard.set(token, forKey: "accessToken")
+                
+                let request =  HTTPManager.createRequest(endpoint: .user)
+                HTTPManager.make(request: request) { (data, error) in
+                    if let data = data {
+                        let decoder = JSONDecoder()
+                        let user = try? decoder.decode(User.self, from: data)
+                        block(user, nil)
+                    } else {
+                        block(nil, error)
+                    }
+                }
+                
+                
             }
         }
     }
     
     func getUser(username: String, block : @escaping (_ user : User?, _ error : APIError?) -> Void) {
         
-        let request = HTTPManager.createRequest(endpoint: .user, path: username)
+        let request = HTTPManager.createRequest(endpoint: .users, path: username)
         
         HTTPManager.make(request: request) { (data, error) in
             if let error = error {
@@ -67,7 +80,7 @@ class DataManager: NSObject {
     func getRepos(username: String, options : [String : Any]?, block : @escaping (_ repos : [Repo]?, _ error : APIError?) -> Void ) {
         
         let path = username + "/" + Endpoint.repos.rawValue
-        let request = HTTPManager.createRequest(endpoint: .user, path: path, parameters: options)
+        let request = HTTPManager.createRequest(endpoint: .users, path: path, parameters: options)
         
         HTTPManager.make(request: request) { (data, error) in
             

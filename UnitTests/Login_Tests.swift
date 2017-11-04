@@ -38,9 +38,14 @@ class Login_Tests: XCTestCase {
         
         let userOpExpectation: XCTestExpectation = expectation(description: "Login Request")
         
-        DataManager.shared.postLogin(username: "eduardo22i", password: "password") { (user, error) in
+        DataManager.shared.postLogin(username: "octocat", password: "password") { (user, error) in
             
             XCTAssertNotNil(user)
+            
+            XCTAssertEqual(user?.username, "octocat")
+            XCTAssertEqual(user?.name, "monalisa octocat")
+            XCTAssertEqual(user?.type, .user )
+            XCTAssertEqual(user?.company, "GitHub")
             
             userOpExpectation.fulfill()
             

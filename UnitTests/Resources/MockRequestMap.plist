@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>https://api.github.com/user</key>
+	<string>user_sample</string>
 	<key>https://api.github.com/authorizations/clients/12345</key>
 	<string>login_sample</string>
 </dict>
