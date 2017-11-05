@@ -186,16 +186,16 @@ extension UserViewController : UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier)!
         
         if let cell = cell as? UserInfoTableViewCell {
-            cell.userNameLabel.text = user.name ?? "No Name :("
+            cell.nameLabel.text = user.name ?? "No Name :("
             cell.usernameLabel.text = user.username
-            cell.userCompanyLabel.text = user.company
-            cell.userLocationLabel.text = user.location
-            cell.userEmailLabel.text = user.email
-            cell.userURLLabel.text = user.url
+            cell.companyLabel.text = user.company
+            cell.locationLabel.text = user.location
+            cell.emailLabel.text = user.email
+            cell.urlLabel.text = user.url
             
-            cell.userImageView.image = #imageLiteral(resourceName: "Oct Icon")
+            cell.avatarImageView.image = #imageLiteral(resourceName: "Oct Icon")
             user.downloadImage({ (data, error) -> Void in
-                cell.userImageView.image = UIImage(data: data!)
+                cell.avatarImageView.image = UIImage(data: data!)
             })
             
         }

@@ -28,6 +28,8 @@ class User {
     
     var type : Type?
     
+    var repos = [Repo]()
+    
     var imageData : Data?
     
     init() {

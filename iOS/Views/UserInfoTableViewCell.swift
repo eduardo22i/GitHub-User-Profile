@@ -10,13 +10,14 @@ import UIKit
 
 class UserInfoTableViewCell: UITableViewCell {
 
-    @IBOutlet var userNameLabel: UILabel!
+    @IBOutlet var nameLabel: UILabel!
     @IBOutlet var usernameLabel: UILabel!
-    @IBOutlet var userCompanyLabel: UILabel!
-    @IBOutlet var userLocationLabel: UILabel!
-    @IBOutlet var userEmailLabel: UILabel!
-    @IBOutlet var userURLLabel: UILabel!
-    @IBOutlet var userImageView: UIImageView!
+    @IBOutlet var typeLabel: UILabel!
+    @IBOutlet var companyLabel: UILabel!
+    @IBOutlet var locationLabel: UILabel!
+    @IBOutlet var emailLabel: UILabel!
+    @IBOutlet var urlLabel: UILabel!
+    @IBOutlet var avatarImageView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
