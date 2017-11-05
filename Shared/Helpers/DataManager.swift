@@ -24,10 +24,23 @@ class DataManager: NSObject {
     
     func postLogin(username: String, password: String, block : @escaping (_ user : User?, _ error : APIError?) -> Void) {
         
-        let path = Endpoint.client.rawValue + "/" + clientId
+        UserDefaults.standard.removeObject(forKey: "accessToken")
         
-        let request =  HTTPManager.createRequest(endpoint: .authorization, path: path, method: .put)
-                
+        let loginString = "\(username):\(password)"
+        let loginData = loginString.data(using: String.Encoding.utf8)!
+        let base64LoginString = loginData.base64EncodedString()
+        
+        let path = Endpoint.client.rawValue + "/" + clientId  + "/\(Date().timeIntervalSince1970)"
+        
+        var request =  HTTPManager.createRequest(endpoint: .authorization, path: path, method: .put)
+        request.addValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
+        
+        let encoder = JSONEncoder()
+        encoder.outputFormatting = .prettyPrinted
+        let json = try? encoder.encode(LoginRequest())
+        
+        request.httpBody = json
+        
         HTTPManager.make(request: request) { (data, error) in
             if let error = error {
                 block(nil, error)
@@ -44,18 +57,22 @@ class DataManager: NSObject {
                 
                 UserDefaults.standard.set(token, forKey: "accessToken")
                 
-                let request =  HTTPManager.createRequest(endpoint: .user)
-                HTTPManager.make(request: request) { (data, error) in
-                    if let data = data {
-                        let decoder = JSONDecoder()
-                        let user = try? decoder.decode(User.self, from: data)
-                        block(user, nil)
-                    } else {
-                        block(nil, error)
-                    }
-                }
+                self.getCurrentUser(block: block)
                 
-                
+            }
+        }
+    }
+    
+    func getCurrentUser (block : @escaping (_ user : User?, _ error : APIError?) -> Void) {
+        let request =  HTTPManager.createRequest(endpoint: .user)
+        HTTPManager.make(request: request) { (data, error) in
+            if let data = data {
+                let decoder = JSONDecoder()
+                let user = try? decoder.decode(User.self, from: data)
+                User.current = user
+                block(User.current, nil)
+            } else {
+                block(nil, error)
             }
         }
     }

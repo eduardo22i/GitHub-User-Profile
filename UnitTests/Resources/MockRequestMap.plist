@@ -4,7 +4,7 @@
 <dict>
 	<key>https://api.github.com/user</key>
 	<string>user_sample</string>
-	<key>https://api.github.com/authorizations/clients/12345</key>
+	<key>https://api.github.com/authorizations/clients/12345/{date}</key>
 	<string>login_sample</string>
 </dict>
 </plist>

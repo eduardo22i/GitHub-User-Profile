@@ -34,6 +34,10 @@ class HTTPManager: NSObject {
         var request = URLRequest(url: urlComponents.url!)
         request.httpMethod = method.rawValue
         
+        if method == .put {
+            request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        }
+        
         if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
             request.addValue("token \(accessToken)", forHTTPHeaderField: "Authorization")
         }        

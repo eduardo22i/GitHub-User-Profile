@@ -28,8 +28,20 @@ class LoginViewController: UIViewController {
     
     @IBAction func loginAction(_ sender: Any) {
         
+        guard let username = usernameTextField.text, let password = passwordTextField.text else {
+            return
+        }
+        DataManager.shared.postLogin(username: username, password: password) { (user, error) in
+            // TODO: - Add Error alert
+            //if let error = error  {
+                //error.localizedDescription
+            //}
+            if user != nil {
+                self.dismiss(animated: true)
+            }
+        }
     }
-    
+
     /*
     // MARK: - Navigation
 

@@ -23,7 +23,18 @@ extension URLRequest {
             return nil
         }
         
-        guard let resource = result?[self.url!.absoluteString] else {
+        var resourceOpt : String? = result?[self.url!.absoluteString]
+        
+        if resourceOpt == nil {
+            for (key, value) in result ?? [:] {
+                if self.url!.absoluteString.contains(key.replacingOccurrences(of: "{date}", with: "")) {
+                    resourceOpt = value
+                    break
+                }
+            }
+        }
+        
+        guard let resource = resourceOpt else {
             return nil
         }
         
