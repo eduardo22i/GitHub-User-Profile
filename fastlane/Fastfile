@@ -6,8 +6,6 @@ platform :ios do
 
   desc "Runs all the tests"
   lane :test do
-    clear_derived_data
-    
     scan
   end
 

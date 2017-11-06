@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class LoginViewController: UIViewController {
 
@@ -19,18 +20,35 @@ class LoginViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     // MARK: - Actions
+
+    @IBAction func setUsernameTextFieldResponderAction(_ sender: Any) {
+        usernameTextField.becomeFirstResponder()
+    }
+    
+    @IBAction func setPasswordTextFieldResponderAction(_ sender: Any) {
+        passwordTextField.becomeFirstResponder()
+    }
     
     @IBAction func loginAction(_ sender: Any) {
         
         guard let username = usernameTextField.text, let password = passwordTextField.text else {
             return
         }
+        
+        if username == "" || password == "" {
+            return
+        }
+        
         DataManager.shared.postLogin(username: username, password: password) { (user, error) in
             // TODO: - Add Error alert
             //if let error = error  {
@@ -42,6 +60,19 @@ class LoginViewController: UIViewController {
         }
     }
 
+    @IBAction func forgotPasswordAction(_ sender: Any) {
+        guard let url = URL(string: "https://github.com/password_reset") else {
+            return
+        }
+        
+        let safariViewController = SFSafariViewController(url: url)
+        present(safariViewController, animated: true)
+    }
+    
+    @IBAction func cancelAction(_ sender: Any) {
+        self.dismiss(animated: true)
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -52,4 +83,17 @@ class LoginViewController: UIViewController {
     }
     */
 
+}
+
+extension LoginViewController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if usernameTextField == textField {
+            passwordTextField.becomeFirstResponder()
+        } else {
+            loginAction(textField)
+        }
+        return true
+    }
+        
 }

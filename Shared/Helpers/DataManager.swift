@@ -10,8 +10,8 @@ import Foundation
 
 class DataManager: NSObject {
 
-    var clientId = ""
-    var clientSecretId = ""
+    var clientId = ProcessInfo.processInfo.environment["GITHUB_CLIENT_ID"] ?? ""
+    var clientSecretId = ProcessInfo.processInfo.environment["GITHUB_CLIENT_SECRET_ID"] ?? ""
     
     /**
      Returns the shared defaults object.
