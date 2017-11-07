@@ -14,7 +14,8 @@
     "created_at": "2017-10-31T20:17:35Z",
     "updated_at": "2017-10-31T20:17:35Z",
     "scopes": [
-               "public_repo"
+               "repo",
+               "user"
                ],
     "fingerprint": null
 }

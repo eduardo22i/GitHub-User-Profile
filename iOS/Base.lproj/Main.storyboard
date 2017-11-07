@@ -32,18 +32,6 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="144.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Oct Icon" translatesAutoresizingMaskIntoConstraints="NO" id="XGa-bs-QcQ">
-                                                    <rect key="frame" x="15" y="10" width="110" height="110"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="110" id="Ha1-mf-1R8"/>
-                                                        <constraint firstAttribute="width" constant="110" id="tlD-kI-1Sk"/>
-                                                    </constraints>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                            <real key="value" value="5"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kvF-4a-pa3">
                                                     <rect key="frame" x="135" y="10" width="224" height="24"/>
                                                     <constraints>
@@ -86,6 +74,18 @@
                                                     <color key="textColor" red="0.0" green="0.60784313729999995" blue="0.85882352939999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Oct Icon" translatesAutoresizingMaskIntoConstraints="NO" id="XGa-bs-QcQ">
+                                                    <rect key="frame" x="15" y="10" width="110" height="110"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="110" id="Ha1-mf-1R8"/>
+                                                        <constraint firstAttribute="width" constant="110" id="tlD-kI-1Sk"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="hxf-aN-Bpv" firstAttribute="top" secondItem="Sr0-M8-rcT" secondAttribute="bottom" id="0To-zL-btY"/>
@@ -264,6 +264,22 @@
             </objects>
             <point key="canvasLocation" x="1535.2" y="-503.29835082458777"/>
         </scene>
+        <!--Feed-->
+        <scene sceneID="MPg-Zm-dhE">
+            <objects>
+                <viewController id="eea-Fx-pSc" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="eOy-8P-k7O">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="pbt-jH-i7R"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Feed" id="UUO-7J-Xno"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MLV-ED-vJF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="741" y="-1506"/>
+        </scene>
         <!--Search View Controller-->
         <scene sceneID="ahz-cU-Sdy">
             <objects>
@@ -309,7 +325,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ByS-vI-s31" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1535" y="-1321"/>
+            <point key="canvasLocation" x="1535" y="225"/>
         </scene>
         <!--Repo-->
         <scene sceneID="MJC-mt-nQt">
@@ -1001,9 +1017,10 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
+                        <segue destination="qjz-4K-mtV" kind="presentation" identifier="ShowLoginSegue" id="oPV-RW-DCm"/>
+                        <segue destination="eea-Fx-pSc" kind="relationship" relationship="viewControllers" id="BHw-Dc-s32"/>
                         <segue destination="HxF-v7-Rsr" kind="relationship" relationship="viewControllers" id="gLb-fF-92x"/>
                         <segue destination="VYX-SG-9pG" kind="relationship" relationship="viewControllers" id="cNw-pN-BG9"/>
-                        <segue destination="qjz-4K-mtV" kind="presentation" identifier="ShowLoginSegue" id="oPV-RW-DCm"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rRs-TD-pvj" userLabel="First Responder" sceneMemberID="firstResponder"/>

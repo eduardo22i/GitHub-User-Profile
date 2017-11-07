@@ -185,4 +185,26 @@ class DataManager: NSObject {
         }
     }
     
+    func getEvents(username: String, options : [String : Any]? = nil, block : @escaping (_ events : [Event]?, _ error : APIError?) -> Void) {
+        
+        let path = username + "/" + Endpoint.events.rawValue
+        
+        let request =  HTTPManager.createRequest(endpoint: .users, path: path, parameters: options)
+        
+        HTTPManager.make(request: request) { (data, error) in
+            
+            if let error = error {
+                block(nil, error)
+                return
+            }
+            
+            if let data = data {
+                let decoder = JSONDecoder()
+                
+                let events = try? decoder.decode([Event].self, from: data)
+                block(events, nil)
+            }
+            
+        }
+    }
 }

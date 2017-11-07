@@ -12,9 +12,15 @@ extension String {
     var removeComma:String {
         return components(separatedBy: CharacterSet(charactersIn: ",")).joined(separator: "")
     }
+    
     var webUrl:URL {
         
         return URL(string: addingPercentEncoding(withAllowedCharacters: CharacterSet.urlFragmentAllowed)! )!
+    }
+    
+    var firstLowercased: String {
+        guard let first = first else { return "" }
+        return String(first).localizedLowercase + dropFirst()
     }
 }
 

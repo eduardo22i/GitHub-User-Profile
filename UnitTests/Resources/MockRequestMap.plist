@@ -6,5 +6,7 @@
 	<string>user_sample</string>
 	<key>https://api.github.com/authorizations/clients/12345/{date}</key>
 	<string>login_sample</string>
+	<key>https://api.github.com/users/octocat/received_events</key>
+	<string>events_sample</string>
 </dict>
 </plist>

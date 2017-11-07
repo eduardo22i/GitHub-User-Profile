@@ -58,4 +58,5 @@ enum Endpoint : String {
     case branches = "branches"
     case commits = "commits"
     case readme = "readme"
+    case events = "received_events"
 }
