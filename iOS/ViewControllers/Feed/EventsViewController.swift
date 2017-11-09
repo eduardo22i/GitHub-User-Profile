@@ -26,6 +26,8 @@ class EventsViewController: UIViewController {
             navigationController?.navigationBar.prefersLargeTitles = true
         }
         self.navigationController?.navigationBar.shadowImage = UIImage()
+        
+        self.tableView.estimatedRowHeight = 100
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -63,17 +65,24 @@ extension EventsViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "EventCell")!
+        let cell = tableView.dequeueReusableCell(withIdentifier: "EventCell") as! EventTableViewCell
         
         let event = events[indexPath.row]
         
         let username = event.actor?.username ?? ""
         let repo = event.repo?.name ?? ""
-        
         let description = String(format: event.type!.description, username,  repo)
         
-        cell.textLabel?.text = description
+        cell.descriptionLabel?.text = description
         
+        cell.avatarImageView.image = #imageLiteral(resourceName: "Oct Icon")
+        event.actor?.downloadImage({ (data, error) in
+            if let data = data {
+                if tableView.visibleCells.contains(cell) {
+                    cell.avatarImageView.image = UIImage(data: data)
+                }
+            }
+        })
         return cell
     }
     
