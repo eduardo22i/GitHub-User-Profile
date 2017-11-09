@@ -171,9 +171,9 @@
 				F9401CB81B807423003FFD42 /* URLs_Tests.swift */,
 				F9B7FC5C1FA9290A00CE4F37 /* Login_Tests.swift */,
 				F96502101FB1311B0069ECD1 /* Events_Tests.swift */,
-				F9401CB71B807423003FFD42 /* Info.plist */,
 				F9B7FC611FABC2AA00CE4F37 /* Extensions */,
 				F9B7FC601FABC1FD00CE4F37 /* Resources */,
+				F9401CB71B807423003FFD42 /* Info.plist */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";

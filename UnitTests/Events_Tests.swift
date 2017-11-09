@@ -37,6 +37,7 @@ class Events_Tests: XCTestCase {
             XCTAssertEqual(event?.id, "12345")
             XCTAssertEqual(event?.actor?.username, "octocat")
             XCTAssertEqual(event?.type, .watchEvent )
+            XCTAssertEqual(event?.repo?.name, "octocat/Hello-World")
             
             userOpExpectation.fulfill()
         }

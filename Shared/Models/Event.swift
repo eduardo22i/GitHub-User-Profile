@@ -46,6 +46,21 @@ enum EventType : String {
     case teamEvent
     case teamAddEvent
     case watchEvent
+    
+    var description : String {
+        switch self {
+        case .createEvent:
+            return "%@ created a repository %@"
+        case .pushEvent:
+            return "%@ pushed to %@"
+        case .publicEvent:
+            return "%@ made %@ public"
+        case .watchEvent:
+            return "%@ starred %@"
+        default:
+            return "%@ \(self.rawValue) %@"
+        }
+    }
 }
 
 class Event {
@@ -53,6 +68,7 @@ class Event {
     var id: String?
     var type: EventType?
     var actor: User?
+    var repo: Repo?
     
     required init(from decoder: Decoder) throws {
         try self.decode(decoder: decoder)
@@ -65,19 +81,25 @@ extension Event: Decodable {
         case id
         case type
         case actor
+        case repo
     }
     
     func decode(decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         id = try container.decode(String.self, forKey: .id)
+        
         if let typeString = try? container.decode(String.self, forKey: .type) {
            type = EventType(rawValue: typeString.firstLowercased)
         }
+        
         if let user = try? container.decode(User.self, forKey: .actor) {
             self.actor = user
         }
-
+        
+        if let repo = try? container.decode(Repo.self, forKey: .repo) {
+            self.repo = repo
+        }
         
     }
     
