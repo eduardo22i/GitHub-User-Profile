@@ -97,7 +97,10 @@ extension ProfileViewController : UITableViewDataSource {
             
             cell.avatarImageView.image = #imageLiteral(resourceName: "Oct Icon")
             user.downloadImage({ (data, error) -> Void in
-                cell.avatarImageView.image = UIImage(data: data!)
+                guard let data = data else {
+                    return
+                }
+                cell.avatarImageView.image = UIImage(data: data)
             })
             
         }

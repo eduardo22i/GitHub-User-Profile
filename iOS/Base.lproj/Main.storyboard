@@ -267,18 +267,47 @@
         <!--Feed-->
         <scene sceneID="MPg-Zm-dhE">
             <objects>
-                <viewController id="eea-Fx-pSc" sceneMemberID="viewController">
+                <viewController id="eea-Fx-pSc" customClass="EventsViewController" customModule="GitHub_iOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eOy-8P-k7O">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Tcc-xK-f9C">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="EventCell" id="QiS-Mr-rge">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="QiS-Mr-rge" id="SRx-FG-ntv">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="eea-Fx-pSc" id="3vJ-gt-W5R"/>
+                                    <outlet property="delegate" destination="eea-Fx-pSc" id="WjM-gp-kh5"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Tcc-xK-f9C" firstAttribute="leading" secondItem="pbt-jH-i7R" secondAttribute="leading" id="Et5-WC-Qfb"/>
+                            <constraint firstItem="Tcc-xK-f9C" firstAttribute="top" secondItem="eOy-8P-k7O" secondAttribute="top" id="Szf-ta-uim"/>
+                            <constraint firstAttribute="bottom" secondItem="Tcc-xK-f9C" secondAttribute="bottom" id="j2I-ri-334"/>
+                            <constraint firstItem="pbt-jH-i7R" firstAttribute="trailing" secondItem="Tcc-xK-f9C" secondAttribute="trailing" id="ywE-2M-7kK"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="pbt-jH-i7R"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Feed" id="UUO-7J-Xno"/>
+                    <navigationItem key="navigationItem" title="Feed" id="4XS-Cd-wBT"/>
+                    <connections>
+                        <outlet property="tableView" destination="Tcc-xK-f9C" id="XMx-wC-6x6"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MLV-ED-vJF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="741" y="-1506"/>
+            <point key="canvasLocation" x="1496.8" y="-1507.1964017991006"/>
         </scene>
         <!--Search View Controller-->
         <scene sceneID="ahz-cU-Sdy">
@@ -1018,7 +1047,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="qjz-4K-mtV" kind="presentation" identifier="ShowLoginSegue" id="oPV-RW-DCm"/>
-                        <segue destination="eea-Fx-pSc" kind="relationship" relationship="viewControllers" id="BHw-Dc-s32"/>
+                        <segue destination="63g-eM-XvR" kind="relationship" relationship="viewControllers" id="BHw-Dc-s32"/>
                         <segue destination="HxF-v7-Rsr" kind="relationship" relationship="viewControllers" id="gLb-fF-92x"/>
                         <segue destination="VYX-SG-9pG" kind="relationship" relationship="viewControllers" id="cNw-pN-BG9"/>
                     </connections>
@@ -1044,6 +1073,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OTv-3j-NAl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-673" y="319"/>
+        </scene>
+        <!--Feed-->
+        <scene sceneID="FSD-tu-mb6">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="63g-eM-XvR" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Feed" id="UUO-7J-Xno"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="jdp-DQ-Co6">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="eea-Fx-pSc" kind="relationship" relationship="rootViewController" id="nhE-PR-yCh"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SgJ-mc-D0b" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="740.79999999999995" y="-1506.7466266866568"/>
         </scene>
     </scenes>
     <resources>

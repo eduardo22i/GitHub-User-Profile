@@ -14,7 +14,7 @@ class Repo {
     var name : String!
     var description : String?
 
-    var defaultBranch : String!
+    var defaultBranch : String?
     
     var url : URL!
     
@@ -59,18 +59,20 @@ extension Repo: Codable {
         id = try container.decode(Int.self, forKey: .id)
         name = try container.decode(String.self, forKey: .name)
         description = try? container.decode(String.self, forKey: .description)
-        defaultBranch = try container.decode(String.self, forKey: .defaultBranch)
-        url = try container.decode(URL.self, forKey: .url)
-        watchersCount = try container.decode(Int.self, forKey: .watchersCount)
-        stargazersCount = try container.decode(Int.self, forKey: .stargazersCount)
-        isForked = try container.decode(Bool.self, forKey: .isForked)
-        isPrivate = try container.decode(Bool.self, forKey: .isPrivate)
+        defaultBranch = try? container.decode(String.self, forKey: .defaultBranch)
+        url = try? container.decode(URL.self, forKey: .url)
+        watchersCount = (try? container.decode(Int.self, forKey: .watchersCount)) ?? 0
+        stargazersCount = (try? container.decode(Int.self, forKey: .stargazersCount)) ?? 0
+        isForked = (try? container.decode(Bool.self, forKey: .isForked)) ?? false
+        isPrivate = (try? container.decode(Bool.self, forKey: .isPrivate)) ?? false
         
         pushedAt = try? container.decode(Date.self, forKey: .pushedAt)
-        updatedAt = try container.decode(Date.self, forKey: .updatedAt)
-        createdAt = try container.decode(Date.self, forKey: .createdAt)
+        updatedAt = try? container.decode(Date.self, forKey: .updatedAt)
+        createdAt = try? container.decode(Date.self, forKey: .createdAt)
         
-        branches.append(Branch(name: defaultBranch))
+        if let defaultBranch = defaultBranch {
+            branches.append(Branch(name: defaultBranch))
+        }
     }
     
     func encode(to encoder: Encoder) throws {

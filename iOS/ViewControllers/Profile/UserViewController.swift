@@ -72,9 +72,7 @@ class UserViewController: UIViewController {
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
         }
-        
         self.navigationController?.navigationBar.shadowImage = UIImage()
-        
         
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         tableView.estimatedRowHeight = 55

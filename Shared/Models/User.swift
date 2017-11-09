@@ -13,9 +13,24 @@ enum Type : String {
     case user
 }
 
-class User {
+class User: NSCoding {
     
-    static var current : User?
+    static var current : User? {
+        set {
+            let enconder = JSONEncoder()
+            let userJson = try? enconder.encode(newValue)
+            UserDefaults.standard.set(userJson, forKey: "CurrentUser")
+        }
+        get {
+            
+            let decoder = JSONDecoder()
+            guard let data = UserDefaults.standard.data(forKey: "CurrentUser") else { return nil }
+            
+            let user = try? decoder.decode(User.self, from: data)
+            
+            return user
+        }
+    }
     
     var id: Int!
     var username : String!
@@ -37,6 +52,19 @@ class User {
     
     required init(from decoder: Decoder) throws {
         try self.decode(decoder: decoder)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        
+    }
+    
+    func encode(with aCoder: NSCoder) {
+        
+    }
+    
+    func fetch() {
+        DataManager.shared.getCurrentUser { (user, error) in
+        }
     }
     
     func downloadImage(_ block : @escaping (_ data : Data?, _ error : Error?) -> Void) {
@@ -98,7 +126,7 @@ extension User: Codable {
         try container.encode(location, forKey: .location)
         try container.encode(url, forKey: .url)
         try container.encode(avatarURL, forKey: .avatarURL)
-        try container.encode(type, forKey: .type)
+        //try container.encode(type, forKey: .type)
     }
 }
 
