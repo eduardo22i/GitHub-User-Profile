@@ -192,7 +192,7 @@ extension UserViewController : UITableViewDataSource {
             cell.urlLabel.text = user.url
             
             cell.avatarImageView.image = #imageLiteral(resourceName: "Oct Icon")
-            user.downloadImage({ (data, error) -> Void in
+            user.fetchImageIfNeeded({ (data, error) -> Void in
                 cell.avatarImageView.image = UIImage(data: data!)
             })
             

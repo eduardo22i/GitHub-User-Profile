@@ -97,7 +97,7 @@ class User: NSObject, NSCoding {
         aCoder.encode(company, forKey: CodingKeys.company.rawValue)
         aCoder.encode(location, forKey: CodingKeys.location.rawValue)
         aCoder.encode(url, forKey: CodingKeys.url.rawValue)
-        aCoder.encode(avatarURL, forKey: CodingKeys.avatarURL.rawValue)
+        aCoder.encode(avatarURL?.absoluteString, forKey: CodingKeys.avatarURL.rawValue)
         aCoder.encode(imageData, forKey: "avatar")
         aCoder.encode(type?.rawValue, forKey: CodingKeys.type.rawValue)
     }
@@ -107,7 +107,7 @@ class User: NSObject, NSCoding {
         }
     }
     
-    func downloadImage(_ block : @escaping (_ data : Data?, _ error : Error?) -> Void) {
+    func fetchImageIfNeeded(_ block : @escaping (_ data : Data?, _ error : Error?) -> Void) {
         if imageData != nil {
             block( imageData , nil )
             return

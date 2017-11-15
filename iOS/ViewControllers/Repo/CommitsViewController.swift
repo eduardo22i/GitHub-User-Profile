@@ -77,7 +77,7 @@ class CommitsViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         cell.imageView?.image = #imageLiteral(resourceName: "Oct Icon")
         
-        commit.user?.downloadImage({ (data, error) -> Void in
+        commit.user?.fetchImageIfNeeded({ (data, error) -> Void in
             cell.imageView?.image = UIImage(data: data!)
             cell.imageView?.addImageInsets(UIEdgeInsets(top: 50, left: 50, bottom: 50, right: 50))
         })

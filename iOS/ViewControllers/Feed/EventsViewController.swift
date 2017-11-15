@@ -76,7 +76,7 @@ extension EventsViewController: UITableViewDataSource {
         cell.descriptionLabel?.text = description
         
         cell.avatarImageView.image = #imageLiteral(resourceName: "Oct Icon")
-        event.actor?.downloadImage({ (data, error) in
+        event.actor?.fetchImageIfNeeded({ (data, error) in
             if let data = data {
                 cell.avatarImageView.image = UIImage(data: data)
             }
