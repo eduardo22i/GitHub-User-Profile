@@ -70,6 +70,8 @@ class Event {
     var actor: User?
     var repo: Repo?
     
+    var eventRepo : Event.RepoInfo?
+        
     required init(from decoder: Decoder) throws {
         try self.decode(decoder: decoder)
     }
@@ -82,6 +84,7 @@ extension Event: Decodable {
         case type
         case actor
         case repo
+        case url
     }
     
     func decode(decoder: Decoder) throws {
@@ -97,10 +100,16 @@ extension Event: Decodable {
             self.actor = user
         }
         
-        if let repo = try? container.decode(Repo.self, forKey: .repo) {
-            self.repo = repo
-        }
-        
+        eventRepo = try? container.decode(Event.RepoInfo.self, forKey: .repo)
     }
     
+}
+
+extension Event {
+    struct RepoInfo : Codable {
+        var id : Int!
+        var name : String!
+        var url : URL!
+        
+    }
 }

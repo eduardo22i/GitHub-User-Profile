@@ -8,6 +8,14 @@
 
 import Foundation
 
+extension URLRequest {
+    mutating func appendAccessToken() {
+        if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
+            self.addValue("token \(accessToken)", forHTTPHeaderField: "Authorization")
+        }
+    }
+}
+
 class HTTPManager: NSObject {
     
     static let url = "api.github.com"
@@ -38,9 +46,7 @@ class HTTPManager: NSObject {
             request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         }
         
-        if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
-            request.addValue("token \(accessToken)", forHTTPHeaderField: "Authorization")
-        }        
+        request.appendAccessToken()
         
         return request
     }

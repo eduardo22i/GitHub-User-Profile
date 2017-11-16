@@ -283,8 +283,9 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="61.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Oct Icon" translatesAutoresizingMaskIntoConstraints="NO" id="ltu-wf-usC">
+                                                <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Oct Icon" translatesAutoresizingMaskIntoConstraints="NO" id="ltu-wf-usC">
                                                     <rect key="frame" x="15" y="11" width="40" height="40"/>
+                                                    <gestureRecognizers/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="Hfg-Vm-G8Y"/>
                                                         <constraint firstAttribute="width" constant="40" id="U1r-jB-k2j"/>
@@ -294,6 +295,9 @@
                                                             <real key="value" value="5"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <outletCollection property="gestureRecognizers" destination="4WV-jF-kwi" appends="YES" id="fh9-ac-Fsp"/>
+                                                    </connections>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v8u-JI-0F1">
                                                     <rect key="frame" x="63" y="11" width="297" height="40"/>
@@ -316,6 +320,10 @@
                                         <connections>
                                             <outlet property="avatarImageView" destination="ltu-wf-usC" id="uT7-s2-uij"/>
                                             <outlet property="descriptionLabel" destination="v8u-JI-0F1" id="Uh5-0i-XGY"/>
+                                            <segue destination="Rgo-TM-v2h" kind="show" id="b6c-ys-pCx">
+                                                <segue key="commit" inheritsFrom="parent" id="xxA-6t-QCy"/>
+                                                <segue key="preview" inheritsFrom="commit" id="rtk-kM-Nn6"/>
+                                            </segue>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -340,6 +348,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MLV-ED-vJF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="4WV-jF-kwi">
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="show" id="ev4-eL-QBR"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1496.8" y="-1507.1964017991006"/>
         </scene>
@@ -1139,6 +1152,7 @@
         <image name="steroidtocat" width="448" height="448"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="C3z-33-3WI"/>
+        <segue reference="b6c-ys-pCx"/>
+        <segue reference="ev4-eL-QBR"/>
     </inferredMetricsTieBreakers>
 </document>

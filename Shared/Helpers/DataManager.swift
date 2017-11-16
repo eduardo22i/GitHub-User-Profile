@@ -94,9 +94,9 @@ class DataManager: NSObject {
         }
     }
     
-    func getRepos(username: String, options : [String : Any]?, block : @escaping (_ repos : [Repo]?, _ error : APIError?) -> Void ) {
+    func getRepos(user: User, options : [String : Any]?, block : @escaping (_ repos : [Repo]?, _ error : APIError?) -> Void ) {
         
-        let path = username + "/" + Endpoint.repos.rawValue
+        let path = user.username + "/" + Endpoint.repos.rawValue
         let request = HTTPManager.createRequest(endpoint: .users, path: path, parameters: options)
         
         HTTPManager.make(request: request) { (data, error) in
@@ -111,6 +111,7 @@ class DataManager: NSObject {
                 decoder.dateDecodingStrategy = .iso8601
 
                 let repos = try? decoder.decode([Repo].self, from: data)
+                
                 block(repos, nil)
             }
         
@@ -137,12 +138,12 @@ class DataManager: NSObject {
         }
     }
     
-    func getCommits(username: String, repo : String, branch: String, options : [String : Any]?, block : @escaping (_ repos : [Commit]?, _ error : APIError?) -> Void) {
+    func getCommits(repo : Repo, branch: String, options : [String : Any]?, block : @escaping (_ repos : [Commit]?, _ error : APIError?) -> Void) {
         
         var parameters = options ?? [:]
         parameters["sha"] = branch
         
-        let path = username + "/" + repo + "/" + Endpoint.commits.rawValue
+        let path = repo.owner.username + "/" + repo.name + "/" + Endpoint.commits.rawValue
         let request = HTTPManager.createRequest(endpoint: .repos, path: path, parameters: parameters)
         
         HTTPManager.make(request: request) { (data, error) in
@@ -162,9 +163,9 @@ class DataManager: NSObject {
         }
     }
     
-    func getReadme(username: String, repo : String, options : [String : Any]? = nil, block : @escaping (_ readme : File?, _ error : APIError?) -> Void) {
+    func getReadme(repo : Repo, options : [String : Any]? = nil, block : @escaping (_ readme : File?, _ error : APIError?) -> Void) {
     
-        let path = username + "/" + repo + "/" + Endpoint.readme.rawValue
+        let path = repo.owner.username + "/" + repo.name + "/" + Endpoint.readme.rawValue
     
         let request =  HTTPManager.createRequest(endpoint: .repos, path: path, parameters: options)
         
@@ -185,9 +186,9 @@ class DataManager: NSObject {
         }
     }
     
-    func getEvents(username: String, options : [String : Any]? = nil, block : @escaping (_ events : [Event]?, _ error : APIError?) -> Void) {
+    func getEvents(user: User, options : [String : Any]? = nil, block : @escaping (_ events : [Event]?, _ error : APIError?) -> Void) {
         
-        let path = username + "/" + Endpoint.events.rawValue
+        let path = user.username + "/" + Endpoint.events.rawValue
         
         let request =  HTTPManager.createRequest(endpoint: .users, path: path, parameters: options)
         
@@ -199,10 +200,45 @@ class DataManager: NSObject {
             }
             
             if let data = data {
+                
+                let myGroup = DispatchGroup()
+
                 let decoder = JSONDecoder()
                 
                 let events = try? decoder.decode([Event].self, from: data)
-                block(events, nil)
+                
+                events?.forEach({ (event) in
+                    
+                    myGroup.enter()
+                    
+                    if let repoUrl = event.eventRepo?.url {
+                        
+                        var request = URLRequest(url: repoUrl)
+                        request.appendAccessToken()
+                        
+                        HTTPManager.make(request: request, completeBlock: { (data, error) in
+                            
+                            guard let data = data else {
+                                myGroup.leave()
+                                return
+                            }
+                            
+                            let decoder = JSONDecoder()
+                            decoder.dateDecodingStrategy = .iso8601
+                            
+                            event.repo = try? decoder.decode(Repo.self, from: data)
+                            
+                            myGroup.leave()
+                            
+                        })
+                    }
+                    
+                })
+                
+                myGroup.notify(queue: .main) {
+                    block(events, nil)
+                }
+                
             }
             
         }

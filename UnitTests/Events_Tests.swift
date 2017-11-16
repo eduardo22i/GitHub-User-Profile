@@ -26,24 +26,31 @@ class Events_Tests: XCTestCase {
         
         let userOpExpectation: XCTestExpectation = expectation(description: "Events Request")
 
-        
-        DataManager.shared.getEvents(username: "octocat") { (events, error) in
-            XCTAssertNotNil(events)
+        DataManager.shared.getUser(username: "octocat") { (user, error) in
             
-            XCTAssertEqual(events?.count, 1)
+            guard let user = user else {
+                XCTFail()
+                return
+            }
             
-            let event = events?.first
-            
-            XCTAssertEqual(event?.id, "12345")
-            XCTAssertEqual(event?.actor?.username, "octocat")
-            XCTAssertEqual(event?.type, .watchEvent )
-            XCTAssertEqual(event?.repo?.name, "octocat/Hello-World")
-            
-            userOpExpectation.fulfill()
+            DataManager.shared.getEvents(user: user) { (events, error) in
+                XCTAssertNotNil(events)
+                
+                XCTAssertEqual(events?.count, 1)
+                
+                let event = events?.first
+                
+                XCTAssertEqual(event?.id, "12345")
+                XCTAssertEqual(event?.actor?.username, "octocat")
+                XCTAssertEqual(event?.type, .watchEvent )
+                XCTAssertEqual(event?.repo?.name, "Hello-World")
+                XCTAssertEqual(event?.repo?.owner.username, "octocat")
+                
+                userOpExpectation.fulfill()
+            }
         }
         
         waitForExpectations(timeout: 5.0, handler: nil)
-
     }
     
 }

@@ -10,7 +10,6 @@ import UIKit
 
 class RepoViewController: UIViewController {
 
-    var user : User!
     var repo : Repo!
     
     var currentBranch : Branch? {
@@ -19,7 +18,7 @@ class RepoViewController: UIViewController {
             
             guard let currentBranch = currentBranch else { return }
             
-            DataManager.shared.getCommits(username: user.username, repo: repo.name, branch: currentBranch.name!, options: nil) { (commits, error) in
+            DataManager.shared.getCommits(repo: repo, branch: currentBranch.name!, options: nil) { (commits, error) in
                 
                 if let commits = commits {
                     currentBranch.commits = commits
@@ -51,7 +50,7 @@ class RepoViewController: UIViewController {
         self.descriptionTextView.text = repo.description
         
         self.readmeTextView.attributedText = nil
-        DataManager.shared.getReadme(username: user.username, repo: repo.name) { (file, error) in
+        DataManager.shared.getReadme(repo: repo) { (file, error) in
             if let rawContent = file?.content {
                 let content = String(data: rawContent, encoding: String.Encoding.utf8)
                 self.repo.readme = Markdown(plainText: content!, updateBlock: { (markdown) in
@@ -79,7 +78,6 @@ class RepoViewController: UIViewController {
         if let vc = (segue.destination as? UINavigationController)?.topViewController as?  BranchesViewController {
             vc.delegate = self
             vc.repo = repo
-            vc.user = user
         }
         
         if let vc = segue.destination as? CommitsViewController {

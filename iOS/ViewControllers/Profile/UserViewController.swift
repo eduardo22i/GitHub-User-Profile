@@ -98,7 +98,7 @@ class UserViewController: UIViewController {
     
     func displayUser(page : Int) {
         infoTextLabel.text = "Loading"
-        DataManager.shared.getRepos(username: user.username, options: ["page" : page], block: { (repos, error) -> Void in
+        DataManager.shared.getRepos(user: user, options: ["page" : page], block: { (repos, error) -> Void in
             
             if error != nil {
                 return
@@ -152,7 +152,6 @@ class UserViewController: UIViewController {
             let indexPath = tableView.indexPath(for: sender as! UITableViewCell)
             let repo = repos[indexPath?.row ?? 0]
             vc.repo = repo
-            vc.user = user
         }
         
         if let vc = segue.destination as? SearchViewController {

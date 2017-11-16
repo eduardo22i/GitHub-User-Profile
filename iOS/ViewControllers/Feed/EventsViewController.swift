@@ -28,15 +28,19 @@ class EventsViewController: UIViewController {
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
         self.tableView.estimatedRowHeight = 100
+        
+        if let user = User.current {
+            DataManager.shared.getEvents(user: user) { (events, error) in
+                self.events = events ?? []
+            }
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if let user = User.current?.username {
-            DataManager.shared.getEvents(username: user) { (events, error) in
-                self.events = events ?? []
-            }
+        for indexPath in tableView.indexPathsForSelectedRows ?? [] {
+            tableView.deselectRow(at: indexPath, animated: false)
         }
     }
     
@@ -44,17 +48,18 @@ class EventsViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if let vc = segue.destination as? RepoViewController {
+            let event = events[tableView.indexPathForSelectedRow?.row ?? 0]
+            vc.repo = event.repo
+        }
     }
-    */
 
 }
 
@@ -70,7 +75,7 @@ extension EventsViewController: UITableViewDataSource {
         let event = events[indexPath.row]
         
         let username = event.actor?.username ?? ""
-        let repo = event.repo?.name ?? ""
+        let repo = (event.repo?.owner?.username ?? "") + "/" + (event.repo?.name ?? "")
         let description = String(format: event.type!.description, username,  repo)
         
         cell.descriptionLabel?.text = description

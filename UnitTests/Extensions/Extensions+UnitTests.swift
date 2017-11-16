@@ -9,6 +9,9 @@
 import Foundation
 
 extension URLRequest {
+    mutating func appendAccessToken() {
+        
+    }
     
     func mockDataTask() -> Data? {
         

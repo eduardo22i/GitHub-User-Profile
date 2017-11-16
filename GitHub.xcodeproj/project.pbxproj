@@ -32,6 +32,7 @@
 		F965021E1FB4DE3C0069ECD1 /* HTTPManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DDA72C1B85ABE2003B3C66 /* HTTPManager.swift */; };
 		F96A2E5C1FABCFF400170894 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96A2E5B1FABCFF400170894 /* Constants.swift */; };
 		F96A2E5D1FABCFF400170894 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96A2E5B1FABCFF400170894 /* Constants.swift */; };
+		F98E505F1FBE412D00780F67 /* repo_sample.json in Resources */ = {isa = PBXBuildFile; fileRef = F98E505E1FBE412D00780F67 /* repo_sample.json */; };
 		F99B72181F9D5E77003A8DDF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92C2EA11B818E2D00846566 /* Extensions.swift */; };
 		F9A4CE9B1FA284C4000AAF5D /* Extensions+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A4CE9A1FA284C4000AAF5D /* Extensions+iOS.swift */; };
 		F9A4CE9D1FA51B11000AAF5D /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A4CE9C1FA51B11000AAF5D /* File.swift */; };
@@ -91,6 +92,7 @@
 		F96502171FB25BB60069ECD1 /* EventsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsViewController.swift; sourceTree = "<group>"; };
 		F965021A1FB4DCDC0069ECD1 /* EventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
 		F96A2E5B1FABCFF400170894 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		F98E505E1FBE412D00780F67 /* repo_sample.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = repo_sample.json; sourceTree = "<group>"; };
 		F9A4CE9A1FA284C4000AAF5D /* Extensions+iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+iOS.swift"; sourceTree = "<group>"; };
 		F9A4CE9C1FA51B11000AAF5D /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		F9B7FC561FA66DCE00CE4F37 /* Markdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Markdown.swift; sourceTree = "<group>"; };
@@ -265,6 +267,7 @@
 				F9B7FC5E1FABC1F400CE4F37 /* login_sample.json */,
 				F95A495E1FAE755400F9CF03 /* user_sample.json */,
 				F96502121FB131350069ECD1 /* events_sample.json */,
+				F98E505E1FBE412D00780F67 /* repo_sample.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -394,6 +397,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F96502151FB1341F0069ECD1 /* events_sample.json in Resources */,
+				F98E505F1FBE412D00780F67 /* repo_sample.json in Resources */,
 				F9B7FC641FABC2F900CE4F37 /* login_sample.json in Resources */,
 				F95A49601FAE76DA00F9CF03 /* user_sample.json in Resources */,
 				F9B7FC6D1FABC56800CE4F37 /* MockRequestMap.plist in Resources */,

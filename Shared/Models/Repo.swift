@@ -32,6 +32,8 @@ class Repo {
     
     var readme : Markdown!
     
+    var owner : User!
+    
     required init(from decoder: Decoder) throws {
         try self.decode(decoder: decoder)
     }
@@ -41,6 +43,7 @@ extension Repo: Codable {
     private enum CodingKeys : String, CodingKey {
         case id = "id"
         case name = "name"
+        case owner
         case description = "description"
         case defaultBranch = "default_branch"
         case url = "html_url"
@@ -73,6 +76,8 @@ extension Repo: Codable {
         if let defaultBranch = defaultBranch {
             branches.append(Branch(name: defaultBranch))
         }
+        
+        owner = try? container.decode(User.self, forKey: .owner)
     }
     
     func encode(to encoder: Encoder) throws {
