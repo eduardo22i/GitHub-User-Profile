@@ -63,12 +63,12 @@ class DataManager: NSObject {
         }
     }
     
-    func getCurrentUser (block : @escaping (_ user : User?, _ error : APIError?) -> Void) {
+    func getCurrentUser (block : @escaping (_ user : User.Individual?, _ error : APIError?) -> Void) {
         let request =  HTTPManager.createRequest(endpoint: .user)
         HTTPManager.make(request: request) { (data, error) in
             if let data = data {
                 let decoder = JSONDecoder()
-                let user = try? decoder.decode(User.self, from: data)
+                let user = try? decoder.decode(User.Individual.self, from: data)
                 User.current = user
                 block(User.current, nil)
             } else {
@@ -89,6 +89,18 @@ class DataManager: NSObject {
             if let data = data {
                 let decoder = JSONDecoder()
                 let user = try? decoder.decode(User.self, from: data)
+                if let type = user?.type {
+                    let decoder = JSONDecoder()
+                    switch type {
+                    case .user:
+                        let individual = try? decoder.decode(User.Individual.self, from: data)
+                        block(individual, nil)
+                    case .organization:
+                        let organization = try? decoder.decode(User.Organization.self, from: data)
+                        block(organization, nil)
+                    }
+                    return
+                }
                 block(user, nil)
             }
         }

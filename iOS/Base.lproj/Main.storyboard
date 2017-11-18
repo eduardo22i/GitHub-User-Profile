@@ -669,11 +669,11 @@
             </objects>
             <point key="canvasLocation" x="3840.8000000000002" y="225.33733133433284"/>
         </scene>
-        <!--Users-->
+        <!--Search-->
         <scene sceneID="PFl-Vu-iWP">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="HxF-v7-Rsr" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Users" id="DNd-EA-SuY"/>
+                    <tabBarItem key="tabBarItem" title="Search" id="DNd-EA-SuY"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="E0t-mK-rrV">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
@@ -1153,6 +1153,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="b6c-ys-pCx"/>
-        <segue reference="ev4-eL-QBR"/>
+        <segue reference="qkB-7u-1v5"/>
     </inferredMetricsTieBreakers>
 </document>

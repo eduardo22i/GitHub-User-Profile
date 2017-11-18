@@ -45,7 +45,7 @@ class Login_Tests: XCTestCase {
             XCTAssertEqual(user?.username, "octocat")
             XCTAssertEqual(user?.name, "monalisa octocat")
             XCTAssertEqual(user?.type, .user )
-            XCTAssertEqual(user?.company, "GitHub")
+            XCTAssertEqual((user as? User.Individual)?.company, "GitHub")
             
             userOpExpectation.fulfill()
             

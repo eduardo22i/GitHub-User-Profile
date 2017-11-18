@@ -28,6 +28,7 @@ class UserViewController: UIViewController {
             
             isLoading = false
             if user != nil {
+                self.navigationItem.title = user.name ?? "No Name :("
                 if #available(iOS 11.0, *) {
                     self.navigationItem.searchController?.isActive = false
                 }
@@ -183,9 +184,15 @@ extension UserViewController : UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier)!
         
         if let cell = cell as? UserInfoTableViewCell {
-            cell.nameLabel.text = user.name ?? "No Name :("
-            cell.usernameLabel.text = user.username
-            cell.companyLabel.text = user.company
+            cell.nameLabel.text = "@" + user.username
+            
+            if let individual = user as? User.Individual {
+                cell.usernameLabel.text = "User"
+                cell.companyLabel.text = individual.company
+            } else if user is User.Organization {
+                cell.usernameLabel.text = "Organization"
+                cell.companyLabel.text = nil
+            }
             cell.locationLabel.text = user.location
             cell.emailLabel.text = user.email
             cell.urlLabel.text = user.url
@@ -228,6 +235,7 @@ extension UserViewController : UITableViewDelegate {
 // MARK: - SearchViewControllerDelegate
 extension UserViewController : SearchViewControllerDelegate {
     func searchViewController(_ searchViewController: SearchViewController, didInputUser user: String) {
+        self.navigationItem.title = nil
         infoTextLabel.text = "Loading"
         infoImageView.image = #imageLiteral(resourceName: "jetpackoctocat")
         

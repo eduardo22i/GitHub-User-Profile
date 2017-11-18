@@ -90,7 +90,9 @@ extension ProfileViewController : UITableViewDataSource {
             
             cell.usernameLabel.text = user.username
             cell.typeLabel.text = user.type?.rawValue
-            cell.companyLabel.text = user.company
+            if let user = user as? User.Individual {
+                cell.companyLabel.text = user.company
+            }
             cell.locationLabel.text = user.location
             cell.emailLabel.text = user.email
             cell.urlLabel.text = user.url

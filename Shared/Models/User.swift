@@ -13,13 +13,36 @@ enum Type : String {
     case user
 }
 
-protocol Initializable {
-    init()
+extension User {
+    class Individual: User {
+        
+        var company : String?
+
+        required init(from decoder: Decoder) throws {
+            try super.init(from: decoder)
+            
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            company = try? container.decode(String.self, forKey: .company)
+            type = .user
+        }
+        
+        required init?(coder aDecoder: NSCoder) {
+            super.init(coder: aDecoder)
+            company = aDecoder.decodeObject(forKey: CodingKeys.company.rawValue) as? String
+        }
+        
+        override func encode(with aCoder: NSCoder) {
+            super.encode(with: aCoder)
+            aCoder.encode(company, forKey: CodingKeys.company.rawValue)
+
+        }
+    }
+    
 }
 
 class User: NSObject, NSCoding {
     
-    static var current : User? {
+    static var current : User.Individual? {
         set {
             guard let newValue = newValue else {
                 UserDefaults.standard.removeObject(forKey: "CurrentUser")
@@ -33,7 +56,7 @@ class User: NSObject, NSCoding {
             
             guard let data = UserDefaults.standard.data(forKey: "CurrentUser") else { return nil }
             
-            return NSKeyedUnarchiver.unarchiveObject(with: data) as? User
+            return (NSKeyedUnarchiver.unarchiveObject(with: data) as? User as! User.Individual)
         }
     }
     
@@ -41,7 +64,6 @@ class User: NSObject, NSCoding {
     var username : String!
     var email : String?
     var name : String?
-    var company : String?
     var location : String?
     var url : String?
     var avatarURL : URL?
@@ -59,7 +81,6 @@ class User: NSObject, NSCoding {
         username = try container.decode(String.self, forKey: .username)
         email = try? container.decode(String.self, forKey: .email)
         name = try? container.decode(String.self, forKey: .name)
-        company = try? container.decode(String.self, forKey: .company)
         location = try? container.decode(String.self, forKey: .location)
         url = try? container.decode(String.self, forKey: .url)
         avatarURL = try? container.decode(URL.self, forKey: .avatarURL)
@@ -75,7 +96,6 @@ class User: NSObject, NSCoding {
         username = aDecoder.decodeObject(forKey: CodingKeys.username.rawValue) as? String
         email = aDecoder.decodeObject(forKey: CodingKeys.email.rawValue) as? String
         name = aDecoder.decodeObject(forKey: CodingKeys.name.rawValue) as? String
-        company = aDecoder.decodeObject(forKey: CodingKeys.company.rawValue) as? String
         location = aDecoder.decodeObject(forKey: CodingKeys.location.rawValue) as? String
         url = aDecoder.decodeObject(forKey: CodingKeys.url.rawValue) as? String
         
@@ -98,7 +118,6 @@ class User: NSObject, NSCoding {
         aCoder.encode(username, forKey: CodingKeys.username.rawValue)
         aCoder.encode(email, forKey: CodingKeys.email.rawValue)
         aCoder.encode(name, forKey: CodingKeys.name.rawValue)
-        aCoder.encode(company, forKey: CodingKeys.company.rawValue)
         aCoder.encode(location, forKey: CodingKeys.location.rawValue)
         aCoder.encode(url, forKey: CodingKeys.url.rawValue)
         aCoder.encode(avatarURL?.absoluteString, forKey: CodingKeys.avatarURL.rawValue)
@@ -132,16 +151,17 @@ class User: NSObject, NSCoding {
 }
 
 extension User: Codable {
-    private enum CodingKeys : String, CodingKey {
-        case id = "id"
+    enum CodingKeys : String, CodingKey {
+        case id
         case username = "login"
-        case email = "email"
-        case name = "name"
-        case company = "company"
-        case location = "location"
+        case email
+        case name
+        case company
+        case location
         case url = "blog"
         case avatarURL = "avatar_url"
-        case type = "type"
+        case type
+        case collaborators
     }
     
     func decode(decoder: Decoder) throws {
@@ -154,7 +174,6 @@ extension User: Codable {
         try container.encode(username, forKey: .username)
         try container.encode(email, forKey: .email)
         try container.encode(name, forKey: .name)
-        try container.encode(company, forKey: .company)
         try container.encode(location, forKey: .location)
         try container.encode(url, forKey: .url)
         try container.encode(avatarURL, forKey: .avatarURL)
