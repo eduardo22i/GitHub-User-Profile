@@ -13,6 +13,10 @@ enum Type : String {
     case user
 }
 
+protocol Initializable {
+    init()
+}
+
 class User: NSObject, NSCoding {
     
     static var current : User? {

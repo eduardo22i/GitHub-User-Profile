@@ -10,5 +10,7 @@
 	<string>events_sample</string>
 	<key>https://api.github.com/repos/octocat/Hello-World</key>
 	<string>repo_sample</string>
+	<key>https://api.github.com/users/octocat/orgs</key>
+	<string>organizations_sample</string>
 </dict>
 </plist>

@@ -33,6 +33,10 @@
 		F96A2E5C1FABCFF400170894 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96A2E5B1FABCFF400170894 /* Constants.swift */; };
 		F96A2E5D1FABCFF400170894 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96A2E5B1FABCFF400170894 /* Constants.swift */; };
 		F98E505F1FBE412D00780F67 /* repo_sample.json in Resources */ = {isa = PBXBuildFile; fileRef = F98E505E1FBE412D00780F67 /* repo_sample.json */; };
+		F98E50611FC0B7E200780F67 /* User_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98E50601FC0B7E200780F67 /* User_Tests.swift */; };
+		F98E50631FC0BB3600780F67 /* organizations_sample.json in Resources */ = {isa = PBXBuildFile; fileRef = F98E50621FC0BB3600780F67 /* organizations_sample.json */; };
+		F98E50661FC0BDFF00780F67 /* Organization.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98E50641FC0BDFB00780F67 /* Organization.swift */; };
+		F98E50671FC0BE9400780F67 /* Organization.swift in Sources */ = {isa = PBXBuildFile; fileRef = F98E50641FC0BDFB00780F67 /* Organization.swift */; };
 		F99B72181F9D5E77003A8DDF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92C2EA11B818E2D00846566 /* Extensions.swift */; };
 		F9A4CE9B1FA284C4000AAF5D /* Extensions+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A4CE9A1FA284C4000AAF5D /* Extensions+iOS.swift */; };
 		F9A4CE9D1FA51B11000AAF5D /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A4CE9C1FA51B11000AAF5D /* File.swift */; };
@@ -93,6 +97,9 @@
 		F965021A1FB4DCDC0069ECD1 /* EventTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTableViewCell.swift; sourceTree = "<group>"; };
 		F96A2E5B1FABCFF400170894 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F98E505E1FBE412D00780F67 /* repo_sample.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = repo_sample.json; sourceTree = "<group>"; };
+		F98E50601FC0B7E200780F67 /* User_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User_Tests.swift; sourceTree = "<group>"; };
+		F98E50621FC0BB3600780F67 /* organizations_sample.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = organizations_sample.json; sourceTree = "<group>"; };
+		F98E50641FC0BDFB00780F67 /* Organization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Organization.swift; sourceTree = "<group>"; };
 		F9A4CE9A1FA284C4000AAF5D /* Extensions+iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+iOS.swift"; sourceTree = "<group>"; };
 		F9A4CE9C1FA51B11000AAF5D /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		F9B7FC561FA66DCE00CE4F37 /* Markdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Markdown.swift; sourceTree = "<group>"; };
@@ -175,6 +182,7 @@
 			children = (
 				F9401CB81B807423003FFD42 /* URLs_Tests.swift */,
 				F9B7FC5C1FA9290A00CE4F37 /* Login_Tests.swift */,
+				F98E50601FC0B7E200780F67 /* User_Tests.swift */,
 				F96502101FB1311B0069ECD1 /* Events_Tests.swift */,
 				F9B7FC611FABC2AA00CE4F37 /* Extensions */,
 				F9B7FC601FABC1FD00CE4F37 /* Resources */,
@@ -198,6 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				F9401CC61B8078F4003FFD42 /* User.swift */,
+				F98E50641FC0BDFB00780F67 /* Organization.swift */,
 				F90C92A21B8100F7009669E6 /* Repo.swift */,
 				F9FA94081B892DE300C598C8 /* Branch.swift */,
 				F9E9790E1B8DA39B0083211E /* Commit.swift */,
@@ -268,6 +277,7 @@
 				F95A495E1FAE755400F9CF03 /* user_sample.json */,
 				F96502121FB131350069ECD1 /* events_sample.json */,
 				F98E505E1FBE412D00780F67 /* repo_sample.json */,
+				F98E50621FC0BB3600780F67 /* organizations_sample.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -399,6 +409,7 @@
 				F96502151FB1341F0069ECD1 /* events_sample.json in Resources */,
 				F98E505F1FBE412D00780F67 /* repo_sample.json in Resources */,
 				F9B7FC641FABC2F900CE4F37 /* login_sample.json in Resources */,
+				F98E50631FC0BB3600780F67 /* organizations_sample.json in Resources */,
 				F95A49601FAE76DA00F9CF03 /* user_sample.json in Resources */,
 				F9B7FC6D1FABC56800CE4F37 /* MockRequestMap.plist in Resources */,
 			);
@@ -429,6 +440,7 @@
 				F965020F1FB126060069ECD1 /* Event.swift in Sources */,
 				F9FA94091B892DE300C598C8 /* Branch.swift in Sources */,
 				F90C92A31B8100F7009669E6 /* Repo.swift in Sources */,
+				F98E50661FC0BDFF00780F67 /* Organization.swift in Sources */,
 				F92C2EA61B81B9BD00846566 /* RepoTableViewCell.swift in Sources */,
 				F9A4CE9D1FA51B11000AAF5D /* File.swift in Sources */,
 				F9401CC41B80745F003FFD42 /* DataManager.swift in Sources */,
@@ -444,6 +456,8 @@
 			files = (
 				F9B7FC691FABC37700CE4F37 /* Commit.swift in Sources */,
 				F9B7FC631FABC2F500CE4F37 /* Extensions+UnitTests.swift in Sources */,
+				F98E50671FC0BE9400780F67 /* Organization.swift in Sources */,
+				F98E50611FC0B7E200780F67 /* User_Tests.swift in Sources */,
 				F9B7FC681FABC37700CE4F37 /* Branch.swift in Sources */,
 				F9B7FC651FABC30C00CE4F37 /* DataManager.swift in Sources */,
 				F9B7FC6B1FABC37700CE4F37 /* Markdown.swift in Sources */,

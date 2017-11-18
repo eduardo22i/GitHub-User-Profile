@@ -94,7 +94,35 @@ class DataManager: NSObject {
         }
     }
     
-    func getRepos(user: User, options : [String : Any]?, block : @escaping (_ repos : [Repo]?, _ error : APIError?) -> Void ) {
+    func getOrganizations(user: User, options : [String : Any]? = nil, block : @escaping (_ repos : [User.Organization]?, _ error : APIError?) -> Void ) {
+        
+        let path = user.username + "/" + Endpoint.organizations.rawValue
+        let request =  HTTPManager.createRequest(endpoint: .users, path: path)
+        
+        HTTPManager.make(request: request) { (data, error) in
+            
+            if let error = error {
+                block(nil, error)
+                return
+            }
+            
+            if let data = data {
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .iso8601
+                
+                let organizations = try? decoder.decode([User.Organization].self, from: data)
+                organizations?.forEach({ (organization) in
+                    organization.type = .organization
+                })
+                
+                block(organizations, nil)
+            }
+            
+        }
+    }
+    
+    
+    func getRepos(user: User, options : [String : Any]? = nil, block : @escaping (_ repos : [Repo]?, _ error : APIError?) -> Void ) {
         
         let path = user.username + "/" + Endpoint.repos.rawValue
         let request = HTTPManager.createRequest(endpoint: .users, path: path, parameters: options)

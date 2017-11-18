@@ -67,6 +67,17 @@ class GitHub_User_ProfileTests: XCTestCase {
         
     }
     
+    
+    func testUserOrganizationsRequest() {
+        
+        let path = username + "/" + Endpoint.organizations.rawValue
+        
+        let request =  HTTPManager.createRequest(endpoint: .users, path: path)
+        
+        XCTAssertEqual(request.url?.absoluteString, "https://api.github.com/users/octocat/orgs")
+        
+    }
+    
     func testEventsRequest() {
         
         let path = username + "/" + Endpoint.events.rawValue
@@ -76,6 +87,7 @@ class GitHub_User_ProfileTests: XCTestCase {
         XCTAssertEqual(request.url?.absoluteString ?? "", "https://api.github.com/users/octocat/received_events")
         
     }
+    
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measure() {

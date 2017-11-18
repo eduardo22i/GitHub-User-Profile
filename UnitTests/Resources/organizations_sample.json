@@ -1,0 +1,42 @@
+
+[
+{
+"login": "estampworld",
+"id": 1505520,
+"url": "https://api.github.com/orgs/estampworld",
+"repos_url": "https://api.github.com/orgs/estampworld/repos",
+"events_url": "https://api.github.com/orgs/estampworld/events",
+"hooks_url": "https://api.github.com/orgs/estampworld/hooks",
+"issues_url": "https://api.github.com/orgs/estampworld/issues",
+"members_url": "https://api.github.com/orgs/estampworld/members{/member}",
+"public_members_url": "https://api.github.com/orgs/estampworld/public_members{/member}",
+"avatar_url": "https://avatars3.githubusercontent.com/u/1505520?v=4",
+"description": ""
+},
+{
+"login": "gameonhack",
+"id": 14596313,
+"url": "https://api.github.com/orgs/gameonhack",
+"repos_url": "https://api.github.com/orgs/gameonhack/repos",
+"events_url": "https://api.github.com/orgs/gameonhack/events",
+"hooks_url": "https://api.github.com/orgs/gameonhack/hooks",
+"issues_url": "https://api.github.com/orgs/gameonhack/issues",
+"members_url": "https://api.github.com/orgs/gameonhack/members{/member}",
+"public_members_url": "https://api.github.com/orgs/gameonhack/public_members{/member}",
+"avatar_url": "https://avatars1.githubusercontent.com/u/14596313?v=4",
+"description": "Game On is a community that promotes creativity and entrepreneurship by teaching and couching about game development."
+},
+{
+"login": "admissionla",
+"id": 17287804,
+"url": "https://api.github.com/orgs/admissionla",
+"repos_url": "https://api.github.com/orgs/admissionla/repos",
+"events_url": "https://api.github.com/orgs/admissionla/events",
+"hooks_url": "https://api.github.com/orgs/admissionla/hooks",
+"issues_url": "https://api.github.com/orgs/admissionla/issues",
+"members_url": "https://api.github.com/orgs/admissionla/members{/member}",
+"public_members_url": "https://api.github.com/orgs/admissionla/public_members{/member}",
+"avatar_url": "https://avatars3.githubusercontent.com/u/17287804?v=4",
+"description": "Want something to do this week? Download admission to discover a curated list of local shows & free events handpicked by LA natives."
+}
+]
