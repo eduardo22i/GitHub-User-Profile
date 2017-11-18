@@ -49,7 +49,9 @@ class RepoViewController: UIViewController {
         
         self.descriptionTextView.text = repo.description
         
-        self.readmeTextView.attributedText = nil
+        self.readmeTextView.attributedText = repo.readme?.attributedString
+        self.readmeTextView.textColor = UIColor.black
+        
         DataManager.shared.getReadme(repo: repo) { (file, error) in
             if let rawContent = file?.content {
                 let content = String(data: rawContent, encoding: String.Encoding.utf8)

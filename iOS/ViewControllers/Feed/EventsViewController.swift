@@ -51,6 +51,14 @@ class EventsViewController: UIViewController {
 
     // MARK: - Navigation
 
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        let event = events[tableView.indexPathForSelectedRow?.row ?? 0]
+        if event.repo == nil || event.repo?.owner == nil {
+            return false
+        }
+        return true
+    }
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
@@ -86,6 +94,7 @@ extension EventsViewController: UITableViewDataSource {
                 cell.avatarImageView.image = UIImage(data: data)
             }
         })
+        
         return cell
     }
     

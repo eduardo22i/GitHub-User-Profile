@@ -43,6 +43,15 @@ extension NSMutableAttributedString {
             
             let closeTagRange = plainString.range(of: closeTag, options: NSString.CompareOptions.init(rawValue: 0), range: searchRange)
             
+            if closeTagRange.location == NSNotFound {
+                
+                resultingText.setAttributes(attributes, range: NSRange(location: affectedLocation, length: plainString.length - affectedLocation))
+                
+                resultingText.deleteCharacters(in: openTagRange)
+                
+                break
+            }
+            
             resultingText.setAttributes(attributes, range: NSRange(location: affectedLocation, length: closeTagRange.location - affectedLocation))
             
             resultingText.deleteCharacters(in: openTagRange)
