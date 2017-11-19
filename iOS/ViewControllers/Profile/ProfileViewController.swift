@@ -17,6 +17,12 @@ class ProfileViewController: UIViewController {
         }
     }
     
+    var organizations = [User.Organization]() {
+        didSet {
+            self.tableView.reloadData()
+        }
+    }
+    
     @IBOutlet var tableView : UITableView!
 
     override func viewDidLoad() {
@@ -29,10 +35,11 @@ class ProfileViewController: UIViewController {
         }
         
         self.navigationController?.navigationBar.setValue(true, forKey: "hidesShadow")
-
+        
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         tableView.estimatedRowHeight = 55
         
+        self.hidesBottomBarWhenPushed = true
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -40,8 +47,13 @@ class ProfileViewController: UIViewController {
         
         self.user = User.current
         
-        if User.current == nil {
+        guard let user = self.user else {
             UIApplication.shared.keyWindow?.rootViewController?.performSegue(withIdentifier: "ShowLoginSegue", sender: self)
+            return
+        }
+        
+        DataManager.shared.getOrganizations(user: user) { (organizations, error) in
+            self.organizations = organizations ?? []
         }
     }
     
@@ -50,17 +62,19 @@ class ProfileViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if let vc = segue.destination as? UserViewController {
+            
+            let indexPath = (tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! OrganizationsTableViewCell).collectionView.indexPath(for: sender as! UICollectionViewCell)
+            vc.user = organizations[indexPath?.row ?? 0]            
+        }
     }
-    */
-
+    
 }
 
 
@@ -69,19 +83,40 @@ extension ProfileViewController : UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         // Return the number of sections.
-        return 2
+        return 3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
-        return section == 0 ? user == nil ? 0 : 1 : user?.repos.count ?? 0
+        switch section {
+        case 0:
+            return user == nil ? 0 : 1
+        case 1:
+            return 1
+        case 2:
+            return user?.repos.count ?? 0
+        default:
+            return 0
+        }
     }
     
+    func cellIdentifier(indexPath: IndexPath) -> String {
+        switch indexPath.section {
+        case 0:
+            return "UserInfoCell"
+        case 1:
+            return "OrganizationsCell"
+        case 2:
+            return "RepoCell"
+        default:
+            return ""
+        }
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Configure the cell...
         
-        let identifier = indexPath.section == 0 ? "UserInfoCell" : "RepoCell"
+        let identifier = cellIdentifier(indexPath: indexPath)
         
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier)!
         
@@ -106,6 +141,11 @@ extension ProfileViewController : UITableViewDataSource {
             })
             
         }
+        
+        if let cell = cell as? OrganizationsTableViewCell {
+            cell.organizations = organizations
+        }
+        
         if let cell = cell as? RepoTableViewCell {
             
             let repo = user!.repos[indexPath.row ]
@@ -119,7 +159,7 @@ extension ProfileViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return indexPath.section == 0 ? UITableViewAutomaticDimension : 55
+        return UITableViewAutomaticDimension
     }
     
 }

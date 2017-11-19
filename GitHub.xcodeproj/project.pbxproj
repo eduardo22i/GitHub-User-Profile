@@ -22,6 +22,7 @@
 		F9401CC41B80745F003FFD42 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9401CC31B80745F003FFD42 /* DataManager.swift */; };
 		F9401CC71B8078F4003FFD42 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9401CC61B8078F4003FFD42 /* User.swift */; };
 		F94F3E451B8E1C3F005DA695 /* CommitsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94F3E441B8E1C3F005DA695 /* CommitsViewController.swift */; };
+		F956EC741FC2023B00688912 /* OrganizationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F956EC731FC2023B00688912 /* OrganizationsTableViewCell.swift */; };
 		F95A49601FAE76DA00F9CF03 /* user_sample.json in Resources */ = {isa = PBXBuildFile; fileRef = F95A495E1FAE755400F9CF03 /* user_sample.json */; };
 		F965020F1FB126060069ECD1 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = F965020E1FB126060069ECD1 /* Event.swift */; };
 		F96502111FB1311B0069ECD1 /* Events_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96502101FB1311B0069ECD1 /* Events_Tests.swift */; };
@@ -40,6 +41,7 @@
 		F99B72181F9D5E77003A8DDF /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F92C2EA11B818E2D00846566 /* Extensions.swift */; };
 		F9A4CE9B1FA284C4000AAF5D /* Extensions+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A4CE9A1FA284C4000AAF5D /* Extensions+iOS.swift */; };
 		F9A4CE9D1FA51B11000AAF5D /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A4CE9C1FA51B11000AAF5D /* File.swift */; };
+		F9A62C761FC2166900F24180 /* OrganizationCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9A62C751FC2166900F24180 /* OrganizationCollectionViewCell.swift */; };
 		F9B7FC571FA66DCE00CE4F37 /* Markdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B7FC561FA66DCE00CE4F37 /* Markdown.swift */; };
 		F9B7FC591FA91DD500CE4F37 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B7FC581FA91DD500CE4F37 /* ProfileViewController.swift */; };
 		F9B7FC5B1FA9226700CE4F37 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B7FC5A1FA9226700CE4F37 /* LoginViewController.swift */; };
@@ -89,6 +91,7 @@
 		F9401CC31B80745F003FFD42 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		F9401CC61B8078F4003FFD42 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F94F3E441B8E1C3F005DA695 /* CommitsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommitsViewController.swift; sourceTree = "<group>"; };
+		F956EC731FC2023B00688912 /* OrganizationsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationsTableViewCell.swift; sourceTree = "<group>"; };
 		F95A495E1FAE755400F9CF03 /* user_sample.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = user_sample.json; sourceTree = "<group>"; };
 		F965020E1FB126060069ECD1 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		F96502101FB1311B0069ECD1 /* Events_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Events_Tests.swift; sourceTree = "<group>"; };
@@ -102,6 +105,7 @@
 		F98E50641FC0BDFB00780F67 /* Organization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Organization.swift; sourceTree = "<group>"; };
 		F9A4CE9A1FA284C4000AAF5D /* Extensions+iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+iOS.swift"; sourceTree = "<group>"; };
 		F9A4CE9C1FA51B11000AAF5D /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
+		F9A62C751FC2166900F24180 /* OrganizationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationCollectionViewCell.swift; sourceTree = "<group>"; };
 		F9B7FC561FA66DCE00CE4F37 /* Markdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Markdown.swift; sourceTree = "<group>"; };
 		F9B7FC581FA91DD500CE4F37 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		F9B7FC5A1FA9226700CE4F37 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -137,8 +141,9 @@
 			isa = PBXGroup;
 			children = (
 				F96502191FB4DCC70069ECD1 /* Feed */,
+				F956EC721FC2022600688912 /* User */,
 				F92C2E9F1B81849100846566 /* UserInfoTableViewCell.swift */,
-				F9B4B3F51B8C3F24004A6BFD /* Repo Cells */,
+				F9B4B3F51B8C3F24004A6BFD /* Repo */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -217,6 +222,15 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		F956EC721FC2022600688912 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				F956EC731FC2023B00688912 /* OrganizationsTableViewCell.swift */,
+				F9A62C751FC2166900F24180 /* OrganizationCollectionViewCell.swift */,
+			);
+			path = User;
+			sourceTree = "<group>";
+		};
 		F96502161FB25B9F0069ECD1 /* Feed */ = {
 			isa = PBXGroup;
 			children = (
@@ -261,12 +275,12 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		F9B4B3F51B8C3F24004A6BFD /* Repo Cells */ = {
+		F9B4B3F51B8C3F24004A6BFD /* Repo */ = {
 			isa = PBXGroup;
 			children = (
 				F92C2EA51B81B9BD00846566 /* RepoTableViewCell.swift */,
 			);
-			path = "Repo Cells";
+			path = Repo;
 			sourceTree = "<group>";
 		};
 		F9B7FC601FABC1FD00CE4F37 /* Resources */ = {
@@ -422,9 +436,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F956EC741FC2023B00688912 /* OrganizationsTableViewCell.swift in Sources */,
 				F965021B1FB4DCDC0069ECD1 /* EventTableViewCell.swift in Sources */,
 				F9E9790F1B8DA39B0083211E /* Commit.swift in Sources */,
 				F92C2EA81B81C8B400846566 /* SearchViewController.swift in Sources */,
+				F9A62C761FC2166900F24180 /* OrganizationCollectionViewCell.swift in Sources */,
 				F92C2EA41B819B0300846566 /* RepoViewController.swift in Sources */,
 				F92C2EA01B81849100846566 /* UserInfoTableViewCell.swift in Sources */,
 				F9A4CE9B1FA284C4000AAF5D /* Extensions+iOS.swift in Sources */,

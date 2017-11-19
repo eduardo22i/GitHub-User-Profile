@@ -885,6 +885,84 @@
                                             <outlet property="starsLabel" destination="Qzh-aI-NaO" id="nC9-78-ZBa"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="OrganizationsCell" rowHeight="136" id="DEq-ZO-TI4" customClass="OrganizationsTableViewCell" customModule="GitHub_iOS" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="211" width="375" height="136"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DEq-ZO-TI4" id="maQ-h2-8D0">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="135.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="CRQ-K4-RCD">
+                                                    <rect key="frame" x="0.0" y="40.5" width="375" height="87"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="87" id="iJr-zk-CVf"/>
+                                                    </constraints>
+                                                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="16" minimumInteritemSpacing="16" id="Icb-xR-HgN">
+                                                        <size key="itemSize" width="86" height="86"/>
+                                                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                        <inset key="sectionInset" minX="16" minY="0.0" maxX="16" maxY="0.0"/>
+                                                    </collectionViewFlowLayout>
+                                                    <cells>
+                                                        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="OrganizationCell" id="gap-v9-AHd" customClass="OrganizationCollectionViewCell" customModule="GitHub_iOS" customModuleProvider="target">
+                                                            <rect key="frame" x="16" y="0.5" width="86" height="86"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                                                <rect key="frame" x="0.0" y="0.0" width="86" height="86"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <subviews>
+                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="jetpackoctocat" translatesAutoresizingMaskIntoConstraints="NO" id="fhx-dB-clX">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="86" height="86"/>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                                <real key="value" value="5"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                    </imageView>
+                                                                </subviews>
+                                                            </view>
+                                                            <constraints>
+                                                                <constraint firstAttribute="bottom" secondItem="fhx-dB-clX" secondAttribute="bottom" id="38V-Vl-Pkk"/>
+                                                                <constraint firstAttribute="trailing" secondItem="fhx-dB-clX" secondAttribute="trailing" id="f3I-wy-oVg"/>
+                                                                <constraint firstItem="fhx-dB-clX" firstAttribute="top" secondItem="gap-v9-AHd" secondAttribute="top" id="jNm-Pc-YXJ"/>
+                                                                <constraint firstItem="fhx-dB-clX" firstAttribute="leading" secondItem="gap-v9-AHd" secondAttribute="leading" id="plC-rP-fNt"/>
+                                                            </constraints>
+                                                            <connections>
+                                                                <outlet property="iconImageView" destination="fhx-dB-clX" id="tEB-Li-RNx"/>
+                                                                <segue destination="BYZ-38-t0r" kind="show" id="mMB-iv-HKG"/>
+                                                            </connections>
+                                                        </collectionViewCell>
+                                                    </cells>
+                                                    <connections>
+                                                        <outlet property="dataSource" destination="DEq-ZO-TI4" id="znw-PS-DEc"/>
+                                                        <outlet property="delegate" destination="DEq-ZO-TI4" id="Tos-d4-q4b"/>
+                                                    </connections>
+                                                </collectionView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Organizations" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wJt-rq-7g9">
+                                                    <rect key="frame" x="15" y="11" width="345" height="21.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="22" id="ukw-Rr-dVn"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="wJt-rq-7g9" firstAttribute="leading" secondItem="maQ-h2-8D0" secondAttribute="leadingMargin" id="1gI-Ge-875"/>
+                                                <constraint firstAttribute="bottom" secondItem="CRQ-K4-RCD" secondAttribute="bottom" constant="8" id="E8O-gd-Mn5"/>
+                                                <constraint firstAttribute="trailing" secondItem="CRQ-K4-RCD" secondAttribute="trailing" id="NVZ-KG-5dY"/>
+                                                <constraint firstItem="CRQ-K4-RCD" firstAttribute="top" secondItem="wJt-rq-7g9" secondAttribute="bottom" constant="8" id="Nun-ov-1gj"/>
+                                                <constraint firstItem="wJt-rq-7g9" firstAttribute="top" secondItem="maQ-h2-8D0" secondAttribute="topMargin" id="Nv0-Ac-qV7"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="wJt-rq-7g9" secondAttribute="trailing" id="Ud3-Po-RX1"/>
+                                                <constraint firstItem="CRQ-K4-RCD" firstAttribute="leading" secondItem="maQ-h2-8D0" secondAttribute="leading" id="foy-N0-W4c"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="collectionView" destination="CRQ-K4-RCD" id="K8u-kr-Q6h"/>
+                                        </connections>
+                                    </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="SLs-ry-rND" id="XA7-5G-HiD"/>
@@ -901,7 +979,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Agg-sa-jee"/>
                     </view>
-                    <navigationItem key="navigationItem" id="wcJ-M6-J4v"/>
+                    <navigationItem key="navigationItem" id="wcJ-M6-J4v">
+                        <barButtonItem key="backBarButtonItem" title=" " id="zyy-c0-oiY"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="JIX-OF-aXb" id="Nmo-Vd-hB8"/>
                     </connections>
@@ -1153,6 +1233,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="b6c-ys-pCx"/>
-        <segue reference="qkB-7u-1v5"/>
+        <segue reference="mMB-iv-HKG"/>
     </inferredMetricsTieBreakers>
 </document>

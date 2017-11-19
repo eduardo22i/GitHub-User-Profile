@@ -22,7 +22,7 @@ class UserViewController: UIViewController {
     
     var user : User! {
         didSet {
-            if !shouldSearchUser {
+            if !self.isViewLoaded || !shouldSearchUser {
                 return
             }
             
@@ -86,9 +86,17 @@ class UserViewController: UIViewController {
         
         isLoading = true
         
-        if let user = defaults.string(forKey: "user") {
-            defaultUser = user
-            searchUser(defaultUser)
+        if user != nil {
+            isLoading = false
+            self.navigationItem.title = user.name
+            tableView.reloadData()
+            displayUser (page: page)
+        } else {
+            
+            if let user = defaults.string(forKey: "user") {
+                defaultUser = user
+                searchUser(defaultUser)
+            }
         }
     }
 

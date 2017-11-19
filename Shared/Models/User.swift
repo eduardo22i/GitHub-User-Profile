@@ -66,6 +66,7 @@ class User: NSObject, NSCoding {
     var name : String?
     var location : String?
     var url : String?
+    var dataURL : URL?
     var avatarURL : URL?
     
     var type : Type?
@@ -83,6 +84,7 @@ class User: NSObject, NSCoding {
         name = try? container.decode(String.self, forKey: .name)
         location = try? container.decode(String.self, forKey: .location)
         url = try? container.decode(String.self, forKey: .url)
+        dataURL = try? container.decode(URL.self, forKey: .dataURL)
         avatarURL = try? container.decode(URL.self, forKey: .avatarURL)
         if let type = try? container.decode(String.self, forKey: .type) {
             self.type = Type(rawValue: type.lowercased())
@@ -159,6 +161,7 @@ extension User: Codable {
         case company
         case location
         case url = "blog"
+        case dataURL = "url"
         case avatarURL = "avatar_url"
         case type
         case collaborators

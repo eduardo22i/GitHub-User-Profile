@@ -119,15 +119,50 @@ class DataManager: NSObject {
             }
             
             if let data = data {
+                
+                let dispatchGroup = DispatchGroup()
+                
+                var organizations = [User.Organization]()
+                
                 let decoder = JSONDecoder()
                 decoder.dateDecodingStrategy = .iso8601
                 
-                let organizations = try? decoder.decode([User.Organization].self, from: data)
-                organizations?.forEach({ (organization) in
-                    organization.type = .organization
+                let organizationsRaw = try? decoder.decode([User.Organization].self, from: data)
+                
+                organizationsRaw?.forEach({ (organization) in
+                    
+                    dispatchGroup.enter()
+                    
+                    if let url = organization.dataURL {
+                        
+                        var request = URLRequest(url: url)
+                        request.appendAccessToken()
+                        
+                        HTTPManager.make(request: request, completeBlock: { (data, error) in
+                            
+                            guard let data = data else {
+                                dispatchGroup.leave()
+                                return
+                            }
+                            
+                            let decoder = JSONDecoder()
+                            decoder.dateDecodingStrategy = .iso8601
+                            
+                            if let organization = try? decoder.decode(User.Organization.self, from: data) {
+                                organizations.append(organization)
+                            }
+                            
+                            dispatchGroup.leave()
+                            
+                        })
+                    }
+                    
                 })
                 
-                block(organizations, nil)
+                dispatchGroup.notify(queue: .main) {
+                    block(organizations, nil)
+                }
+                
             }
             
         }
