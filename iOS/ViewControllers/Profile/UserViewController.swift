@@ -47,6 +47,12 @@ class UserViewController: UIViewController {
         }
     }
     
+    var organizations = [User.Organization]() {
+        didSet {
+            self.tableView.reloadData()
+        }
+    }
+    
     var repos : [Repo] = [] {
         didSet {
             tableView.reloadData()
@@ -98,6 +104,7 @@ class UserViewController: UIViewController {
                 searchUser(defaultUser)
             }
         }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -107,6 +114,11 @@ class UserViewController: UIViewController {
     
     func displayUser(page : Int) {
         infoTextLabel.text = "Loading"
+        
+        DataManager.shared.getOrganizations(user: user) { (organizations, error) in
+            self.organizations = organizations ?? []
+        }
+        
         DataManager.shared.getRepos(user: user, options: ["page" : page], block: { (repos, error) -> Void in
             
             if error != nil {
@@ -157,6 +169,13 @@ class UserViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        
+        if let vc = segue.destination as? UserViewController {
+            
+            let indexPath = (tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! OrganizationsTableViewCell).collectionView.indexPath(for: sender as! UICollectionViewCell)
+            vc.user = organizations[indexPath?.row ?? 0]
+        }
+        
         if let vc = segue.destination as? RepoViewController {
             let indexPath = tableView.indexPath(for: sender as! UITableViewCell)
             let repo = repos[indexPath?.row ?? 0]
@@ -175,19 +194,40 @@ extension UserViewController : UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         // Return the number of sections.
-        return 2
+        return 3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows in the section.
-        return section == 0 ? user == nil ? 0 : 1 : repos.count
+        switch section {
+        case 0:
+            return user == nil ? 0 : 1
+        case 1:
+            return  user?.type == .user ? 1 : 0
+        case 2:
+            return user?.repos.count ?? 0
+        default:
+            return 0
+        }
     }
     
+    func cellIdentifier(indexPath: IndexPath) -> String {
+        switch indexPath.section {
+        case 0:
+            return "UserInfoCell"
+        case 1:
+            return "OrganizationsCell"
+        case 2:
+            return "RepoCell"
+        default:
+            return ""
+        }
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Configure the cell...
         
-        let identifier = indexPath.section == 0 ? "UserInfoCell" : "RepoCell"
+        let identifier = cellIdentifier(indexPath: indexPath)
         
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier)!
         
@@ -211,6 +251,11 @@ extension UserViewController : UITableViewDataSource {
             })
             
         }
+        
+        if let cell = cell as? OrganizationsTableViewCell {
+            cell.organizations = organizations
+        }
+        
         if let cell = cell as? RepoTableViewCell {
             
             let repo = repos[indexPath.row ]
@@ -224,7 +269,7 @@ extension UserViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return indexPath.section == 0 ? UITableViewAutomaticDimension : 55
+        return UITableViewAutomaticDimension
     }
 
 }
