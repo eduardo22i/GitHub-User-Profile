@@ -8,8 +8,14 @@
 
 import UIKit
 
+@objc protocol OrganizationsTableViewCellDelegate {
+    func organizationsTableViewCell(_ organizationsTableViewCell: OrganizationsTableViewCell, didSelectItemAt indexPath: IndexPath)
+}
+
 class OrganizationsTableViewCell: UITableViewCell {
 
+    weak var delegate : OrganizationsTableViewCellDelegate?
+    
     var organizations = [User.Organization]() {
         didSet {
             collectionView.reloadData()
@@ -54,5 +60,12 @@ extension OrganizationsTableViewCell: UICollectionViewDataSource {
         return cell
     }
     
+}
+
+extension OrganizationsTableViewCell: UICollectionViewDelegate {
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        delegate?.organizationsTableViewCell(self, didSelectItemAt: indexPath)
+    }
 }
 

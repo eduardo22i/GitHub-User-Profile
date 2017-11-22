@@ -253,6 +253,7 @@ extension UserViewController : UITableViewDataSource {
         }
         
         if let cell = cell as? OrganizationsTableViewCell {
+            cell.delegate = self
             cell.organizations = organizations
         }
         
@@ -320,3 +321,10 @@ extension UserViewController : UISearchBarDelegate {
     }
 }
 
+extension UserViewController: OrganizationsTableViewCellDelegate {
+    
+    func organizationsTableViewCell(_ organizationsTableViewCell: OrganizationsTableViewCell, didSelectItemAt indexPath: IndexPath) {
+        user = organizations[indexPath.row]
+    }
+    
+}
