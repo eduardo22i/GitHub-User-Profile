@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F9401C9C1B807423003FFD42"
-               BuildableName = "GitHub iOS.app"
-               BlueprintName = "GitHub iOS"
+               BuildableName = "iOS.app"
+               BlueprintName = "iOS"
                ReferencedContainer = "container:GitHub.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -29,8 +29,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F9401CB11B807423003FFD42"
-               BuildableName = "GitHub UnitTests.xctest"
-               BlueprintName = "GitHub UnitTests"
+               BuildableName = "UnitTests.xctest"
+               BlueprintName = "UnitTests"
                ReferencedContainer = "container:GitHub.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -48,8 +48,18 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F9401CB11B807423003FFD42"
-               BuildableName = "GitHub UnitTests.xctest"
-               BlueprintName = "GitHub UnitTests"
+               BuildableName = "UnitTests.xctest"
+               BlueprintName = "UnitTests"
+               ReferencedContainer = "container:GitHub.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "F9F390DF2025684700B56EBC"
+               BuildableName = "iOSTests.xctest"
+               BlueprintName = "iOSTests"
                ReferencedContainer = "container:GitHub.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -58,8 +68,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F9401C9C1B807423003FFD42"
-            BuildableName = "GitHub iOS.app"
-            BlueprintName = "GitHub iOS"
+            BuildableName = "iOS.app"
+            BlueprintName = "iOS"
             ReferencedContainer = "container:GitHub.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -82,11 +92,21 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F9401C9C1B807423003FFD42"
-            BuildableName = "GitHub iOS.app"
-            BlueprintName = "GitHub iOS"
+            BuildableName = "iOS.app"
+            BlueprintName = "iOS"
             ReferencedContainer = "container:GitHub.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = "GITHUB_CLIENT_ID"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+         <EnvironmentVariable
+            key = "GITHUB_CLIENT_SECRET_ID"
+            isEnabled = "YES">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -101,8 +121,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F9401C9C1B807423003FFD42"
-            BuildableName = "GitHub iOS.app"
-            BlueprintName = "GitHub iOS"
+            BuildableName = "iOS.app"
+            BlueprintName = "iOS"
             ReferencedContainer = "container:GitHub.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

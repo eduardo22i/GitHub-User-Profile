@@ -14,8 +14,10 @@ extension URLRequest {
     }
     
     func mockDataTask() -> Data? {
-        
-        let bundle : Bundle! = Bundle(identifier: "com.estamp.GitHub-UnitTests")!
+        /*
+        guard let bundle : Bundle = Bundle(identifier: "com.estamp.UnitTests") else {
+            return
+        }
         
         guard let fileUrl = bundle.url(forResource: "MockRequestMap", withExtension: "plist"),
             let plistData = try? Data(contentsOf: fileUrl) else {
@@ -52,6 +54,8 @@ extension URLRequest {
         }
         
         return data
+ */
+        return nil
     }
 }
 
