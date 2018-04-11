@@ -93,11 +93,11 @@ class Markdown {
                 
                 var imageUrlString  = String(imageFormatString[urlRange])
                 
-                if let i = imageUrlString.characters.index(of: "(") {
+                if let i = imageUrlString.index(of: "(") {
                     imageUrlString.remove(at: i)
                 }
                 
-                if let i = imageUrlString.characters.index(of: ")") {
+                if let i = imageUrlString.index(of: ")") {
                     imageUrlString.remove(at: i)
                 }
                 

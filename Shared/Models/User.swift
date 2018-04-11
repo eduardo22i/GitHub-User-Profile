@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum Type : String {
+enum Type : String, Codable {
     case organization
     case user
 }
@@ -180,7 +180,7 @@ extension User: Codable {
         try container.encode(location, forKey: .location)
         try container.encode(url, forKey: .url)
         try container.encode(avatarURL, forKey: .avatarURL)
-        try container.encode(type, forKey: .type)
+        try container.encode(type, forKey: CodingKeys.type)
     }
 }
 
