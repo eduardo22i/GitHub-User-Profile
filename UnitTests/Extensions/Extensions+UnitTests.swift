@@ -45,6 +45,7 @@ extension URLRequest {
         
         
         guard let pathURL =  bundle.url(forResource: resource, withExtension: "json") else {
+        guard let result = ((try? PropertyListSerialization.propertyList(from: plistData, options: [], format: nil) as? [String: String]) as [String : String]??) else {
             return nil
         }
         

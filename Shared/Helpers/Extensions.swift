@@ -26,7 +26,7 @@ extension String {
 
 extension NSMutableAttributedString {
     
-    func replace(tag: String, closeTag : String, withAttributes attributes: [NSAttributedStringKey: Any]) -> NSMutableAttributedString {
+    func replace(tag: String, closeTag : String, withAttributes attributes: [NSAttributedString.Key: Any]) -> NSMutableAttributedString {
         
         let resultingText = self
         

@@ -20,24 +20,24 @@ class Markdown {
         
         attributedString = NSMutableAttributedString(string: plainText)
         
-        let bodyFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
+        let bodyFont = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineHeightMultiple = 1.5
         paragraphStyle.paragraphSpacing = 0.0
         paragraphStyle.paragraphSpacingBefore = 0.0
         
         let range = NSRange(location: 0, length: attributedString.string.count)
-        attributedString.addAttributes( [ NSAttributedStringKey.font: bodyFont,
-            NSAttributedStringKey.paragraphStyle: paragraphStyle
+        attributedString.addAttributes( [ NSAttributedString.Key.font: bodyFont,
+            NSAttributedString.Key.paragraphStyle: paragraphStyle
             ]
             , range: range )
         
 
-        attributedString = attributedString.replace(tag: "### ", closeTag: "\n", withAttributes: [NSAttributedStringKey.font : UIFont.preferredFont(forTextStyle: UIFontTextStyle.title3 )])
+        attributedString = attributedString.replace(tag: "### ", closeTag: "\n", withAttributes: [NSAttributedString.Key.font : UIFont.preferredFont(forTextStyle: UIFont.TextStyle.title3 )])
         
-        attributedString = attributedString.replace(tag: "## ", closeTag: "\n", withAttributes: [NSAttributedStringKey.font : UIFont.preferredFont(forTextStyle: UIFontTextStyle.title2 )])
+        attributedString = attributedString.replace(tag: "## ", closeTag: "\n", withAttributes: [NSAttributedString.Key.font : UIFont.preferredFont(forTextStyle: UIFont.TextStyle.title2 )])
         
-        attributedString = attributedString.replace(tag: "# ", closeTag: "\n", withAttributes: [NSAttributedStringKey.font : UIFont.preferredFont(forTextStyle: UIFontTextStyle.title1)])
+        attributedString = attributedString.replace(tag: "# ", closeTag: "\n", withAttributes: [NSAttributedString.Key.font : UIFont.preferredFont(forTextStyle: UIFont.TextStyle.title1)])
         
         self.replaceCodeStyle(attributedString: attributedString)
         
@@ -58,7 +58,7 @@ class Markdown {
             if let range = plainString.range(of: "(```)([^(```)]+)(```)", options: .regularExpression, range: plainString.startIndex..<plainString.endIndex, locale: nil) {
                 
                 
-                attributedString.setAttributes( [NSAttributedStringKey.font : UIFont.preferredFont(forTextStyle: UIFontTextStyle.callout), NSAttributedStringKey.backgroundColor: UIColor.groupTableViewBackground ], range: NSRange(range, in: plainString))
+                attributedString.setAttributes( [NSAttributedString.Key.font : UIFont.preferredFont(forTextStyle: UIFont.TextStyle.callout), NSAttributedString.Key.backgroundColor: UIColor.groupTableViewBackground ], range: NSRange(range, in: plainString))
                 
                 let initialStartIndex = range.lowerBound
                 let initialEndIndex = plainString.index(initialStartIndex, offsetBy: 3 )
@@ -93,11 +93,11 @@ class Markdown {
                 
                 var imageUrlString  = String(imageFormatString[urlRange])
                 
-                if let i = imageUrlString.index(of: "(") {
+                if let i = imageUrlString.firstIndex(of: "(") {
                     imageUrlString.remove(at: i)
                 }
                 
-                if let i = imageUrlString.index(of: ")") {
+                if let i = imageUrlString.firstIndex(of: ")") {
                     imageUrlString.remove(at: i)
                 }
                 

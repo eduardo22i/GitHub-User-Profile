@@ -94,7 +94,7 @@ class User: NSObject, NSCoding {
     
     required init?(coder aDecoder: NSCoder) {
         
-        id = aDecoder.decodeObject(forKey: CodingKeys.id.rawValue) as! Int
+        id = aDecoder.decodeObject(forKey: CodingKeys.id.rawValue) as? Int
         username = aDecoder.decodeObject(forKey: CodingKeys.username.rawValue) as? String
         email = aDecoder.decodeObject(forKey: CodingKeys.email.rawValue) as? String
         name = aDecoder.decodeObject(forKey: CodingKeys.name.rawValue) as? String

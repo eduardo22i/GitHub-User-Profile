@@ -100,7 +100,7 @@ class RepoViewController: UIViewController {
         let photoLibraryAction = UIAlertAction(title: "Open in Safari", style: .default) { (action) in
             
             if let url = self.repo.url {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
             }
         }
         
@@ -118,4 +118,9 @@ extension RepoViewController: BranchesViewControllerDelegate {
         self.currentBranch = branch
         repoBranchesViewController.dismiss(animated: true, completion: nil)
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }
