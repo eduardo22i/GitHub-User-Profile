@@ -35,7 +35,7 @@ class UserViewController: UIViewController {
                 repos.removeAll()
                 page = 1
                 containsMoreRepos = true
-                tableView.scrollToRow(at:  IndexPath(row: 0, section: 0), at: UITableViewScrollPosition.top, animated: false)
+                tableView.scrollToRow(at:  IndexPath(row: 0, section: 0), at: UITableView.ScrollPosition.top, animated: false)
                 
                 tableView.reloadData()
                 displayUser (page: page)
@@ -270,7 +270,7 @@ extension UserViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
+        return UITableView.automaticDimension
     }
 
 }
