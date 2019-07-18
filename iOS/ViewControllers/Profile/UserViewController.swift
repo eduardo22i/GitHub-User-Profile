@@ -55,6 +55,7 @@ class UserViewController: UIViewController {
     
     var repos : [Repo] = [] {
         didSet {
+            user.repos = repos
             tableView.reloadData()
         }
     }
