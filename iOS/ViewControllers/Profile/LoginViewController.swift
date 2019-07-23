@@ -50,10 +50,30 @@ class LoginViewController: UIViewController {
         }
         
         DataManager.shared.postLogin(username: username, password: password) { (user, error) in
-            // TODO: - Add Error alert
-            //if let error = error  {
-                //error.localizedDescription
-            //}
+            if let error = error  {
+                if error == .otpRequired {
+                    let alert = UIAlertController(title: "Authentication code", message: "Two-factor authentication is enabled for this account", preferredStyle: .alert)
+                    
+                    alert.addTextField { (textField) in
+                        textField.placeholder = "000000"
+                        textField.text = ""
+                    }
+                    
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
+                        guard let textField = alert?.textFields?.first else {
+                            return
+                        }
+                        DataManager.shared.postLogin(username: username, password: password, otp: textField.text) { (user, error) in
+                            if user != nil {
+                                self.dismiss(animated: true)
+                            }
+                        }
+                    }))
+                    
+                    self.present(alert, animated: true, completion: nil)
+                }
+                return
+            }
             if user != nil {
                 self.dismiss(animated: true)
             }

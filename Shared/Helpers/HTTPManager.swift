@@ -68,7 +68,10 @@ class HTTPManager: NSObject {
                 
                 DispatchQueue.main.async {
                     
-                    if response.statusCode == 404 {
+                    if response.statusCode == 401 {
+                        block(nil, APIError.otpRequired)
+                        return
+                    } else if response.statusCode == 404 {
                         block(nil, APIError.notFound)
                         return
                     } else  if response.statusCode == 403 {

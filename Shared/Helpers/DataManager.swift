@@ -22,7 +22,7 @@ class DataManager: NSObject {
     
     //MARK: - GET
     
-    func postLogin(username: String, password: String, block : @escaping (_ user : User?, _ error : APIError?) -> Void) {
+    func postLogin(username: String, password: String, otp: String? = nil, block : @escaping (_ user : User?, _ error : APIError?) -> Void) {
         
         UserDefaults.standard.removeObject(forKey: "accessToken")
         
@@ -34,6 +34,10 @@ class DataManager: NSObject {
         
         var request =  HTTPManager.createRequest(endpoint: .authorization, path: path, method: .put)
         request.addValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
+        
+        if let otp = otp {
+            request.addValue(otp, forHTTPHeaderField: "X-GitHub-OTP")
+        }
         
         let encoder = JSONEncoder()
         encoder.outputFormatting = .prettyPrinted
