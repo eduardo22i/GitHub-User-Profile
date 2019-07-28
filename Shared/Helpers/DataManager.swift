@@ -8,17 +8,21 @@
 
 import Foundation
 
-class DataManager: NSObject {
+class DataManager {
 
     var clientId = ProcessInfo.processInfo.environment["GITHUB_CLIENT_ID"] ?? ""
     var clientSecretId = ProcessInfo.processInfo.environment["GITHUB_CLIENT_SECRET_ID"] ?? ""
+    
+    var service : Gettable
     
     /**
      Returns the shared defaults object.
      If the shared defaults object does not exist yet, it is created.
      */
     static let shared = DataManager()
-    private override init() {}
+    private init() {
+        service = HTTPProvider.shared
+    }
     
     //MARK: - GET
     
@@ -32,7 +36,7 @@ class DataManager: NSObject {
         
         let path = Endpoint.client.rawValue + "/" + clientId  + "/\(Date().timeIntervalSince1970)"
         
-        var request =  HTTPManager.createRequest(endpoint: .authorization, path: path, method: .put)
+        var request =  service.createRequest(method: .put, endpoint: .authorization, path: path, parameters: nil)
         request.addValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
         
         let encoder = JSONEncoder()
@@ -41,7 +45,7 @@ class DataManager: NSObject {
         
         request.httpBody = json
         
-        HTTPManager.get(request: request) { result in
+        service.get(request: request) { result in
             
             switch result {
             case .success(let data):
@@ -63,8 +67,8 @@ class DataManager: NSObject {
     }
     
     func getCurrentUser (block : @escaping (_ user : User.Individual?, _ error : APIError?) -> Void) {
-        let request =  HTTPManager.createRequest(endpoint: .user)
-        HTTPManager.get(request: request) { result in
+        let request =  service.createRequest(method: .get, endpoint: .user, path: nil, parameters: nil)
+        service.get(request: request) { result in
             switch result {
             case .success(let data):
                 let decoder = JSONDecoder()
@@ -79,9 +83,9 @@ class DataManager: NSObject {
     
     func getUser(username: String, block : @escaping (_ user : User?, _ error : APIError?) -> Void) {
         
-        let request = HTTPManager.createRequest(endpoint: .users, path: username)
+        let request = service.createRequest(method: .get, endpoint: .users, path: username, parameters: nil)
         
-        HTTPManager.get(request: request) { result in
+        service.get(request: request) { result in
             switch result {
             case .success(let data):
                 let decoder = JSONDecoder()
@@ -108,9 +112,9 @@ class DataManager: NSObject {
     func getOrganizations(user: User, options : [String : Any]? = nil, block : @escaping (_ repos : [User.Organization]?, _ error : APIError?) -> Void ) {
         
         let path = user.username + "/" + Endpoint.organizations.rawValue
-        let request =  HTTPManager.createRequest(endpoint: .users, path: path)
+        let request =  service.createRequest(method: .get, endpoint: .users, path: path, parameters: nil)
         
-        HTTPManager.get(request: request) { result in
+        service.get(request: request) { result in
             switch result {
             case .success(let data):
                 let dispatchGroup = DispatchGroup()
@@ -131,7 +135,8 @@ class DataManager: NSObject {
                         var request = URLRequest(url: url)
                         request.appendAccessToken()
                         
-                        HTTPManager.get(request: request, completionHandler: { result in
+                        // TODO: Replace this
+                        self.service.get(request: request, completionHandler: { result in
                             switch result {
                             case .success(let data):
                                 let decoder = JSONDecoder()
@@ -164,9 +169,9 @@ class DataManager: NSObject {
     func getRepos(user: User, options : [String : Any]? = nil, block : @escaping (_ repos : [Repo]?, _ error : APIError?) -> Void ) {
         
         let path = user.username + "/" + Endpoint.repos.rawValue
-        let request = HTTPManager.createRequest(endpoint: .users, path: path, parameters: options)
+        let request = service.createRequest(method: .get, endpoint: .users, path: path, parameters: options)
         
-        HTTPManager.get(request: request) { result in
+        service.get(request: request) { result in
             switch result {
             case .success(let data):
                 let decoder = JSONDecoder()
@@ -184,9 +189,9 @@ class DataManager: NSObject {
     func getBranches(username: String, repo : String, options : [String : Any]?, block : @escaping (_ repos : [Branch]?, _ error : APIError?) -> Void ) {
         
         let path = username + "/" + repo + "/" + Endpoint.branches.rawValue
-        let request = HTTPManager.createRequest(endpoint: .repos, path: path, parameters: options)
+        let request = service.createRequest(method: .get, endpoint: .repos, path: path, parameters: options)
         
-        HTTPManager.get(request: request) { result in
+        service.get(request: request) { result in
             switch result {
             case .success(let data):
                 let decoder = JSONDecoder()
@@ -204,9 +209,9 @@ class DataManager: NSObject {
         parameters["sha"] = branch
         
         let path = repo.owner.username + "/" + repo.name + "/" + Endpoint.commits.rawValue
-        let request = HTTPManager.createRequest(endpoint: .repos, path: path, parameters: parameters)
+        let request = service.createRequest(method: .get, endpoint: .repos, path: path, parameters: parameters)
         
-        HTTPManager.get(request: request) { result in
+        service.get(request: request) { result in
             switch result {
             case .success(let data):
                 let decoder = JSONDecoder()
@@ -224,9 +229,9 @@ class DataManager: NSObject {
     
         let path = repo.owner.username + "/" + repo.name + "/" + Endpoint.readme.rawValue
     
-        let request =  HTTPManager.createRequest(endpoint: .repos, path: path, parameters: options)
+        let request =  service.createRequest(method: .get, endpoint: .repos, path: path, parameters: options)
         
-        HTTPManager.get(request: request) { result in
+        service.get(request: request) { result in
             switch result {
             case .success(let data):
                 let decoder = JSONDecoder()
@@ -243,9 +248,9 @@ class DataManager: NSObject {
         
         let path = user.username + "/" + Endpoint.events.rawValue
         
-        let request =  HTTPManager.createRequest(endpoint: .users, path: path, parameters: options)
+        let request =  service.createRequest(method: .get, endpoint: .users, path: path, parameters: options)
         
-        HTTPManager.get(request: request) { result in
+        service.get(request: request) { result in
             switch result {
             case .success(let data):
                 let myGroup = DispatchGroup()
@@ -263,7 +268,8 @@ class DataManager: NSObject {
                         var request = URLRequest(url: repoUrl)
                         request.appendAccessToken()
                         
-                        HTTPManager.get(request: request, completionHandler: { result in
+                        // TODO: Replace this
+                        self.service.get(request: request, completionHandler: { result in
                             switch result {
                             case .success(let data):
                                 let decoder = JSONDecoder()

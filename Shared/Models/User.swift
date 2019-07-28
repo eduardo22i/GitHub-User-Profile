@@ -137,7 +137,7 @@ class User: NSObject, NSCoding {
             guard let avatarURL = self.avatarURL else { return }
             
             let request = URLRequest(url: avatarURL)
-            HTTPManager.get(request: request, completionHandler: { result in
+            DataManager.shared.service.get(request: request, completionHandler: { result in
                 switch result {
                 case .success(let data):
                     self.imageData = data

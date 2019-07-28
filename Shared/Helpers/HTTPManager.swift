@@ -16,15 +16,21 @@ extension URLRequest {
     }
 }
 
-class HTTPManager: NSObject {
+protocol Gettable {
+    func createRequest(method: HTTPMethod, endpoint: Endpoint, path: String?, parameters: [String : Any]?) -> URLRequest
+    func get(request: URLRequest, completionHandler: @escaping (Result<Data, APIError>) -> Void)
+}
+
+class HTTPProvider: Gettable {
     
+    static var shared = HTTPProvider()
     static let url = "api.github.com"
     
-    static func createRequest(endpoint : Endpoint, path : String? = nil, parameters : [String : Any]? = nil, method : HTTPMethod = .get) -> URLRequest {
+    func createRequest(method: HTTPMethod, endpoint: Endpoint, path : String?, parameters: [String : Any]?) -> URLRequest {
         
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
-        urlComponents.host = HTTPManager.url
+        urlComponents.host = HTTPProvider.url
         urlComponents.path = "/" + endpoint.rawValue
         
         if let path = path {
@@ -51,7 +57,7 @@ class HTTPManager: NSObject {
         return request
     }
     
-    static func get(request : URLRequest, completionHandler block : @escaping (Result<Data, APIError>)  -> Void) {
+    func get(request : URLRequest, completionHandler block : @escaping (Result<Data, APIError>) -> Void) {
         
         let session = URLSession.shared
         
