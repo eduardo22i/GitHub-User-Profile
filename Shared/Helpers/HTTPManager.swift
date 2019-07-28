@@ -51,7 +51,7 @@ class HTTPManager: NSObject {
         return request
     }
     
-    static func make (request : URLRequest, completeBlock block : @escaping (_ records: Data?, _ error : APIError?) -> Void) {
+    static func get(request : URLRequest, completionHandler block : @escaping (Result<Data, APIError>)  -> Void) {
         
         let session = URLSession.shared
         
@@ -59,27 +59,22 @@ class HTTPManager: NSObject {
             
             if error != nil {
                 DispatchQueue.main.async {
-                    block(nil, .noNetwork)
+                    block(Result.failure(.noNetwork))
                 }
                 return
             }
             
             if let response = response as? HTTPURLResponse, let data = data  {
-                
                 DispatchQueue.main.async {
-                    
                     if response.statusCode == 404 {
-                        block(nil, APIError.notFound)
-                        return
+                        block(Result.failure(.notFound))
                     } else  if response.statusCode == 403 {
-                        block(nil, APIError.limitExceeded)
-                        return
+                        block(Result.failure(.limitExceeded))
                     } else if response.statusCode == 505 {
-                        block(nil, APIError.serverError)
-                        return
+                        block(Result.failure(.serverError))
+                    } else {
+                        block(Result.success(data))
                     }
-                    
-                    block(data, nil)
                 }
             }
             
