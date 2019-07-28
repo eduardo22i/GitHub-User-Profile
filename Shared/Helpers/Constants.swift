@@ -9,6 +9,7 @@
 import Foundation
 
 enum APIError: Error {
+    case unauthorized
     case otpRequired
     case notFound
     case limitExceeded
@@ -17,6 +18,8 @@ enum APIError: Error {
     
     var description: String {
         switch self {
+        case .unauthorized:
+            return ""
         case .otpRequired:
             return "OTP Required."
         case .notFound:
@@ -32,7 +35,7 @@ enum APIError: Error {
     
     var code : Int {
         switch self {
-        case .otpRequired:
+        case .unauthorized, .otpRequired:
             return 401
         case .notFound:
             return 404

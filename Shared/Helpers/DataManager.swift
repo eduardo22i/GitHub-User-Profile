@@ -26,8 +26,7 @@ class DataManager: NSObject {
         
         UserDefaults.standard.removeObject(forKey: "accessToken")
         
-        let loginString = "\(username):\(password)"
-        let loginData = loginString.data(using: String.Encoding.utf8)!
+        let loginData = "\(username):\(password)".data(using: String.Encoding.utf8)!
         let base64LoginString = loginData.base64EncodedString()
         
         let path = Endpoint.client.rawValue + "/" + clientId  + "/\(Date().timeIntervalSince1970)"
@@ -41,29 +40,25 @@ class DataManager: NSObject {
         
         let encoder = JSONEncoder()
         encoder.outputFormatting = .prettyPrinted
-        let json = try? encoder.encode(LoginRequest())
-        
-        request.httpBody = json
+        request.httpBody = try? encoder.encode(LoginRequest())
         
         HTTPManager.make(request: request) { (data, error) in
-            if let error = error {
+            guard let data = data else {
                 block(nil, error)
                 return
             }
-            if let data = data {
-                let decoder = JSONDecoder()
-                let loginResponse = try? decoder.decode(LoginResponse.self, from: data)
-                
-                guard let token = loginResponse?.token else {
-                    block(nil, APIError.notFound)
-                    return
-                }
-                
-                UserDefaults.standard.set(token, forKey: "accessToken")
-                
-                self.getCurrentUser(block: block)
-                
+            
+            let decoder = JSONDecoder()
+            let loginResponse = try? decoder.decode(LoginResponse.self, from: data)
+            
+            guard let token = loginResponse?.token else {
+                block(nil, APIError.notFound)
+                return
             }
+            
+            UserDefaults.standard.set(token, forKey: "accessToken")
+            
+            self.getCurrentUser(block: block)
         }
     }
     

@@ -69,7 +69,9 @@ class HTTPManager: NSObject {
                 DispatchQueue.main.async {
                     
                     if response.statusCode == 401 {
-                        block(nil, APIError.otpRequired)
+                        let responseJson = (try? JSONDecoder().decode([String: String].self, from: data))
+                        let otpRequired = responseJson?["message"] == "Must specify two-factor authentication OTP code."
+                        block(nil,  otpRequired ? APIError.otpRequired : APIError.unauthorized)
                         return
                     } else if response.statusCode == 404 {
                         block(nil, APIError.notFound)
