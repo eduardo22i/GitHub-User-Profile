@@ -11,7 +11,7 @@ import Foundation
 extension URLRequest {
     mutating func appendAccessToken() {
         if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
-            self.addValue("token \(accessToken)", forHTTPHeaderField: "Authorization")
+            self.addValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
         }
     }
 }

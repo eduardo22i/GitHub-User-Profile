@@ -9,8 +9,15 @@
 import UIKit
 import SafariServices
 
+protocol LoginViewControllerDelegate: AnyObject {
+    func loginViewController(_ loginViewController: LoginViewController, didLoginWith user: User)
+    func didCancel(_ loginViewController: LoginViewController)
+}
+
 class LoginViewController: UIViewController {
 
+    weak var delegate: LoginViewControllerDelegate?
+    
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
@@ -64,8 +71,8 @@ class LoginViewController: UIViewController {
                             return
                         }
                         DataManager.shared.postLogin(username: username, password: password, otp: textField.text) { (user, error) in
-                            if user != nil {
-                                self.dismiss(animated: true)
+                            if let user = user {
+                                self.delegate?.loginViewController(self, didLoginWith: user)
                             }
                         }
                     }))
@@ -74,8 +81,8 @@ class LoginViewController: UIViewController {
                 }
                 return
             }
-            if user != nil {
-                self.dismiss(animated: true)
+            if let user = user {
+                self.delegate?.loginViewController(self, didLoginWith: user)
             }
         }
     }
@@ -90,19 +97,8 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func cancelAction(_ sender: Any) {
-        self.dismiss(animated: true)
+        delegate?.didCancel(self)
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension LoginViewController: UITextFieldDelegate {
