@@ -88,10 +88,12 @@
       <EnvironmentVariables>
          <EnvironmentVariable
             key = "GITHUB_CLIENT_ID"
+            value = ""
             isEnabled = "YES">
          </EnvironmentVariable>
          <EnvironmentVariable
             key = "GITHUB_CLIENT_SECRET_ID"
+            value = ""
             isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>

@@ -39,7 +39,6 @@ class ProfileViewController: UIViewController {
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         tableView.estimatedRowHeight = 55
         
-        self.hidesBottomBarWhenPushed = true
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -48,7 +47,7 @@ class ProfileViewController: UIViewController {
         self.user = User.current
         
         guard let user = self.user else {
-            UIApplication.shared.keyWindow?.rootViewController?.performSegue(withIdentifier: "ShowLoginSegue", sender: self)
+            self.performSegue(withIdentifier: "ShowLoginSegue", sender: self)
             return
         }
         
@@ -72,6 +71,10 @@ class ProfileViewController: UIViewController {
             
             let indexPath = (tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! OrganizationsTableViewCell).collectionView.indexPath(for: sender as! UICollectionViewCell)
             vc.user = organizations[indexPath?.row ?? 0]            
+        }
+        
+        if let vc = (segue.destination as? UINavigationController)?.topViewController as? LoginViewController {
+            vc.delegate = self
         }
     }
     
@@ -170,4 +173,18 @@ extension ProfileViewController : UITableViewDelegate {
         
     }
     
+}
+extension ProfileViewController : LoginViewControllerDelegate {
+    func loginViewController(_ loginViewController: LoginViewController, didLoginWith user: User) {
+        self.user = user
+        loginViewController.dismiss(animated: true)
+    }
+    
+    func didCancel(_ loginViewController: LoginViewController) {
+        loginViewController.dismiss(animated: true) {
+            self.tabBarController?.selectedIndex = 0
+        }
+    }
+    
+
 }

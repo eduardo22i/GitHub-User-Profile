@@ -11,7 +11,7 @@ import Foundation
 extension URLRequest {
     mutating func appendAccessToken() {
         if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
-            self.addValue("token \(accessToken)", forHTTPHeaderField: "Authorization")
+            self.addValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
         }
     }
 }
@@ -68,7 +68,12 @@ class HTTPManager: NSObject {
                 
                 DispatchQueue.main.async {
                     
-                    if response.statusCode == 404 {
+                    if response.statusCode == 401 {
+                        let responseJson = (try? JSONDecoder().decode([String: String].self, from: data))
+                        let otpRequired = responseJson?["message"] == "Must specify two-factor authentication OTP code."
+                        block(nil,  otpRequired ? APIError.otpRequired : APIError.unauthorized)
+                        return
+                    } else if response.statusCode == 404 {
                         block(nil, APIError.notFound)
                         return
                     } else  if response.statusCode == 403 {
