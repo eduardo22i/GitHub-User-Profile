@@ -81,6 +81,7 @@
 		F98E50601FC0B7E200780F67 /* User_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User_Tests.swift; sourceTree = "<group>"; };
 		F98E50621FC0BB3600780F67 /* organizations_sample.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = organizations_sample.json; sourceTree = "<group>"; };
 		F98E50641FC0BDFB00780F67 /* Organization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Organization.swift; sourceTree = "<group>"; };
+		F9A2766C22EE6626005D76C0 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		F9A4CE9A1FA284C4000AAF5D /* Extensions+iOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+iOS.swift"; sourceTree = "<group>"; };
 		F9A4CE9C1FA51B11000AAF5D /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		F9A62C751FC2166900F24180 /* OrganizationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -132,6 +133,7 @@
 		F9401C941B807423003FFD42 = {
 			isa = PBXGroup;
 			children = (
+				F9A2766C22EE6626005D76C0 /* README.md */,
 				F98C48971FA27C6F00F8DC5A /* Shared */,
 				F9401C9F1B807423003FFD42 /* iOS */,
 				F9401CB51B807423003FFD42 /* UnitTests */,
