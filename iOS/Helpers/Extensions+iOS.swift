@@ -53,3 +53,15 @@ extension UIButton {
     }
     
 }
+
+extension UIViewController {
+    func presentSimpleAlertController(title : String, message : String, buttonTitle : String = "Ok") {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        
+        let defaultAction = UIAlertAction(title: buttonTitle, style: UIAlertAction.Style.default, handler: nil)
+        
+        alertController.addAction(defaultAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+}

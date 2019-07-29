@@ -11,7 +11,7 @@ import Foundation
 extension URLRequest {
     mutating func appendAccessToken() {
         if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
-            self.addValue("token \(accessToken)", forHTTPHeaderField: "Authorization")
+            self.addValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
         }
     }
 }
@@ -72,7 +72,11 @@ class HTTPProvider: Gettable {
             
             if let response = response as? HTTPURLResponse, let data = data  {
                 DispatchQueue.main.async {
-                    if response.statusCode == 404 {
+                    if response.statusCode == 401 {
+                        let responseJson = (try? JSONDecoder().decode([String: String].self, from: data))
+                        let otpRequired = responseJson?["message"] == "Must specify two-factor authentication OTP code."
+                        block(Result.failure(otpRequired ? APIError.otpRequired : APIError.unauthorized))
+                    } else if response.statusCode == 404 {
                         block(Result.failure(.notFound))
                     } else  if response.statusCode == 403 {
                         block(Result.failure(.limitExceeded))

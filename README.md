@@ -1,4 +1,4 @@
-# Github User Profile
+# GitHub iOS
 
 [![codebeat badge](https://codebeat.co/badges/0d39a077-7d55-40c1-96ea-e64ff61de849)](https://codebeat.co/projects/github-com-eduardo22i-github-ios-master)
 [![Build Status](https://app.bitrise.io/app/60fac936683a506d/status.svg?token=WdCIeqJrOTsYBZugKJ7X_g&branch=master)](https://app.bitrise.io/app/60fac936683a506d)

@@ -26,12 +26,11 @@ class DataManager {
     
     //MARK: - GET
     
-    func postLogin(username: String, password: String, block : @escaping (_ user : User?, _ error : APIError?) -> Void) {
+    func postLogin(username: String, password: String, otp: String? = nil, block : @escaping (_ user : User?, _ error : APIError?) -> Void) {
         
         UserDefaults.standard.removeObject(forKey: "accessToken")
         
-        let loginString = "\(username):\(password)"
-        let loginData = loginString.data(using: String.Encoding.utf8)!
+        let loginData = "\(username):\(password)".data(using: String.Encoding.utf8)!
         let base64LoginString = loginData.base64EncodedString()
         
         let path = Endpoint.client.rawValue + "/" + clientId  + "/\(Date().timeIntervalSince1970)"
@@ -39,11 +38,13 @@ class DataManager {
         var request =  service.createRequest(method: .put, endpoint: .authorization, path: path, parameters: nil)
         request.addValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
         
+        if let otp = otp {
+            request.addValue(otp, forHTTPHeaderField: "X-GitHub-OTP")
+        }
+        
         let encoder = JSONEncoder()
         encoder.outputFormatting = .prettyPrinted
-        let json = try? encoder.encode(LoginRequest())
-        
-        request.httpBody = json
+        request.httpBody = try? encoder.encode(LoginRequest())
         
         service.get(request: request) { result in
             
