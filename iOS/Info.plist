@@ -45,5 +45,9 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>GITHUB_CLIENT_ID</key>
+	<string>$(GITHUB_CLIENT_ID)</string>
+	<key>GITHUB_CLIENT_SECRET_ID</key>
+	<string>$(GITHUB_CLIENT_SECRET_ID)</string>
 </dict>
 </plist>

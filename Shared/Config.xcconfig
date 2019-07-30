@@ -1,0 +1,10 @@
+//
+//  Config.xcconfig
+//  GitHub
+//
+//  Created by Eduardo Irias on 7/30/19.
+//  Copyright © 2019 Estamp. All rights reserved.
+//
+
+GITHUB_CLIENT_ID = REPLACE_GITHUB_CLIENT_ID
+GITHUB_CLIENT_SECRET_ID = REPLACE_GITHUB_CLIENT_SECRET_ID
