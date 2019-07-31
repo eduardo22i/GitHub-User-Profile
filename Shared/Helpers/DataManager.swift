@@ -9,9 +9,6 @@
 import Foundation
 
 class DataManager: NSObject {
-
-    var clientId = Bundle.main.object(forInfoDictionaryKey: "GITHUB_CLIENT_ID") as? String ?? ""
-    var clientSecretId = Bundle.main.object(forInfoDictionaryKey: "GITHUB_CLIENT_SECRET_ID") as? String ?? ""
     
     /**
      Returns the shared defaults object.
@@ -29,7 +26,7 @@ class DataManager: NSObject {
         let loginData = "\(username):\(password)".data(using: String.Encoding.utf8)!
         let base64LoginString = loginData.base64EncodedString()
         
-        let path = Endpoint.client.rawValue + "/" + clientId  + "/\(Date().timeIntervalSince1970)"
+        let path = Endpoint.client.rawValue + "/" + Config.clientId  + "/\(Date().timeIntervalSince1970)"
         
         var request =  HTTPManager.createRequest(endpoint: .authorization, path: path, method: .put)
         request.addValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
