@@ -8,6 +8,11 @@
 
 import Foundation
 
+enum Config {
+    static let clientId = Bundle.main.object(forInfoDictionaryKey: "GITHUB_CLIENT_ID") as? String ?? ""
+    static let clientSecretId = Bundle.main.object(forInfoDictionaryKey: "GITHUB_CLIENT_SECRET_ID") as? String ?? ""
+}
+
 enum APIError: Error {
     case unauthorized
     case otpRequired

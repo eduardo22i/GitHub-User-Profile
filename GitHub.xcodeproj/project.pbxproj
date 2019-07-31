@@ -99,6 +99,7 @@
 		F9F390E42025684800B56EBC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F9FA94061B892AC200C598C8 /* BranchesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BranchesViewController.swift; sourceTree = "<group>"; };
 		F9FA94081B892DE300C598C8 /* Branch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Branch.swift; sourceTree = "<group>"; };
+		F9FFBB0B22F049B8001FE639 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -236,6 +237,7 @@
 			children = (
 				F9401CC51B8078E0003FFD42 /* Models */,
 				F9401CC21B807439003FFD42 /* Helpers */,
+				F9FFBB0B22F049B8001FE639 /* Config.xcconfig */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -492,6 +494,7 @@
 /* Begin XCBuildConfiguration section */
 		F9401CBA1B807423003FFD42 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F9FFBB0B22F049B8001FE639 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -550,6 +553,7 @@
 		};
 		F9401CBB1B807423003FFD42 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F9FFBB0B22F049B8001FE639 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";

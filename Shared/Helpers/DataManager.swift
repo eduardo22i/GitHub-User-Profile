@@ -9,9 +9,6 @@
 import Foundation
 
 class DataManager {
-
-    var clientId = ProcessInfo.processInfo.environment["GITHUB_CLIENT_ID"] ?? ""
-    var clientSecretId = ProcessInfo.processInfo.environment["GITHUB_CLIENT_SECRET_ID"] ?? ""
     
     var service : Gettable
     
@@ -33,7 +30,7 @@ class DataManager {
         let loginData = "\(username):\(password)".data(using: String.Encoding.utf8)!
         let base64LoginString = loginData.base64EncodedString()
         
-        let path = Endpoint.client.rawValue + "/" + clientId  + "/\(Date().timeIntervalSince1970)"
+        let path = Endpoint.client.rawValue + "/" + Config.clientId  + "/\(Date().timeIntervalSince1970)"
         
         var request =  service.createRequest(method: .put, endpoint: .authorization, path: path, parameters: nil)
         request.addValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")

@@ -200,7 +200,7 @@ struct LoginRequest : Encodable {
         
         var container = encoder.container(keyedBy: CodingKeys.self)
         
-        try container.encode(DataManager.shared.clientSecretId, forKey: .clientSecret)
+        try container.encode(Config.clientSecretId, forKey: .clientSecret)
         try container.encode(["repo", "user"], forKey: .scopes)
         try container.encode(["note"], forKey: .note)
     }
