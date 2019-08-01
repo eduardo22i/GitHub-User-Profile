@@ -9,7 +9,7 @@
 import Foundation
 @testable import iOS
 
-class MockProvider: Gettable {
+class MockProvider: DataProvider {
     
     func createRequest(method: HTTPMethod, endpoint: Endpoint, path: String?, parameters: [String : Any]?) -> URLRequest {
         var urlComponents = URLComponents()

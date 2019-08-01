@@ -10,7 +10,7 @@ import Foundation
 
 class DataManager {
     
-    let service : Gettable
+    let service : DataProvider
     
     /**
      Returns the shared defaults object.
@@ -21,7 +21,7 @@ class DataManager {
         service = HTTPProvider.shared
     }
     
-    init(service: Gettable) {
+    init(service: DataProvider) {
         self.service = service
     }
     

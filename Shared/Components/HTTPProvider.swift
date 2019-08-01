@@ -8,12 +8,12 @@
 
 import Foundation
 
-protocol Gettable {
+protocol DataProvider {
     func createRequest(method: HTTPMethod, endpoint: Endpoint, path: String?, parameters: [String : Any]?) -> URLRequest
     func get(request: URLRequest, completionHandler: @escaping (Result<Data, APIError>) -> Void)
 }
 
-class HTTPProvider: Gettable {
+class HTTPProvider: DataProvider {
     
     static var shared = HTTPProvider()
     static let url = "api.github.com"
@@ -66,27 +66,31 @@ class HTTPProvider: Gettable {
                 return
             }
             
-            if let response = response as? HTTPURLResponse, let data = data  {
-                DispatchQueue.main.async {
-                    if response.statusCode == 401 {
-                        let responseJson = (try? JSONDecoder().decode([String: String].self, from: data))
-                        let otpRequired = responseJson?["message"] == "Must specify two-factor authentication OTP code."
-                        block(Result.failure(otpRequired ? APIError.otpRequired : APIError.unauthorized))
-                    } else if response.statusCode == 404 {
-                        block(Result.failure(.notFound))
-                    } else  if response.statusCode == 403 {
-                        block(Result.failure(.limitExceeded))
-                    } else if response.statusCode == 505 {
-                        block(Result.failure(.serverError))
-                    } else {
-                        block(Result.success(data))
-                    }
-                }
+            guard let response = response as? HTTPURLResponse, let data = data  else {
+                return
             }
             
+            self.handle(response: response, withData: data, completionHandler: block)
         }
         
         dataTask.resume()
     }
     
+    private func handle(response: HTTPURLResponse, withData data: Data, completionHandler block : @escaping (Result<Data, APIError>) -> Void) {
+        DispatchQueue.main.async {
+            if response.statusCode == 401 {
+                let responseJson = (try? JSONDecoder().decode([String: String].self, from: data))
+                let otpRequired = responseJson?["message"] == "Must specify two-factor authentication OTP code."
+                block(Result.failure(otpRequired ? APIError.otpRequired : APIError.unauthorized))
+            } else if response.statusCode == 404 {
+                block(Result.failure(.notFound))
+            } else  if response.statusCode == 403 {
+                block(Result.failure(.limitExceeded))
+            } else if response.statusCode == 505 {
+                block(Result.failure(.serverError))
+            } else {
+                block(Result.success(data))
+            }
+        }
+    }
 }
