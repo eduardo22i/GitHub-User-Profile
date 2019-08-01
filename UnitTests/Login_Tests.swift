@@ -7,9 +7,12 @@
 //
 
 import XCTest
+@testable import iOS
 
 class Login_Tests: XCTestCase {
-        
+    
+    let dataManager = DataManager(service: MockProvider())
+    
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -36,7 +39,7 @@ class Login_Tests: XCTestCase {
         
         let userOpExpectation: XCTestExpectation = expectation(description: "Login Request")
         
-        DataManager.shared.postLogin(username: "octocat", password: "password") { (user, error) in
+        dataManager.postLogin(username: "octocat", password: "password") { (user, error) in
             
             XCTAssertNotNil(user)
             
@@ -51,5 +54,6 @@ class Login_Tests: XCTestCase {
         
         waitForExpectations(timeout: 5.0, handler: nil)
     }
+    
     
 }

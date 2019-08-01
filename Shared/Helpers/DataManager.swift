@@ -10,7 +10,7 @@ import Foundation
 
 class DataManager {
     
-    var service : Gettable
+    let service : Gettable
     
     /**
      Returns the shared defaults object.
@@ -19,6 +19,10 @@ class DataManager {
     static let shared = DataManager()
     private init() {
         service = HTTPProvider.shared
+    }
+    
+    init(service: Gettable) {
+        self.service = service
     }
     
     //MARK: - GET
@@ -130,8 +134,7 @@ class DataManager {
                     
                     if let url = organization.dataURL {
                         
-                        var request = URLRequest(url: url)
-                        request.appendAccessToken()
+                        let request = URLRequest(url: url)
                         
                         // TODO: Replace this
                         self.service.get(request: request, completionHandler: { result in
@@ -263,8 +266,7 @@ class DataManager {
                     
                     if let repoUrl = event.eventRepo?.url {
                         
-                        var request = URLRequest(url: repoUrl)
-                        request.appendAccessToken()
+                        let request = URLRequest(url: repoUrl)
                         
                         // TODO: Replace this
                         self.service.get(request: request, completionHandler: { result in

@@ -34,6 +34,11 @@
 		F9B7FC571FA66DCE00CE4F37 /* Markdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B7FC561FA66DCE00CE4F37 /* Markdown.swift */; };
 		F9B7FC591FA91DD500CE4F37 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B7FC581FA91DD500CE4F37 /* ProfileViewController.swift */; };
 		F9B7FC5B1FA9226700CE4F37 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B7FC5A1FA9226700CE4F37 /* LoginViewController.swift */; };
+		F9C107E722F1D1FC00FEB8CF /* Extensions+UnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B7FC621FABC2F500CE4F37 /* Extensions+UnitTests.swift */; };
+		F9C107EA22F1D59500FEB8CF /* Login_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B7FC5C1FA9290A00CE4F37 /* Login_Tests.swift */; };
+		F9C107EE22F1D7FE00FEB8CF /* MockRequestMap.plist in Resources */ = {isa = PBXBuildFile; fileRef = F9B7FC6C1FABC56800CE4F37 /* MockRequestMap.plist */; };
+		F9C107EF22F1DCFF00FEB8CF /* login_sample.json in Resources */ = {isa = PBXBuildFile; fileRef = F9B7FC5E1FABC1F400CE4F37 /* login_sample.json */; };
+		F9C107F022F1DD8200FEB8CF /* user_sample.json in Resources */ = {isa = PBXBuildFile; fileRef = F95A495E1FAE755400F9CF03 /* user_sample.json */; };
 		F9E9790F1B8DA39B0083211E /* Commit.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E9790E1B8DA39B0083211E /* Commit.swift */; };
 		F9F390E32025684800B56EBC /* iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F390E22025684800B56EBC /* iOSTests.swift */; };
 		F9FA94071B892AC200C598C8 /* BranchesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9FA94061B892AC200C598C8 /* BranchesViewController.swift */; };
@@ -414,6 +419,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9C107EE22F1D7FE00FEB8CF /* MockRequestMap.plist in Resources */,
+				F9C107F022F1DD8200FEB8CF /* user_sample.json in Resources */,
+				F9C107EF22F1DCFF00FEB8CF /* login_sample.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -459,6 +467,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F9F390E32025684800B56EBC /* iOSTests.swift in Sources */,
+				F9C107EA22F1D59500FEB8CF /* Login_Tests.swift in Sources */,
+				F9C107E722F1D1FC00FEB8CF /* Extensions+UnitTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

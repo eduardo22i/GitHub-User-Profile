@@ -8,14 +8,6 @@
 
 import Foundation
 
-extension URLRequest {
-    mutating func appendAccessToken() {
-        if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
-            self.addValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
-        }
-    }
-}
-
 protocol Gettable {
     func createRequest(method: HTTPMethod, endpoint: Endpoint, path: String?, parameters: [String : Any]?) -> URLRequest
     func get(request: URLRequest, completionHandler: @escaping (Result<Data, APIError>) -> Void)
@@ -25,6 +17,12 @@ class HTTPProvider: Gettable {
     
     static var shared = HTTPProvider()
     static let url = "api.github.com"
+    
+    private func appendAccessToken(request: inout URLRequest) {
+        if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
+            request.addValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+        }
+    }
     
     func createRequest(method: HTTPMethod, endpoint: Endpoint, path : String?, parameters: [String : Any]?) -> URLRequest {
         
@@ -37,12 +35,10 @@ class HTTPProvider: Gettable {
             urlComponents.path += "/" + path
         }
         
-        if let parameters = parameters {
-            urlComponents.queryItems = []
-            for (key, value) in parameters {
-                let queryItem = URLQueryItem(name: key, value: "\(value)")
-                urlComponents.queryItems?.append(queryItem)
-            }
+        urlComponents.queryItems = parameters != nil ? [] : nil
+        for (key, value) in parameters ?? [:] {
+            let queryItem = URLQueryItem(name: key, value: "\(value)")
+            urlComponents.queryItems?.append(queryItem)
         }
         
         var request = URLRequest(url: urlComponents.url!)
@@ -52,7 +48,7 @@ class HTTPProvider: Gettable {
             request.addValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
         }
         
-        request.appendAccessToken()
+        appendAccessToken(request: &request)
         
         return request
     }
