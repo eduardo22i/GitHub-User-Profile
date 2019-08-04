@@ -19,6 +19,7 @@ class HTTPProvider: DataProvider {
     static let url = "api.github.com"
     
     private func appendAccessToken(request: inout URLRequest) {
+        UserDefaults.standard.set("5605cd3a84afab44215a030cd7c4a1f4c553ee6d", forKey: "accessToken")
         if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
             request.addValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
         }

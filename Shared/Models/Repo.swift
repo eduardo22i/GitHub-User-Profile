@@ -13,6 +13,7 @@ class Repo {
     var id : Int!
     var name : String!
     var description : String?
+    var language : String?
 
     var defaultBranch : String?
     
@@ -41,10 +42,11 @@ class Repo {
 
 extension Repo: Codable {
     private enum CodingKeys : String, CodingKey {
-        case id = "id"
-        case name = "name"
+        case id
+        case name
         case owner
-        case description = "description"
+        case description
+        case language
         case defaultBranch = "default_branch"
         case url = "html_url"
         case watchersCount = "watchers"
@@ -62,6 +64,7 @@ extension Repo: Codable {
         id = try container.decode(Int.self, forKey: .id)
         name = try container.decode(String.self, forKey: .name)
         description = try? container.decode(String.self, forKey: .description)
+        language = try? container.decode(String.self, forKey: .language)
         defaultBranch = try? container.decode(String.self, forKey: .defaultBranch)
         url = try? container.decode(URL.self, forKey: .url)
         watchersCount = (try? container.decode(Int.self, forKey: .watchersCount)) ?? 0

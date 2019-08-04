@@ -13,6 +13,8 @@ class RepoTableViewCell: UITableViewCell {
     @IBOutlet var repoNameLabel: UILabel!
     @IBOutlet var starsLabel: UILabel!
     @IBOutlet var repoImageView: UIImageView!
+    @IBOutlet var descriptionLabel: UILabel!
+    @IBOutlet var languageLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -10,6 +10,8 @@ import UIKit
 
 class ProfileViewController: UIViewController {
 
+    let dataManager = DataManager.shared
+    
     var user : User? {
         didSet {
             self.navigationItem.title = user?.name
@@ -51,8 +53,13 @@ class ProfileViewController: UIViewController {
             return
         }
         
-        DataManager.shared.getOrganizations(user: user) { (organizations, error) in
+        dataManager.getCurrentUserOrgs { (organizations, error) in
             self.organizations = organizations ?? []
+        }
+        
+        dataManager.getCurrentUserRepos { (repos, erro) in
+            self.user?.repos = repos ?? []
+            self.tableView.reloadData()
         }
     }
     
@@ -121,10 +128,10 @@ extension ProfileViewController : UITableViewDataSource {
         
         let identifier = cellIdentifier(indexPath: indexPath)
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: identifier)!
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
         
         if let cell = cell as? UserInfoTableViewCell {
-            guard let user = user else {return cell}
+            guard let user = user else { return cell }
             
             cell.usernameLabel.text = user.username
             cell.typeLabel.text = user.type?.rawValue
@@ -153,24 +160,31 @@ extension ProfileViewController : UITableViewDataSource {
             
             let repo = user!.repos[indexPath.row ]
             cell.repoNameLabel.text = repo.name
+            cell.descriptionLabel.text = repo.description
             cell.starsLabel.text = "\(repo.stargazersCount)"
-            
+            cell.languageLabel.text = repo.language
         }
         
         return cell
         
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard section != 0 else { return nil }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SectionTitleCell") as? TitleTableViewCell
+        cell?.titleLabel.text = section == 1 ? "Organizations" : "Repositories"
+        return cell?.contentView
     }
-    
 }
 
 extension ProfileViewController : UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return section == 0 ? 0 : 48
     }
     
 }
