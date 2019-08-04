@@ -68,6 +68,9 @@ class DataManager {
         }
     }
     
+    
+    // MARK: Current User
+    
     func getCurrentUser (block : @escaping (_ user : User.Individual?, _ error : APIError?) -> Void) {
         let request =  service.createRequest(method: .get, endpoint: .user, path: nil, parameters: nil)
         service.get(request: request) { result in
@@ -82,6 +85,43 @@ class DataManager {
             }
         }
     }
+    
+    func getCurrentUserOrgs(options : [String : Any]? = nil, block : @escaping (_ repos : [User.Organization]?, _ error : APIError?) -> Void ) {
+        
+        let path = Endpoint.organizations.rawValue
+        let request = service.createRequest(method: .get, endpoint: .user, path: path, parameters: options)
+        
+        service.get(request: request) { result in
+            switch result {
+            case .success(let data):
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .iso8601
+                let organizations = try? decoder.decode([User.Organization].self, from: data)
+                block(organizations, nil)
+            case .failure(let error):
+                block(nil, error)
+            }
+        }
+    }
+    
+    func getCurrentUserRepos(options : [String : Any]? = nil, block : @escaping (_ repos : [Repo]?, _ error : APIError?) -> Void ) {
+        
+        let path = Endpoint.repos.rawValue
+        let request = service.createRequest(method: .get, endpoint: .user, path: path, parameters: options)
+        
+        service.get(request: request) { result in
+            switch result {
+            case .success(let data):
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .iso8601
+                let repos = try? decoder.decode([Repo].self, from: data)                
+                block(repos, nil)
+            case .failure(let error):
+                block(nil, error)
+            }
+        }
+    }
+    
     
     func getUser(username: String, block : @escaping (_ user : User?, _ error : APIError?) -> Void) {
         
