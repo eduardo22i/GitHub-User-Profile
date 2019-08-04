@@ -133,21 +133,25 @@ class User: NSObject, NSCoding {
     }
     
     func fetchImageIfNeeded(_ block : @escaping (_ data : Data?, _ error : Error?) -> Void) {
-        if imageData != nil {
-            block( imageData , nil )
-            return
-        } else {
-            if let avatarURL = self.avatarURL {
-                let request = URLRequest(url: avatarURL)
-                HTTPManager.make(request: request, completeBlock: { (data, error) in
+        guard imageData != nil else {
+            guard let avatarURL = self.avatarURL else { return }
+            
+            let request = URLRequest(url: avatarURL)
+            DataManager.shared.service.get(request: request, completionHandler: { result in
+                switch result {
+                case .success(let data):
                     self.imageData = data
                     DispatchQueue.main.async(execute: { () -> Void in
                         block( data, nil )
                     })
-                    
-                })
-            }
+                case .failure(_):
+                    break
+                }
+            })
+            
+            return
         }
+        block( imageData , nil )
     }
    
 }

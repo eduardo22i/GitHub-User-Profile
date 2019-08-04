@@ -8,14 +8,22 @@
 
 import Foundation
 
-class DataManager: NSObject {
+class DataManager {
+    
+    let service : DataProvider
     
     /**
      Returns the shared defaults object.
      If the shared defaults object does not exist yet, it is created.
      */
     static let shared = DataManager()
-    private override init() {}
+    private init() {
+        service = HTTPProvider.shared
+    }
+    
+    init(service: DataProvider) {
+        self.service = service
+    }
     
     //MARK: - GET
     
@@ -28,7 +36,7 @@ class DataManager: NSObject {
         
         let path = Endpoint.client.rawValue + "/" + Config.clientId  + "/\(Date().timeIntervalSince1970)"
         
-        var request =  HTTPManager.createRequest(endpoint: .authorization, path: path, method: .put)
+        var request =  service.createRequest(method: .put, endpoint: .authorization, path: path, parameters: nil)
         request.addValue("Basic \(base64LoginString)", forHTTPHeaderField: "Authorization")
         
         if let otp = otp {
@@ -39,35 +47,37 @@ class DataManager: NSObject {
         encoder.outputFormatting = .prettyPrinted
         request.httpBody = try? encoder.encode(LoginRequest())
         
-        HTTPManager.make(request: request) { (data, error) in
-            guard let data = data else {
+        service.get(request: request) { result in
+            
+            switch result {
+            case .success(let data):
+                let decoder = JSONDecoder()
+                let loginResponse = try? decoder.decode(LoginResponse.self, from: data)
+                
+                guard let token = loginResponse?.token else {
+                    block(nil, APIError.notFound)
+                    return
+                }
+                
+                UserDefaults.standard.set(token, forKey: "accessToken")
+                
+                self.getCurrentUser(block: block)
+            case .failure(let error):
                 block(nil, error)
-                return
             }
-            
-            let decoder = JSONDecoder()
-            let loginResponse = try? decoder.decode(LoginResponse.self, from: data)
-            
-            guard let token = loginResponse?.token else {
-                block(nil, APIError.notFound)
-                return
-            }
-            
-            UserDefaults.standard.set(token, forKey: "accessToken")
-            
-            self.getCurrentUser(block: block)
         }
     }
     
     func getCurrentUser (block : @escaping (_ user : User.Individual?, _ error : APIError?) -> Void) {
-        let request =  HTTPManager.createRequest(endpoint: .user)
-        HTTPManager.make(request: request) { (data, error) in
-            if let data = data {
+        let request =  service.createRequest(method: .get, endpoint: .user, path: nil, parameters: nil)
+        service.get(request: request) { result in
+            switch result {
+            case .success(let data):
                 let decoder = JSONDecoder()
                 let user = try? decoder.decode(User.Individual.self, from: data)
                 User.current = user
                 block(User.current, nil)
-            } else {
+            case .failure(let error):
                 block(nil, error)
             }
         }
@@ -75,14 +85,11 @@ class DataManager: NSObject {
     
     func getUser(username: String, block : @escaping (_ user : User?, _ error : APIError?) -> Void) {
         
-        let request = HTTPManager.createRequest(endpoint: .users, path: username)
+        let request = service.createRequest(method: .get, endpoint: .users, path: username, parameters: nil)
         
-        HTTPManager.make(request: request) { (data, error) in
-            if let error = error {
-                block(nil, error)
-                return
-            }
-            if let data = data {
+        service.get(request: request) { result in
+            switch result {
+            case .success(let data):
                 let decoder = JSONDecoder()
                 let user = try? decoder.decode(User.self, from: data)
                 if let type = user?.type {
@@ -98,6 +105,8 @@ class DataManager: NSObject {
                     return
                 }
                 block(user, nil)
+            case .failure(let error):
+                block(nil, error)
             }
         }
     }
@@ -105,17 +114,11 @@ class DataManager: NSObject {
     func getOrganizations(user: User, options : [String : Any]? = nil, block : @escaping (_ repos : [User.Organization]?, _ error : APIError?) -> Void ) {
         
         let path = user.username + "/" + Endpoint.organizations.rawValue
-        let request =  HTTPManager.createRequest(endpoint: .users, path: path)
+        let request =  service.createRequest(method: .get, endpoint: .users, path: path, parameters: nil)
         
-        HTTPManager.make(request: request) { (data, error) in
-            
-            if let error = error {
-                block(nil, error)
-                return
-            }
-            
-            if let data = data {
-                
+        service.get(request: request) { result in
+            switch result {
+            case .success(let data):
                 let dispatchGroup = DispatchGroup()
                 
                 var organizations = [User.Organization]()
@@ -131,21 +134,20 @@ class DataManager: NSObject {
                     
                     if let url = organization.dataURL {
                         
-                        var request = URLRequest(url: url)
-                        request.appendAccessToken()
+                        let request = URLRequest(url: url)
                         
-                        HTTPManager.make(request: request, completeBlock: { (data, error) in
-                            
-                            guard let data = data else {
-                                dispatchGroup.leave()
-                                return
-                            }
-                            
-                            let decoder = JSONDecoder()
-                            decoder.dateDecodingStrategy = .iso8601
-                            
-                            if let organization = try? decoder.decode(User.Organization.self, from: data) {
-                                organizations.append(organization)
+                        // TODO: Replace this
+                        self.service.get(request: request, completionHandler: { result in
+                            switch result {
+                            case .success(let data):
+                                let decoder = JSONDecoder()
+                                decoder.dateDecodingStrategy = .iso8601
+                                
+                                if let organization = try? decoder.decode(User.Organization.self, from: data) {
+                                    organizations.append(organization)
+                                }
+                            case .failure(_):
+                                break
                             }
                             
                             dispatchGroup.leave()
@@ -158,9 +160,9 @@ class DataManager: NSObject {
                 dispatchGroup.notify(queue: .main) {
                     block(organizations, nil)
                 }
-                
+            case .failure(let error):
+                block(nil, error)
             }
-            
         }
     }
     
@@ -168,43 +170,36 @@ class DataManager: NSObject {
     func getRepos(user: User, options : [String : Any]? = nil, block : @escaping (_ repos : [Repo]?, _ error : APIError?) -> Void ) {
         
         let path = user.username + "/" + Endpoint.repos.rawValue
-        let request = HTTPManager.createRequest(endpoint: .users, path: path, parameters: options)
+        let request = service.createRequest(method: .get, endpoint: .users, path: path, parameters: options)
         
-        HTTPManager.make(request: request) { (data, error) in
-            
-            if let error = error {
-                block(nil, error)
-                return
-            }
-            
-            if let data = data {
+        service.get(request: request) { result in
+            switch result {
+            case .success(let data):
                 let decoder = JSONDecoder()
                 decoder.dateDecodingStrategy = .iso8601
-
+                
                 let repos = try? decoder.decode([Repo].self, from: data)
                 
                 block(repos, nil)
+            case .failure(let error):
+                block(nil, error)
             }
-        
         }
     }
     
     func getBranches(username: String, repo : String, options : [String : Any]?, block : @escaping (_ repos : [Branch]?, _ error : APIError?) -> Void ) {
         
         let path = username + "/" + repo + "/" + Endpoint.branches.rawValue
-        let request = HTTPManager.createRequest(endpoint: .repos, path: path, parameters: options)
+        let request = service.createRequest(method: .get, endpoint: .repos, path: path, parameters: options)
         
-        HTTPManager.make(request: request) { (data, error) in
-            
-            if let error = error {
-                block(nil, error)
-                return
-            }
-            
-            if let data = data {
+        service.get(request: request) { result in
+            switch result {
+            case .success(let data):
                 let decoder = JSONDecoder()
                 let branches = try? decoder.decode([Branch].self, from: data)
                 block(branches, nil)
+            case .failure(let error):
+                block(nil, error)
             }
         }
     }
@@ -215,21 +210,18 @@ class DataManager: NSObject {
         parameters["sha"] = branch
         
         let path = repo.owner.username + "/" + repo.name + "/" + Endpoint.commits.rawValue
-        let request = HTTPManager.createRequest(endpoint: .repos, path: path, parameters: parameters)
+        let request = service.createRequest(method: .get, endpoint: .repos, path: path, parameters: parameters)
         
-        HTTPManager.make(request: request) { (data, error) in
-            
-            if let error = error {
-                block(nil, error)
-                return
-            }
-            
-            if let data = data {
+        service.get(request: request) { result in
+            switch result {
+            case .success(let data):
                 let decoder = JSONDecoder()
                 decoder.dateDecodingStrategy = .iso8601
                 
                 let commits = try? decoder.decode([Commit].self, from: data)
                 block(commits, nil)
+            case .failure(let error):
+                block(nil, error)
             }
         }
     }
@@ -238,22 +230,18 @@ class DataManager: NSObject {
     
         let path = repo.owner.username + "/" + repo.name + "/" + Endpoint.readme.rawValue
     
-        let request =  HTTPManager.createRequest(endpoint: .repos, path: path, parameters: options)
+        let request =  service.createRequest(method: .get, endpoint: .repos, path: path, parameters: options)
         
-        HTTPManager.make(request: request) { (data, error) in
-            
-            if let error = error {
-                block(nil, error)
-                return
-            }
-            
-            if let data = data {
+        service.get(request: request) { result in
+            switch result {
+            case .success(let data):
                 let decoder = JSONDecoder()
                 
                 let file = try? decoder.decode(File.self, from: data)
                 block(file, nil)
+            case .failure(let error):
+                block(nil, error)
             }
-            
         }
     }
     
@@ -261,19 +249,13 @@ class DataManager: NSObject {
         
         let path = user.username + "/" + Endpoint.events.rawValue
         
-        let request =  HTTPManager.createRequest(endpoint: .users, path: path, parameters: options)
+        let request =  service.createRequest(method: .get, endpoint: .users, path: path, parameters: options)
         
-        HTTPManager.make(request: request) { (data, error) in
-            
-            if let error = error {
-                block(nil, error)
-                return
-            }
-            
-            if let data = data {
-                
+        service.get(request: request) { result in
+            switch result {
+            case .success(let data):
                 let myGroup = DispatchGroup()
-
+                
                 let decoder = JSONDecoder()
                 
                 let events = try? decoder.decode([Event].self, from: data)
@@ -284,23 +266,20 @@ class DataManager: NSObject {
                     
                     if let repoUrl = event.eventRepo?.url {
                         
-                        var request = URLRequest(url: repoUrl)
-                        request.appendAccessToken()
+                        let request = URLRequest(url: repoUrl)
                         
-                        HTTPManager.make(request: request, completeBlock: { (data, error) in
-                            
-                            guard let data = data else {
-                                myGroup.leave()
-                                return
+                        // TODO: Replace this
+                        self.service.get(request: request, completionHandler: { result in
+                            switch result {
+                            case .success(let data):
+                                let decoder = JSONDecoder()
+                                decoder.dateDecodingStrategy = .iso8601
+                                
+                                event.repo = try? decoder.decode(Repo.self, from: data)
+                            case .failure(_):
+                                break
                             }
-                            
-                            let decoder = JSONDecoder()
-                            decoder.dateDecodingStrategy = .iso8601
-                            
-                            event.repo = try? decoder.decode(Repo.self, from: data)
-                            
                             myGroup.leave()
-                            
                         })
                     }
                     
@@ -309,9 +288,9 @@ class DataManager: NSObject {
                 myGroup.notify(queue: .main) {
                     block(events, nil)
                 }
-                
+            case .failure(let error):
+                block(nil, error)
             }
-            
         }
     }
 }

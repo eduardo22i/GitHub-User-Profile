@@ -7,95 +7,75 @@
 //
 
 import Foundation
+@testable import iOS
 
-extension URLRequest {
-    mutating func appendAccessToken() {
-        
-    }
+class MockProvider: DataProvider {
     
-    func mockDataTask() -> Data? {
-        /*
-        guard let bundle : Bundle = Bundle(identifier: "com.estamp.UnitTests") else {
-            return
-        }
-        
-        guard let fileUrl = bundle.url(forResource: "MockRequestMap", withExtension: "plist"),
-            let plistData = try? Data(contentsOf: fileUrl) else {
-                return nil
-        }
-        
-        guard let result = try? PropertyListSerialization.propertyList(from: plistData, options: [], format: nil) as? [String: String] else {
-            return nil
-        }
-        
-        var resourceOpt : String? = result?[self.url!.absoluteString]
-        
-        if resourceOpt == nil {
-            for (key, value) in result ?? [:] {
-                if self.url!.absoluteString.contains(key.replacingOccurrences(of: "{date}", with: "")) {
-                    resourceOpt = value
-                    break
-                }
-            }
-        }
-        
-        guard let resource = resourceOpt else {
-            return nil
-        }
-        
-        
-        guard let pathURL =  bundle.url(forResource: resource, withExtension: "json") else {
-        guard let result = ((try? PropertyListSerialization.propertyList(from: plistData, options: [], format: nil) as? [String: String]) as [String : String]??) else {
-            return nil
-        }
-        
-        
-        guard let data = try? Data(contentsOf: pathURL, options: Data.ReadingOptions.mappedIfSafe) else {
-            return nil
-        }
-        
-        return data
- */
-        return nil
-    }
-}
-
-class HTTPManager: NSObject {
-    
-    static let url = "api.github.com"
-    
-    static func createRequest(endpoint : Endpoint, path : String? = nil, parameters : [String : Any]? = nil, method : HTTPMethod = .get) -> URLRequest {
-        
+    func createRequest(method: HTTPMethod, endpoint: Endpoint, path: String?, parameters: [String : Any]?) -> URLRequest {
         var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = HTTPManager.url
+        urlComponents.scheme = "local"
+        urlComponents.host = "api.github.com"
         urlComponents.path = "/" + endpoint.rawValue
         
         if let path = path {
             urlComponents.path += "/" + path
         }
         
-        if let parameters = parameters {
-            urlComponents.queryItems = []
-            for (key, value) in parameters {
-                let queryItem = URLQueryItem(name: key, value: "\(value)")
-                urlComponents.queryItems?.append(queryItem)
-            }
-        }
-        
         var request = URLRequest(url: urlComponents.url!)
         request.httpMethod = method.rawValue
-        
-        if let accessToken = UserDefaults.standard.string(forKey: "accessToken") {
-            request.addValue("token \(accessToken)", forHTTPHeaderField: "Authorization")
-        }
-        
+
         return request
     }
     
-    static func make (request : URLRequest, completeBlock block : @escaping (_ records: Data?, _ error : APIError?) -> Void) {
+    func get(request: URLRequest, completionHandler: @escaping (Result<Data, APIError>) -> Void) {
         
-        block(request.mockDataTask(), nil)
+        let bundle: Bundle = Bundle(for: type(of: self))
+        
+        guard let fileUrl = bundle.url(forResource: "MockRequestMap", withExtension: "plist"),
+            let plistData = try? Data(contentsOf: fileUrl) else {
+                completionHandler(Result.failure(.notFound))
+                return
+        }
+        
+        guard let result = try? PropertyListSerialization.propertyList(from: plistData, options: [], format: nil) as? [AnyHashable: Any] else {
+            completionHandler(Result.failure(.notFound))
+            return
+        }
+        
+        let endpoint = request.url?.pathComponents[1] ?? ""
+        let mockRequestMap = result[endpoint] as? [AnyHashable: Any]
+        
+        guard let response = mockRequestMap?[request.httpMethod ?? "GET"] as? [AnyHashable: Any],
+        let statusCode = response["code"] as? Int,
+        let filePath = response["data"] as? String
+        else {
+            completionHandler(Result.failure(.notFound))
+            return
+        }
+ 
+        guard let pathURL =  bundle.url(forResource: filePath, withExtension: "json") else {
+            completionHandler(Result.failure(.notFound))
+            return
+        }
+        
+        guard let data = try? Data(contentsOf: pathURL, options: Data.ReadingOptions.mappedIfSafe) else {
+            completionHandler(Result.failure(.notFound))
+            return
+        }
+        
+        if statusCode == 401 {
+            let responseJson = (try? JSONDecoder().decode([String: String].self, from: data))
+            let otpRequired = responseJson?["message"] == "Must specify two-factor authentication OTP code."
+            completionHandler(Result.failure(otpRequired ? APIError.otpRequired : APIError.unauthorized))
+        } else if statusCode == 404 {
+            completionHandler(Result.failure(.notFound))
+        } else  if statusCode == 403 {
+            completionHandler(Result.failure(.limitExceeded))
+        } else if statusCode == 505 {
+            completionHandler(Result.failure(.serverError))
+        } else {
+            completionHandler(Result.success(data))
+        }
+        
     }
-    
 }
