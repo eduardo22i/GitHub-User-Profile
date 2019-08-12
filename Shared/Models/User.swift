@@ -40,7 +40,7 @@ extension User {
     
 }
 
-class User: NSObject, NSCoding {
+class User:NSObject, NSCoding {
     
     static var current : User.Individual? {
         set {
@@ -61,15 +61,16 @@ class User: NSObject, NSCoding {
     }
     
     var id: Int!
-    var username : String!
-    var email : String?
-    var name : String?
-    var location : String?
-    var url : String?
-    var dataURL : URL?
-    var avatarURL : URL?
+    var username: String!
+    var email: String?
+    var name: String?
+    var bio: String?
+    var location: String?
+    var url: String?
+    var dataURL: URL?
+    var avatarURL: URL?
     
-    var type : Type?
+    var type: Type?
     
     var repos = [Repo]()
     
@@ -82,6 +83,7 @@ class User: NSObject, NSCoding {
         username = try container.decode(String.self, forKey: .username)
         email = try? container.decode(String.self, forKey: .email)
         name = try? container.decode(String.self, forKey: .name)
+        bio = try? container.decode(String.self, forKey: .bio)
         location = try? container.decode(String.self, forKey: .location)
         url = try? container.decode(String.self, forKey: .url)
         dataURL = try? container.decode(URL.self, forKey: .dataURL)
@@ -98,6 +100,7 @@ class User: NSObject, NSCoding {
         username = aDecoder.decodeObject(forKey: CodingKeys.username.rawValue) as? String
         email = aDecoder.decodeObject(forKey: CodingKeys.email.rawValue) as? String
         name = aDecoder.decodeObject(forKey: CodingKeys.name.rawValue) as? String
+        bio = aDecoder.decodeObject(forKey: CodingKeys.bio.rawValue) as? String
         location = aDecoder.decodeObject(forKey: CodingKeys.location.rawValue) as? String
         url = aDecoder.decodeObject(forKey: CodingKeys.url.rawValue) as? String
         
@@ -120,6 +123,7 @@ class User: NSObject, NSCoding {
         aCoder.encode(username, forKey: CodingKeys.username.rawValue)
         aCoder.encode(email, forKey: CodingKeys.email.rawValue)
         aCoder.encode(name, forKey: CodingKeys.name.rawValue)
+        aCoder.encode(bio, forKey: CodingKeys.bio.rawValue)
         aCoder.encode(location, forKey: CodingKeys.location.rawValue)
         aCoder.encode(url, forKey: CodingKeys.url.rawValue)
         aCoder.encode(avatarURL?.absoluteString, forKey: CodingKeys.avatarURL.rawValue)
@@ -162,6 +166,7 @@ extension User: Codable {
         case username = "login"
         case email
         case name
+        case bio
         case company
         case location
         case url = "blog"

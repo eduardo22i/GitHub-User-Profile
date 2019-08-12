@@ -100,7 +100,7 @@ extension ProfileViewController : UITableViewDataSource {
         // Return the number of rows in the section.
         switch section {
         case 0:
-            return user == nil ? 0 : 1
+            return user == nil ? 0 : 2
         case 1:
             return 1
         case 2:
@@ -113,7 +113,7 @@ extension ProfileViewController : UITableViewDataSource {
     func cellIdentifier(indexPath: IndexPath) -> String {
         switch indexPath.section {
         case 0:
-            return "UserInfoCell"
+            return indexPath.row == 0 ? "UserInfoCell" : "DescriptionCell"
         case 1:
             return "OrganizationsCell"
         case 2:
@@ -130,10 +130,10 @@ extension ProfileViewController : UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
         
+        guard let user = user else { return cell }
+
         if let cell = cell as? UserInfoTableViewCell {
-            guard let user = user else { return cell }
-            
-            cell.usernameLabel.text = user.username
+            cell.usernameLabel.text = "@\(user.username ?? "")"
             cell.typeLabel.text = user.type?.rawValue
             if let user = user as? User.Individual {
                 cell.companyLabel.text = user.company
@@ -152,13 +152,17 @@ extension ProfileViewController : UITableViewDataSource {
             
         }
         
+        if let cell = cell as? TitleTableViewCell {
+            cell.titleLabel.text = user.bio
+        }
+        
         if let cell = cell as? OrganizationsTableViewCell {
             cell.organizations = organizations
         }
         
         if let cell = cell as? RepoTableViewCell {
             
-            let repo = user!.repos[indexPath.row ]
+            let repo = user.repos[indexPath.row ]
             cell.repoNameLabel.text = repo.name
             cell.descriptionLabel.text = repo.description
             cell.starsLabel.text = "\(repo.stargazersCount)"
