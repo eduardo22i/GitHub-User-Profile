@@ -24,6 +24,8 @@ class ProfileViewController: UIViewController {
             self.tableView.reloadData()
         }
     }
+    var repoPagination = 1
+    var isLoadingRepos = false
     
     @IBOutlet var tableView : UITableView!
 
@@ -41,25 +43,35 @@ class ProfileViewController: UIViewController {
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         tableView.estimatedRowHeight = 55
         
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
         self.user = User.current
-        
-        guard let user = self.user else {
-            self.performSegue(withIdentifier: "ShowLoginSegue", sender: self)
-            return
-        }
         
         dataManager.getCurrentUserOrgs { (organizations, error) in
             self.organizations = organizations ?? []
         }
         
-        dataManager.getCurrentUserRepos { (repos, erro) in
-            self.user?.repos = repos ?? []
+        loadRepos(page: repoPagination)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        
+        guard self.user != nil else {
+            self.performSegue(withIdentifier: "ShowLoginSegue", sender: self)
+            return
+        }
+    }
+    
+    func loadRepos(page: Int) {
+        if isLoadingRepos { return }
+        isLoadingRepos = true
+        dataManager.getCurrentUserRepos(options: ["page": page]) { (repos, erro) in
+            if page == 1 {
+                self.user?.repos.removeAll()
+            }
+            self.user?.repos.append(contentsOf: repos ?? [])
             self.tableView.reloadData()
+            self.isLoadingRepos = false
         }
     }
     
@@ -123,6 +135,21 @@ extension ProfileViewController : UITableViewDataSource {
         }
     }
     
+    func configureCell(_ cell: RepoTableViewCell, at repo: Repo) {
+        cell.repoNameLabel.text = repo.name
+        cell.descriptionLabel.text = repo.description
+        cell.starsLabel.text = "\(repo.stargazersCount)"
+        cell.languageLabel.text = repo.language
+        
+        if repo.isForked {
+            cell.repoImageView.image = #imageLiteral(resourceName: "BranchIcon")
+        } else if repo.isPrivate {
+            cell.repoImageView.image = #imageLiteral(resourceName: "PrivateIcon")
+        } else {
+            cell.repoImageView.image = #imageLiteral(resourceName: "RepoIcon")
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Configure the cell...
         
@@ -161,12 +188,8 @@ extension ProfileViewController : UITableViewDataSource {
         }
         
         if let cell = cell as? RepoTableViewCell {
-            
             let repo = user.repos[indexPath.row ]
-            cell.repoNameLabel.text = repo.name
-            cell.descriptionLabel.text = repo.description
-            cell.starsLabel.text = "\(repo.stargazersCount)"
-            cell.languageLabel.text = repo.language
+            configureCell(cell, at: repo)
         }
         
         return cell
@@ -191,6 +214,16 @@ extension ProfileViewController : UITableViewDelegate {
         return section == 0 ? 0 : 48
     }
     
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let user = self.user else { return }
+
+        if indexPath.section == 2 && indexPath.row == user.repos.count - 1 && (self.user?.reposCount ?? 0) > indexPath.row {
+            print("LOAD MORE")
+            repoPagination += 1
+            loadRepos(page: repoPagination)
+        }
+    }
+    
 }
 extension ProfileViewController : LoginViewControllerDelegate {
     func loginViewController(_ loginViewController: LoginViewController, didLoginWith user: User) {
@@ -203,6 +236,4 @@ extension ProfileViewController : LoginViewControllerDelegate {
             self.tabBarController?.selectedIndex = 0
         }
     }
-    
-
 }

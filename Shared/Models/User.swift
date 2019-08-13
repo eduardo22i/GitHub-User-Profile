@@ -73,6 +73,7 @@ class User:NSObject, NSCoding {
     var type: Type?
     
     var repos = [Repo]()
+    var reposCount: Int?
     
     var imageData : Data?
     
@@ -90,6 +91,9 @@ class User:NSObject, NSCoding {
         avatarURL = try? container.decode(URL.self, forKey: .avatarURL)
         if let type = try? container.decode(String.self, forKey: .type) {
             self.type = Type(rawValue: type.lowercased())
+        }
+        if let privateReposCount = try? container.decode(Int.self, forKey: .privateReposCount), let publicReposCount = try? container.decode(Int.self, forKey: .publicReposCount) {
+            reposCount = privateReposCount + publicReposCount
         }
     }
     
@@ -115,6 +119,8 @@ class User:NSObject, NSCoding {
         if let type = aDecoder.decodeObject(forKey: CodingKeys.type.rawValue) as? String {
             self.type = Type(rawValue: type.lowercased())
         }
+        
+        reposCount = aDecoder.decodeObject(forKey: CodingKeys.reposCount.rawValue) as? Int
     }
     
     func encode(with aCoder: NSCoder) {
@@ -129,6 +135,7 @@ class User:NSObject, NSCoding {
         aCoder.encode(avatarURL?.absoluteString, forKey: CodingKeys.avatarURL.rawValue)
         aCoder.encode(imageData, forKey: "avatar")
         aCoder.encode(type?.rawValue, forKey: CodingKeys.type.rawValue)
+        aCoder.encode(reposCount, forKey: CodingKeys.reposCount.rawValue)
     }
     
     func fetch() {
@@ -174,6 +181,9 @@ extension User: Codable {
         case avatarURL = "avatar_url"
         case type
         case collaborators
+        case publicReposCount = "public_repos"
+        case privateReposCount = "total_private_repos"
+        case reposCount
     }
     
     func decode(decoder: Decoder) throws {
@@ -186,6 +196,7 @@ extension User: Codable {
         try container.encode(username, forKey: .username)
         try container.encode(email, forKey: .email)
         try container.encode(name, forKey: .name)
+        try container.encode(bio, forKey: CodingKeys.bio)
         try container.encode(location, forKey: .location)
         try container.encode(url, forKey: .url)
         try container.encode(avatarURL, forKey: .avatarURL)
