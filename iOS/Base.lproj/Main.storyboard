@@ -894,7 +894,7 @@
                                             <outlet property="usernameLabel" destination="bt4-lm-LkH" id="vFM-W8-NS4"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DescriptionCell" rowHeight="46" id="CMg-h2-TPN" customClass="TitleTableViewCell" customModule="iOS" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="DescriptionCell" rowHeight="46" id="CMg-h2-TPN" customClass="TitleTableViewCell" customModule="iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="167" width="375" height="46"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CMg-h2-TPN" id="22L-hf-5oR">
@@ -920,7 +920,7 @@
                                             <outlet property="titleLabel" destination="7WR-Aj-A2s" id="VAU-ey-aRC"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SectionTitleCell" rowHeight="46" id="Uhd-Sf-eFR" customClass="TitleTableViewCell" customModule="iOS" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SectionTitleCell" rowHeight="46" id="Uhd-Sf-eFR" customClass="TitleTableViewCell" customModule="iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="213" width="375" height="46"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Uhd-Sf-eFR" id="nJY-Co-io7">
@@ -1012,7 +1012,7 @@
                                             <outlet property="collectionView" destination="CRQ-K4-RCD" id="K8u-kr-Q6h"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="RepoCell" rowHeight="112" id="9et-D3-c9k" customClass="RepoTableViewCell" customModule="iOS" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="RepoCell" rowHeight="112" id="9et-D3-c9k" customClass="RepoTableViewCell" customModule="iOS" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="371" width="375" height="112"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9et-D3-c9k" id="bja-mZ-TRD">
@@ -1110,6 +1110,7 @@
                                             <outlet property="repoImageView" destination="ARy-Br-EKU" id="dd9-pS-SSH"/>
                                             <outlet property="repoNameLabel" destination="STt-qx-K3Z" id="uYP-qf-B1t"/>
                                             <outlet property="starsLabel" destination="Qzh-aI-NaO" id="nC9-78-ZBa"/>
+                                            <segue destination="Rgo-TM-v2h" kind="show" id="Cvy-h5-7V4"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1385,7 +1386,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Vgm-wv-WT7"/>
-        <segue reference="XaL-Nk-lRD"/>
+        <segue reference="Cvy-h5-7V4"/>
         <segue reference="mMB-iv-HKG"/>
     </inferredMetricsTieBreakers>
 </document>

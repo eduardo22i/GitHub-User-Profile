@@ -48,11 +48,11 @@ extension OrganizationsTableViewCell: UICollectionViewDataSource {
         let organization = organizations[indexPath.row]
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "OrganizationCell", for: indexPath) as! OrganizationCollectionViewCell
-        
+        cell.tag = indexPath.row
         cell.iconImageView.image = nil
         
         organization.fetchImageIfNeeded { (data, error) in
-            if let data = data  {
+            if indexPath.row == cell.tag, let data = data  {
                 cell.iconImageView.image = UIImage(data: data)
             }
         }

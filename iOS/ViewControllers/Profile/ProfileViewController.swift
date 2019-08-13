@@ -55,11 +55,12 @@ class ProfileViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        
         guard self.user != nil else {
             self.performSegue(withIdentifier: "ShowLoginSegue", sender: self)
             return
         }
+        
+        tableView.reloadData()
     }
     
     func loadRepos(page: Int) {
@@ -87,9 +88,17 @@ class ProfileViewController: UIViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         if let vc = segue.destination as? UserViewController {
-            
             let indexPath = (tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as! OrganizationsTableViewCell).collectionView.indexPath(for: sender as! UICollectionViewCell)
             vc.user = organizations[indexPath?.row ?? 0]            
+        }
+        
+        if let vc = segue.destination as? RepoViewController {
+            guard let cell = sender as? UITableViewCell,
+            let indexPath = tableView.indexPath(for: cell)
+            else {
+                return
+            }
+            vc.repo = user?.repos[indexPath.row]
         }
         
         if let vc = (segue.destination as? UINavigationController)?.topViewController as? LoginViewController {
@@ -136,7 +145,7 @@ extension ProfileViewController : UITableViewDataSource {
     }
     
     func configureCell(_ cell: RepoTableViewCell, at repo: Repo) {
-        cell.repoNameLabel.text = repo.name
+        cell.repoNameLabel.text = repo.fullName
         cell.descriptionLabel.text = repo.description
         cell.starsLabel.text = "\(repo.stargazersCount)"
         cell.languageLabel.text = repo.language
@@ -181,6 +190,7 @@ extension ProfileViewController : UITableViewDataSource {
         
         if let cell = cell as? TitleTableViewCell {
             cell.titleLabel.text = user.bio
+            cell.selectionStyle = .none
         }
         
         if let cell = cell as? OrganizationsTableViewCell {
@@ -193,7 +203,6 @@ extension ProfileViewController : UITableViewDataSource {
         }
         
         return cell
-        
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

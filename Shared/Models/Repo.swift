@@ -10,10 +10,11 @@ import Foundation
 
 class Repo {
     
-    var id : Int!
-    var name : String!
-    var description : String?
-    var language : String?
+    var id: Int!
+    var name: String!
+    var fullName: String!
+    var description: String?
+    var language: String?
 
     var defaultBranch : String?
     
@@ -44,6 +45,7 @@ extension Repo: Codable {
     private enum CodingKeys : String, CodingKey {
         case id
         case name
+        case fullName = "full_name"
         case owner
         case description
         case language
@@ -63,6 +65,7 @@ extension Repo: Codable {
         
         id = try container.decode(Int.self, forKey: .id)
         name = try container.decode(String.self, forKey: .name)
+        fullName = try container.decode(String.self, forKey: .fullName)
         description = try? container.decode(String.self, forKey: .description)
         language = try? container.decode(String.self, forKey: .language)
         defaultBranch = try? container.decode(String.self, forKey: .defaultBranch)
